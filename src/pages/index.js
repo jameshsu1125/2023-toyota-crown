@@ -1,6 +1,5 @@
 import { lazy, memo, Suspense, useContext, useEffect, useMemo, useReducer } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Context, initialState, reducer } from '../settings/config';
 import { ACTION, PAGE } from '../settings/constant';
 import '../settings/global.less';
@@ -19,20 +18,14 @@ const Pages = memo(() => {
 				</Suspense>
 			);
 		}
-		return '';
+		return false;
 	}, [page]);
 
 	useEffect(() => {
 		console.log(page);
 	}, [page]);
-	return (
-		<>
-			<Routes>
-				<Route path='/' element={<div />} />
-			</Routes>
-			{Page}
-		</>
-	);
+
+	return <div>{Page}</div>;
 });
 
 const App = () => {
@@ -41,9 +34,7 @@ const App = () => {
 	return (
 		<div className='App'>
 			<Context.Provider {...{ value }}>
-				<BrowserRouter>
-					<Pages />
-				</BrowserRouter>
+				<Pages />
 			</Context.Provider>
 		</div>
 	);

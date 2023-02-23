@@ -4,7 +4,7 @@ import { ACTION, PAGE, TRANSITION } from './constant';
 export const Context = createContext();
 
 export const initialState = {
-	[ACTION.page]: PAGE.landing,
+	[ACTION.page]: PAGE.test,
 	[ACTION.transition]: TRANSITION.unset,
 };
 
@@ -12,13 +12,16 @@ export const reducer = (state, action) => {
 	if (action.state instanceof Object) {
 		let stateStorage = {};
 		Object.entries(action.state)
+			.filter((actionState) => {
+				const value = Object.values(ACTION).filter((actionValue) => actionValue === actionState[0]);
+				if (value.length > 0 || action.type) return true;
+				return false;
+			})
 			.map((actionState) => {
 				const value = Object.values(ACTION).filter((actionValue) => actionValue === actionState[0]);
 				if (value.length > 0) return actionState;
-				if (action.type) return [action.type, Object.fromEntries([actionState])];
-				return undefined;
+				return [action.type, Object.fromEntries([actionState])];
 			})
-			.filter((actionState) => actionState !== undefined)
 			.forEach((actionState) => {
 				const [key, value] = actionState;
 				const prevValue = stateStorage[key];

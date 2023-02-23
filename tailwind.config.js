@@ -18,5 +18,6 @@ module.exports = {
 			quaternary: '#00ff00',
 		},
 	},
-	plugins: [],
+	// eslint-disable-next-line global-require
+	plugins: [require('daisyui')],
 };
