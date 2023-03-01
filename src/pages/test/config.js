@@ -20,5 +20,5 @@ export const videoProperty = {
 };
 
 export const initialState = {
-	video: videoProperty.HD_Webm,
+	video: videoProperty.HD,
 };

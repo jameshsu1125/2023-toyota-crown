@@ -1,8 +1,11 @@
-import { lazy, memo, Suspense, useContext, useEffect, useMemo, useReducer } from 'react';
+import Click from 'lesca-click';
+import { lazy, memo, Suspense, useContext, useMemo, useReducer } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Context, initialState, reducer } from '../settings/config';
 import { ACTION, PAGE } from '../settings/constant';
 import '../settings/global.less';
+
+Click.install();
 
 const Pages = memo(() => {
 	const [context] = useContext(Context);
@@ -21,18 +24,14 @@ const Pages = memo(() => {
 		return false;
 	}, [page]);
 
-	useEffect(() => {
-		console.log(page);
-	}, [page]);
-
-	return <div>{Page}</div>;
+	return Page;
 });
 
 const App = () => {
 	const [state, setState] = useReducer(reducer, initialState);
 	const value = useMemo(() => [state, setState], [state]);
 	return (
-		<div className='App'>
+		<div className='absolute h-full w-full'>
 			<Context.Provider {...{ value }}>
 				<Pages />
 			</Context.Provider>

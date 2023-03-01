@@ -19,12 +19,12 @@ const Test = memo(() => {
 
 	return (
 		<TestContext.Provider value={value}>
-			<div className='flex h-screen w-full items-center justify-center overflow-hidden'>
+			<div className='flex h-full w-full items-center justify-center overflow-hidden'>
 				<Video ref={videoRef} />
 				<div className='absolute top-0 right-0'>
 					<select
 						className='select-bordered select w-full max-w-xs'
-						defaultValue={initialState.url}
+						defaultValue={initialState.video.url}
 						onChange={onChange}
 					>
 						<option disabled>select video quality?</option>
