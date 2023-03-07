@@ -3,6 +3,7 @@ import { lazy, memo, Suspense, useContext, useMemo, useReducer } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Context, initialState, reducer } from '../settings/config';
 import { ACTION, PAGE } from '../settings/constant';
+
 import '../settings/global.less';
 
 Click.install();
@@ -16,7 +17,7 @@ const Pages = memo(() => {
 		const Element = lazy(() => import(`.${target}/`));
 		if (target) {
 			return (
-				<Suspense fallback='loading'>
+				<Suspense fallback=''>
 					<Element />
 				</Suspense>
 			);

@@ -5,8 +5,6 @@ export const ACTION = {
 
 export const PAGE = {
 	landing: '/landing',
-	home: '/home',
-	test: '/test',
 };
 
 export const TRANSITION = {

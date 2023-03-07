@@ -4,7 +4,7 @@ import { ACTION, PAGE, TRANSITION } from './constant';
 export const Context = createContext();
 
 export const initialState = {
-	[ACTION.page]: PAGE.test,
+	[ACTION.page]: PAGE.landing,
 	[ACTION.transition]: TRANSITION.unset,
 };
 

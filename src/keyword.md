@@ -28,7 +28,7 @@
 # unit
 
 - `mode`, `side`
-- `primairy`, `secondary`, `tertiary`, `quaternary`
+- `primary`, `secondary`, `tertiary`, `quaternary`
 
 # stats
 

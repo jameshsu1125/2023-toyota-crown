@@ -6,17 +6,22 @@
 [![React](https://img.shields.io/badge/-CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3schools.com/css/)
 [![NPM](https://img.shields.io/badge/DEV-Jameshsu1125-9cf?style=for-the-badge)](https://www.npmjs.com/~jameshsu1125)
 
-# Components
+- [Landing](#landing)
+  - [Usage](#usage)
 
-## Table of components
+## Landing
 
-- [Component A](#component-a)
-
-## Component A
+main page of all site
 
 ### Usage
 
-### Development
+```JSX
+import Landing from './landing';
+
+<Landing />
+```
+
+<!-- ### Development
 
 #### Methods
 
@@ -34,4 +39,4 @@
 
 | Properties         | description | default |
 | :----------------- | :---------: | ------: |
-| **title**:_string_ |     xxx     |      '' |
+| **title**:_string_ |     xxx     |      '' | -->
