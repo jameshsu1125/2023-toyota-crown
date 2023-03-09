@@ -1,0 +1,47 @@
+.LogoType {
+	@apply absolute top-0 flex h-full w-full flex-col items-center justify-center space-y-5;
+
+	.typeWord {
+		position: relative;
+		width: image-width(@img) * @scale;
+		height: image-height(@img) * @scale;
+
+		mask-image: url(@img);
+		mask-repeat: no-repeat;
+		mask-position: center;
+		mask-size: 100%;
+		@scale: 0.7;
+		@img: './img/typeWord.svg';
+
+		.brushed {
+			animation: brushedLogoType 2s ease-in-out infinite;
+		}
+
+		.gradient {
+			position: absolute;
+			left: -40%;
+			width: 180%;
+			height: 100%;
+			background: linear-gradient(
+				90deg,
+				rgba(255, 109, 0, 1) 0%,
+				#e0c5af 50%,
+				rgba(255, 109, 0, 1) 100%
+			);
+			animation-delay: -9s;
+			pointer-events: none;
+		}
+
+		@keyframes brushedLogoType {
+			0% {
+				left: 0%;
+			}
+			50% {
+				left: -80%;
+			}
+			100% {
+				left: 0%;
+			}
+		}
+	}
+}

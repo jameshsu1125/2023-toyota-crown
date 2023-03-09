@@ -1,31 +1,36 @@
 import Click from 'lesca-click';
-import { lazy, memo, Suspense, useContext, useMemo, useReducer } from 'react';
+import { memo, useContext, useEffect, useMemo, useReducer } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Context, initialState, reducer } from '../settings/config';
-import { ACTION, PAGE } from '../settings/constant';
+import PayLoader from './payLoader';
 
 import '../settings/global.less';
+import { ACTION, PAYLOAD_STATUS } from '../settings/constant';
+import Container from '../components/container';
+import Audio from '../components/audio';
 
 Click.install();
 
 const Pages = memo(() => {
 	const [context] = useContext(Context);
-	const page = context[ACTION.page];
+	const payLoaderState = context[ACTION.payLoad];
 
-	const Page = useMemo(() => {
-		const [target] = Object.values(PAGE).filter((data) => data === page);
-		const Element = lazy(() => import(`.${target}/`));
-		if (target) {
-			return (
-				<Suspense fallback=''>
-					<Element />
-				</Suspense>
-			);
-		}
-		return false;
-	}, [page]);
+	useEffect(() => {
+		// console.log(context);
+		console.log(payLoaderState.status);
+	}, [payLoaderState.status]);
 
-	return Page;
+	return (
+		<div className='h-full w-full'>
+			<PayLoader />
+			{payLoaderState.status >= PAYLOAD_STATUS.onPayLoaderFadeIn && (
+				<Container>
+					<img className='hidden' src='https://picsum.photos/500/300' alt='' />
+				</Container>
+			)}
+			<Audio />
+		</div>
+	);
 });
 
 const App = () => {

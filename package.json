@@ -40,6 +40,7 @@
 		"prettier-plugin-tailwindcss": "^0.2.4",
 		"style-loader": "^3.3.1",
 		"tailwindcss": "^3.2.7",
+		"url-loader": "^4.1.1",
 		"webpack": "^5.75.0",
 		"webpack-cli": "^5.0.1",
 		"webpack-dev-server": "^4.11.1"
@@ -47,8 +48,9 @@
 	"dependencies": {
 		"daisyui": "^2.51.3",
 		"lesca-click": "^4.3.2",
+		"lesca-image-onload": "^3.0.1",
 		"lesca-number": "^1.5.1",
-		"lesca-use-tween": "^2.4.2",
+		"lesca-use-tween": "^2.4.4",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.8.2"

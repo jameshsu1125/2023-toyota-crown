@@ -2,7 +2,6 @@ import { memo, useEffect } from 'react';
 
 const Landing = memo(() => {
 	useEffect(() => {}, []);
-
-	return <div className='Landing'>jkmkmk</div>;
+	return <div>landing</div>;
 });
 export default Landing;

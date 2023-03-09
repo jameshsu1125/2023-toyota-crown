@@ -1,0 +1,8 @@
+@font-face {
+	font-weight: normal;
+	font-style: normal;
+	font-family: 'SourceHanSansTW-Regular-Alphabetic';
+	src: url('subset-SourceHanSansTW-Regular-Alphabetic.woff2') format('woff2'),
+		url('subset-SourceHanSansTW-Regular-Alphabetic.woff') format('woff'),
+		url('subset-SourceHanSansTW-Regular-Alphabetic.ttf') format('truetype');
+}

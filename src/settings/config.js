@@ -1,11 +1,12 @@
 import { createContext } from 'react';
-import { ACTION, PAGE, TRANSITION } from './constant';
+import { ACTION, PAGE_STATE, PAYLOAD_STATE, TRANSITION } from './constant';
 
 export const Context = createContext();
 
 export const initialState = {
-	[ACTION.page]: PAGE.landing,
+	[ACTION.page]: PAGE_STATE,
 	[ACTION.transition]: TRANSITION.unset,
+	[ACTION.payLoad]: PAYLOAD_STATE,
 };
 
 export const reducer = (state, action) => {

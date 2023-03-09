@@ -1,0 +1,61 @@
+.Logo {
+	position: relative;
+	.logo {
+		position: relative;
+		width: image-width(@img) * @scale;
+
+		@scale: 0.7;
+		@img: './img/logo.svg';
+
+		.fill {
+			position: absolute;
+			top: 0;
+			width: 100%;
+			height: 100%;
+
+			mask-image: url(@img);
+			mask-repeat: no-repeat;
+			mask-position: center;
+			mask-size: 100%;
+
+			.gradient {
+				position: absolute;
+				left: 0%;
+				width: 200%;
+				height: 100%;
+				background: linear-gradient(
+					90deg,
+					rgba(255, 109, 0, 1) 0%,
+					#e0c5af 50%,
+					rgba(255, 109, 0, 1) 100%
+				);
+				animation: brushed 10s ease-in-out infinite;
+				pointer-events: none;
+			}
+
+			@keyframes brushed {
+				0% {
+					left: 0%;
+				}
+				50% {
+					left: -100%;
+				}
+				100% {
+					left: 0%;
+				}
+			}
+		}
+	}
+
+	.on {
+		animation: dash 50s cubic-bezier(0.25, 1, 0.5, 1);
+
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes dash {
+		100% {
+			stroke-dashoffset: 0;
+		}
+	}
+}
