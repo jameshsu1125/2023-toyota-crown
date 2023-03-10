@@ -3,7 +3,7 @@ import { TweenProvider } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Context } from '../../settings/config';
 import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../settings/constant';
-import BackgroundGrid from './backgroundGrid';
+import BackgroundGrid from '../../components/backgroundGrid';
 import CarOutline from './carOutline';
 import ForegroundGradient from './foregroundGradient';
 import './index.less';

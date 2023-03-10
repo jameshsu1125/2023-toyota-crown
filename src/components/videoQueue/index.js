@@ -2,12 +2,12 @@ import { CoverSize } from 'lesca-number';
 import { TweenProvider } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { Context } from '../../settings/config';
-import { ACTION, PAYLOAD_STATUS } from '../../settings/constant';
+import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../settings/constant';
 import './index.less';
 import VideoURL from './video/combinedVideo.mp4';
 
 const VideoQueue = memo(() => {
-	const [context] = useContext(Context);
+	const [context, setContext] = useContext(Context);
 	const { status } = context[ACTION.payLoad];
 	const [tweenStyle, setTweenStyle] = useState(false);
 
@@ -18,7 +18,7 @@ const VideoQueue = memo(() => {
 		const resize = () => {
 			const { width, height } = CoverSize(
 				{ width: 1920, height: 1080 },
-				{ width: window.innerWidth, height: window.innerWidth },
+				{ width: window.innerWidth, height: window.innerHeight },
 			);
 			setSize({ width, height });
 		};
@@ -30,8 +30,22 @@ const VideoQueue = memo(() => {
 	useEffect(() => {
 		if (status === PAYLOAD_STATUS.onLoaded) {
 			setTweenStyle({ opacity: 1 });
+		} else if (status === PAYLOAD_STATUS.onContextDidFadeIn) {
+			ref.current.currentTime = 5;
+			ref.current.style.opacity = 1;
 		}
 	}, [status]);
+
+	const onTimeUpdate = (e) => {
+		const { currentTime } = e.target;
+		if (currentTime >= 5) {
+			ref.current.pause();
+			setContext({
+				type: ACTION.payLoad,
+				state: { ...PAYLOAD_STATE, status: PAYLOAD_STATUS.onContextDidFadeIn },
+			});
+		}
+	};
 
 	return (
 		<div className='VideoQueue absolute flex h-full w-full items-center justify-center'>
@@ -46,7 +60,19 @@ const VideoQueue = memo(() => {
 					},
 				}}
 			>
-				<video ref={ref} muted width={size.width} height={size.height}>
+				<video
+					ref={ref}
+					playsInline
+					muted
+					autoPlay
+					preload='auto'
+					onLoadedData={(e) => {
+						e.target.pause();
+					}}
+					onTimeUpdateCapture={onTimeUpdate}
+					width={size.width}
+					height={size.height}
+				>
 					<track kind='captions' />
 					<source src={VideoURL} type='video/mp4' />
 				</video>

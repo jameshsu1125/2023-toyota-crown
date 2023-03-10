@@ -1,17 +1,23 @@
 export const ACTION = {
-	page: '頁面',
-	transition: '動態',
 	payLoad: '預載內容',
+	page: '設計師頁',
 };
 
 export const PAGE_CONTEXT_NAME = {
-	landing: '/landing',
-	ending: '/ending',
+	author0: 0,
+	author1: 1,
+	author2: 2,
+	author3: 3,
+	author4: 4,
+	author5: 5,
+	author6: 6,
+	author7: 7,
+	detailPage: 8,
 };
 
 export const PAGE_STATE = {
-	context: PAGE_CONTEXT_NAME.landing,
-	enabled: true,
+	author: PAGE_CONTEXT_NAME.author0,
+	enabled: false,
 };
 
 export const PAYLOAD_STATUS = {
@@ -19,10 +25,12 @@ export const PAYLOAD_STATUS = {
 	onReady: 1, // payLoader component loaded
 	onPayLoaderFadeIn: 2, // payLoader Logo did fade in
 	onLoaded: 3, // main content loaded
+	onContextDidFadeIn: 4,
 };
 
 export const PAYLOAD_STATE = {
-	status: PAYLOAD_STATUS.preset,
+	status:
+		PAYLOAD_STATUS[window.location.hash.split('#').join('') || 'preset'] || PAYLOAD_STATUS.preset,
 	total: 0,
 	loaded: 0,
 };

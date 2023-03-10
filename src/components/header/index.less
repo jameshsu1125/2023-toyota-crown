@@ -1,0 +1,72 @@
+@import url('../../settings/config.less');
+
+.Header {
+	height: 133px;
+	background-color: black;
+	background-image: url('../img/background.svg');
+	background-position: calc(~'50% + 300px') calc(~'50% - 40px');
+	background-repeat: no-repeat;
+
+	&::after {
+		bottom: 0;
+		height: 1px;
+		background: linear-gradient(
+			90deg,
+			rgba(184, 134, 115, 1) 0%,
+			rgba(183, 142, 120, 1) 25%,
+			rgba(248, 232, 212, 1) 50%,
+			rgba(136, 87, 68, 1) 75%,
+			rgba(184, 134, 115, 1) 100%
+		);
+		content: '';
+
+		@apply absolute w-full;
+	}
+
+	@apply absolute w-full;
+
+	& > div {
+		.logo {
+			position: absolute;
+			top: 50%;
+			margin-top: 0 - image-height(@img) * @scale * 0.5;
+			width: image-width(@img) * @scale;
+			height: image-height(@img) * @scale;
+			background-image: url(@img);
+			background-size: 100%;
+
+			@scale: 0.9;
+			@img: './img/logo.svg';
+		}
+
+		.collect {
+			position: absolute;
+			right: 0;
+			height: 100%;
+		}
+
+		@media only screen and (max-width: @bp) {
+			.logo {
+				width: image-width(@img) * @scale;
+				height: image-height(@img) * @scale;
+
+				@scale: 1.1;
+				@img: './img/logo.svg';
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: @bp) {
+	.Header {
+		height: 115px;
+		background-color: transparent;
+		background-image: url('./img/foregroundGradient.png');
+		background-position: 0 0;
+		background-size: 100%;
+
+		&::after {
+			height: 0;
+		}
+	}
+}

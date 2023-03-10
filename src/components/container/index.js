@@ -2,6 +2,8 @@ import ImagePreloader from 'lesca-image-onload';
 import { memo, useContext, useEffect, useRef } from 'react';
 import { Context } from '../../settings/config';
 import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../settings/constant';
+import Footer from '../footer';
+import Header from '../header';
 import VideoQueue from '../videoQueue';
 import './index.less';
 
@@ -25,7 +27,7 @@ const Container = memo(({ children }) => {
 	}, []);
 
 	useEffect(() => {
-		if (status === PAYLOAD_STATUS.onLoaded) {
+		if (status >= PAYLOAD_STATUS.onLoaded) {
 			ref.current.style.visibility = 'visible';
 		}
 	}, [status]);
@@ -34,6 +36,8 @@ const Container = memo(({ children }) => {
 		<div ref={ref} className='Container absolute top-0 h-full w-full'>
 			<VideoQueue />
 			{children}
+			<Footer />
+			<Header />
 		</div>
 	);
 });

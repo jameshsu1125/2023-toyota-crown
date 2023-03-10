@@ -1,18 +1,19 @@
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect } from 'react';
-import { PayLoaderContext, PayLoaderSteps } from '../setting';
+import { Context } from '../../settings/config';
+import { ACTION, PAYLOAD_STATUS } from '../../settings/constant';
 import './index.less';
 
 const BackgroundGrid = memo(() => {
-	const [context] = useContext(PayLoaderContext);
-	const { steps } = context;
+	const [context] = useContext(Context);
+	const { status } = context[ACTION.payLoad];
 	const [style, setStyle] = useTween({ opacity: 0 });
 
 	useEffect(() => {
-		if (steps === PayLoaderSteps.logoDidFadeIn) {
-			setStyle({ opacity: 0.3 }, 2000);
+		if (status >= PAYLOAD_STATUS.onReady) {
+			setStyle({ opacity: 1 }, 2000);
 		}
-	}, [steps]);
+	}, [status]);
 	return <div className='BackgroundGrid' style={style} />;
 });
 export default BackgroundGrid;

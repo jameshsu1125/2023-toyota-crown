@@ -1,12 +1,11 @@
 import { createContext } from 'react';
-import { ACTION, PAGE_STATE, PAYLOAD_STATE, TRANSITION } from './constant';
+import { ACTION, PAGE_STATE, PAYLOAD_STATE } from './constant';
 
 export const Context = createContext();
 
 export const initialState = {
-	[ACTION.page]: PAGE_STATE,
-	[ACTION.transition]: TRANSITION.unset,
 	[ACTION.payLoad]: PAYLOAD_STATE,
+	[ACTION.page]: PAGE_STATE,
 };
 
 export const reducer = (state, action) => {
@@ -34,3 +33,46 @@ export const reducer = (state, action) => {
 	if (action.type) return { ...state, [action.type]: action.state };
 	return state;
 };
+
+export const AuthorInformation = [
+	{
+		index: 0,
+		name: '宍戶 惠子',
+		positionName: 'Color Design',
+	},
+	{
+		index: 1,
+		name: '宮崎 滿則',
+		positionName: '外觀設計師',
+	},
+	{
+		index: 2,
+		name: '奧津 玄',
+		positionName: '車體開發擔當',
+	},
+	{
+		index: 3,
+		name: '井上 克哉',
+		positionName: 'Platform開發擔當',
+	},
+	{
+		index: 4,
+		name: '田中 俊輔',
+		positionName: '內裝設計師',
+	},
+	{
+		index: 5,
+		name: '宍戶 惠子',
+		positionName: 'Color Design',
+	},
+	{
+		index: 6,
+		name: '田中 俊輔',
+		positionName: '內裝設計師',
+	},
+	{
+		index: 7,
+		name: '岡松 秀悟',
+		positionName: '車輛性能開發擔當',
+	},
+];
