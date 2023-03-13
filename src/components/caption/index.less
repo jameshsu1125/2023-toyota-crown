@@ -1,0 +1,106 @@
+.Caption {
+	transform-origin: 0 0;
+	@apply relative;
+
+	.caption {
+		mask-repeat: no-repeat;
+		mask-position: center;
+		mask-size: 100%;
+
+		.gradient {
+			position: absolute;
+			left: 0%;
+			width: 200%;
+			height: 100%;
+			background: linear-gradient(
+				90deg,
+				rgba(126, 77, 61, 1) 25%,
+				rgba(206, 178, 154, 1) 50%,
+				rgba(126, 77, 61, 1) 75%
+			);
+			animation: brushed 10s ease-in-out infinite;
+			pointer-events: none;
+		}
+
+		@keyframes brushed {
+			0% {
+				left: 0%;
+			}
+			100% {
+				left: -100%;
+			}
+		}
+	}
+
+	.caption0 {
+		padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+		width: @width;
+
+		mask-image: url(@img);
+		@width: 100%;
+		@img: './img/caption0.svg';
+	}
+
+	.caption1 {
+		padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+		width: @width;
+
+		mask-image: url(@img);
+		@width: 100%;
+		@img: './img/caption1.svg';
+	}
+
+	.caption2 {
+		padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+		width: @width;
+
+		mask-image: url(@img);
+		@width: 100%;
+		@img: './img/caption2.svg';
+	}
+
+	.caption3 {
+		padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+		width: @width;
+
+		mask-image: url(@img);
+		@width: 100%;
+		@img: './img/caption3.svg';
+	}
+
+	.caption4 {
+		padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+		width: @width;
+
+		mask-image: url(@img);
+		@width: 100%;
+		@img: './img/caption4.svg';
+	}
+
+	.caption5 {
+		padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+		width: @width;
+
+		mask-image: url(@img);
+		@width: 100%;
+		@img: './img/caption5.svg';
+	}
+
+	.caption6 {
+		padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+		width: @width;
+
+		mask-image: url(@img);
+		@width: 100%;
+		@img: './img/caption6.svg';
+	}
+
+	.caption7 {
+		padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+		width: @width;
+
+		mask-image: url(@img);
+		@width: 100%;
+		@img: './img/caption7.svg';
+	}
+}

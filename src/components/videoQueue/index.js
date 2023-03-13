@@ -4,7 +4,7 @@ import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { Context } from '../../settings/config';
 import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../settings/constant';
 import './index.less';
-import VideoURL from './video/combinedVideo.mp4';
+import VideoURL from './video/combinedVideo3.mp4';
 
 const VideoQueue = memo(() => {
 	const [context, setContext] = useContext(Context);
@@ -31,19 +31,21 @@ const VideoQueue = memo(() => {
 		if (status === PAYLOAD_STATUS.onLoaded) {
 			setTweenStyle({ opacity: 1 });
 		} else if (status === PAYLOAD_STATUS.onContextDidFadeIn) {
-			ref.current.currentTime = 5;
-			ref.current.style.opacity = 1;
+			// ref.current.muted = false;
+			// ref.current.currentTime = 4.5;
+			// ref.current.style.opacity = 1;
 		}
 	}, [status]);
 
 	const onTimeUpdate = (e) => {
 		const { currentTime } = e.target;
 		if (currentTime >= 5) {
-			ref.current.pause();
 			setContext({
 				type: ACTION.payLoad,
 				state: { ...PAYLOAD_STATE, status: PAYLOAD_STATUS.onContextDidFadeIn },
 			});
+		} else if (currentTime >= 24) {
+			ref.current.pause();
 		}
 	};
 
@@ -77,6 +79,7 @@ const VideoQueue = memo(() => {
 					<source src={VideoURL} type='video/mp4' />
 				</video>
 			</TweenProvider>
+			<div className='absolute top-0 left-0 h-full w-full bg-black opacity-80' />
 		</div>
 	);
 });

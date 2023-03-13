@@ -16,7 +16,7 @@ export const PAGE_CONTEXT_NAME = {
 };
 
 export const PAGE_STATE = {
-	author: PAGE_CONTEXT_NAME.author0,
+	author: PAGE_CONTEXT_NAME.author2,
 	enabled: false,
 };
 

@@ -9,7 +9,7 @@ const Author = memo(() => {
 	const authorData = useMemo(() => AuthorInformation[author], [author]);
 	return (
 		<div className='Author -mt-[5.2rem] flex flex-col items-center justify-start space-y-4 px-10 md:mt-0 md:mt-0 md:flex-row md:space-y-0 md:space-x-6 md:px-5'>
-			<div className='avatar -ml-20 md:ml-0'>
+			<div className='avatar -ml-[4rem] md:ml-0'>
 				<div className='w-24 rounded-full'>
 					<div className='avatar-0 h-full w-full' />
 				</div>

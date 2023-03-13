@@ -2,7 +2,12 @@ import Click from 'lesca-click';
 import { memo, useContext, useEffect, useMemo, useReducer } from 'react';
 import { createRoot } from 'react-dom/client';
 import Audio from '../components/audio';
+import Breadcrumbs from '../components/breadcrumbs';
+import Caption from '../components/caption';
 import Container from '../components/container';
+import Section from '../components/section';
+import SectionVerticalAlign from '../components/sectionVerticalAlign';
+import VoiceOver from '../components/voiceOver';
 import { Context, initialState, reducer } from '../settings/config';
 import { ACTION, PAYLOAD_STATUS } from '../settings/constant';
 import '../settings/global.less';
@@ -24,6 +29,14 @@ const Pages = memo(() => {
 			{payLoaderState.status < PAYLOAD_STATUS.onContextDidFadeIn && <PayLoader />}
 			{payLoaderState.status >= PAYLOAD_STATUS.onPayLoaderFadeIn && (
 				<Container>
+					<Section>
+						<SectionVerticalAlign>
+							<Breadcrumbs />
+							<Caption />
+							<VoiceOver />
+						</SectionVerticalAlign>
+					</Section>
+
 					<img className='hidden' src='https://picsum.photos/500/300' alt='' />
 					<img className='hidden' src='https://picsum.photos/500/300' alt='' />
 					<img className='hidden' src='https://picsum.photos/500/300' alt='' />

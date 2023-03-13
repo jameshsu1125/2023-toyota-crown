@@ -51,6 +51,7 @@
 		"lesca-image-onload": "^3.0.1",
 		"lesca-number": "^1.5.1",
 		"lesca-use-tween": "^2.4.4",
+		"lesca-user-agent": "^2.0.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.8.2"
