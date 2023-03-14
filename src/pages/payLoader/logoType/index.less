@@ -1,8 +1,9 @@
+@import url('../../../settings/config.less');
+
 .LogoType {
-	@apply absolute top-0 flex h-full w-full flex-col items-center justify-center space-y-5;
+	@apply pointer-events-none absolute top-0 -mt-10 flex h-full w-full flex-col items-center justify-center;
 
 	.typeWord {
-		position: relative;
 		width: image-width(@img) * @scale;
 		height: image-height(@img) * @scale;
 
@@ -11,7 +12,9 @@
 		mask-position: center;
 		mask-size: 100%;
 		@scale: 0.7;
-		@img: './img/typeWord.svg';
+		@img: './img/typeWord_md.svg';
+
+		@apply relative;
 
 		.brushed {
 			animation: brushedLogoType 2s ease-in-out infinite;
@@ -42,6 +45,17 @@
 			100% {
 				left: 0%;
 			}
+		}
+	}
+
+	@media only screen and (max-width: @bp) {
+		.typeWord {
+			width: image-width(@img) * @scale;
+			height: image-height(@img) * @scale;
+
+			mask-image: url(@img);
+			@scale: 0.85;
+			@img: './img/typeWord.svg';
 		}
 	}
 }

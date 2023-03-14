@@ -1,0 +1,56 @@
+.AuthorIntroduction {
+	@apply flex w-full items-center justify-center pt-10;
+
+	.align {
+		@apply flex w-full max-w-xl flex-col justify-center space-y-8 md:max-w-none;
+
+		.title {
+			@apply w-full text-center font-notoSans text-xl font-light text-white md:text-lg;
+		}
+
+		.authors {
+			@apply flex w-full flex-wrap items-center justify-center;
+
+			.author {
+				min-width: 145px;
+				@apply flex flex-col items-center space-y-1 py-5;
+
+				.auth {
+					@apply h-full w-full bg-cover;
+				}
+
+				.author-0 {
+					background-image: url('../../../components/footer/author/img/0.jpg');
+				}
+
+				.author-1 {
+					background-image: url('../../../components/footer/author/img/1.jpg');
+				}
+
+				.author-2 {
+					background-image: url('../../../components/footer/author/img/2.jpg');
+				}
+
+				.author-3 {
+					background-image: url('../../../components/footer/author/img/3.jpg');
+				}
+
+				.author-4 {
+					background-image: url('../../../components/footer/author/img/4.jpg');
+				}
+
+				.author-5 {
+					background-image: url('../../../components/footer/author/img/5.jpg');
+				}
+
+				.name {
+					@apply pt-1 font-notoSans text-lg font-light text-white;
+				}
+
+				.positionName {
+					@apply font-notoSans text-base font-light;
+				}
+			}
+		}
+	}
+}

@@ -6,9 +6,12 @@ export const PayLoaderSteps = {
 	unset: 0,
 	loaded: 1, // payLoader component loaded
 	logoDidFadeIn: 2, // logo 動態跑完
-	contextLoaded: 3, // 內容都讀取完
-	logoDidStay: 4, // logo停留結束
-	videoDidPlayed: 5, // 車的影片播放完成
+	authorDidFadeIn: 3, // 作家資訊動態跑完
+	contextLoaded: 4, // 內容都讀取完
+	iconDidFadeIn: 5, // mouse icon進入
+	userDidActive: 6, // user 滑動
+	logoDidStay: 7, // logo停留結束
+	videoDidPlayed: 8, // 車的影片播放完成
 };
 
 export const initialPayLoaderState = {

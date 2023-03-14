@@ -11,7 +11,7 @@ const TypeWord = memo(() => {
 	const { steps } = context;
 	const [style, setStyle] = useTween({ opacity: 0, scale: 0.8 });
 	useEffect(() => {
-		if (steps === PayLoaderSteps.contextLoaded) {
+		if (steps === PayLoaderSteps.userDidActive) {
 			ref.current.classList.add('brushed');
 			setStyle(
 				{ opacity: 1, scale: 1 },
@@ -32,7 +32,7 @@ const SubTitle = memo(() => {
 	const { steps } = payLoaderContext;
 	const [style, setStyle] = useTween({ opacity: 0, y: 20 });
 	useEffect(() => {
-		if (steps === PayLoaderSteps.contextLoaded) {
+		if (steps === PayLoaderSteps.userDidActive) {
 			setStyle(
 				{ opacity: 1, y: 0 },
 				{
@@ -53,7 +53,7 @@ const SubTitle = memo(() => {
 	}, [steps]);
 
 	return (
-		<div style={style} className='font-notoSansRegular text-xl tracking-[0.5rem]'>
+		<div style={style} className='font-notoSansRegular pt-10 text-xl tracking-[0.5rem]'>
 			工藝之最 藝術特展
 		</div>
 	);

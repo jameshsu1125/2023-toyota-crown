@@ -3,10 +3,21 @@ import { memo, useContext, useEffect } from 'react';
 import { PayLoaderContext, PayLoaderSteps } from '../setting';
 import './index.less';
 
+const Gradient = ({ steps }) => {
+	const [style, setStyle] = useTween({ opacity: 1 });
+
+	useEffect(() => {
+		if (steps === PayLoaderSteps.userDidActive) {
+			setStyle({ opacity: 0 }, { delay: 2000, duration: 2000 });
+		}
+	}, [steps]);
+
+	return <div className='gradient' style={style} />;
+};
+
 const Fill = memo(() => {
 	const [context, setContext] = useContext(PayLoaderContext);
 	const { steps } = context;
-
 	const [style, setStyle] = useTween({ opacity: 0, y: 0 });
 
 	useEffect(() => {
@@ -26,7 +37,7 @@ const Fill = memo(() => {
 
 	return (
 		<div className='fill' style={style}>
-			<div style={style} className='gradient' />
+			<Gradient steps={steps} />
 		</div>
 	);
 });

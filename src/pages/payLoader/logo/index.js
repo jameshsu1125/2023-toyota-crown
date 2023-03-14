@@ -1,5 +1,6 @@
-import { Bezier, TweenProvider } from 'lesca-use-tween';
+import useTween, { Bezier, TweenProvider } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
+import AuthorIntroduction from '../authorsIntroduction';
 import { PayLoaderContext, PayLoaderSteps } from '../setting';
 import Fill from './fill';
 import './index.less';
@@ -14,59 +15,79 @@ const SubTitle = memo(() => {
 	useEffect(() => {
 		if (steps === PayLoaderSteps.loaded) {
 			setTweenStyle({ opacity: 1, y: 0 });
-		} else if (steps === PayLoaderSteps.contextLoaded) {
+		} else if (steps === PayLoaderSteps.userDidActive) {
 			setTweenStyle({ opacity: 0, y: 0 });
 		}
 	}, [steps]);
 
 	return (
-		<>
+		<div className='subtitle font-notoSans'>
 			<TweenProvider
 				defaultStyle={{ opacity: 0, y: 40 }}
 				tweenStyle={tweenStyle}
 				options={{ delay: steps === PayLoaderSteps.loaded ? 1000 : 0, duration: 1000 }}
 			>
-				<span>跟随別人，還是跟從内心？ 不凡的信念，從不受限於凡庸的標準</span>
+				<span>CROWN 榮耀登場</span>
 			</TweenProvider>
 			<TweenProvider
 				defaultStyle={{ opacity: 0, y: 40 }}
 				tweenStyle={tweenStyle}
 				options={{ delay: steps === PayLoaderSteps.loaded ? 1250 : 0, duration: 1000 }}
 			>
-				<span>成就你對完美的不妥協，為每個不甘於平凡的靈魂加冕</span>
+				<span>以日本極致造車工藝、精益求精專注每處細節、每道工法</span>
 			</TweenProvider>
-		</>
+			<TweenProvider
+				defaultStyle={{ opacity: 0, y: 40 }}
+				tweenStyle={tweenStyle}
+				options={{ delay: steps === PayLoaderSteps.loaded ? 1500 : 0, duration: 1000 }}
+			>
+				<span>打造全新斜背跨界跑旅，邀您一起鑑賞</span>
+			</TweenProvider>
+		</div>
 	);
 });
+
+const CrownLogo = ({ steps }) => {
+	const [style, setStyle] = useTween({ y: 0, opacity: 1, scale: 1 });
+	useEffect(() => {
+		if (steps === PayLoaderSteps.userDidActive) {
+			const { innerWidth } = window;
+			const property = innerWidth > 768 ? { y: 100, scale: 0.6 } : { y: 200, scale: 0.45 };
+			setStyle(property, { easing: Bezier.easeInOutQuart, duration: 2000 });
+		}
+	}, [steps]);
+	return (
+		<div style={style} className='logo'>
+			<Fill />
+			<Outline />
+		</div>
+	);
+};
 
 const Logo = memo(() => {
 	const [context] = useContext(PayLoaderContext);
 	const { steps } = context;
-
-	const [tweenStyle, setTweenStyle] = useState(false);
+	const [active, setActive] = useState(false);
 
 	useEffect(() => {
-		if (steps === PayLoaderSteps.contextLoaded) {
-			setTweenStyle({ y: -100, scale: 0.6 });
+		if (steps === PayLoaderSteps.logoDidFadeIn) {
+			setActive(true);
 		}
 	}, [steps]);
 
 	return (
-		<div className='Logo flex h-full w-full flex-col items-center justify-center'>
-			<TweenProvider
-				defaultStyle={{ y: 0, opacity: 1, scale: 1 }}
-				tweenStyle={tweenStyle}
-				options={{ delay: 500, easing: Bezier.easeInOutQuad, duration: 1200 }}
-			>
-				<div className='logo -mt-24'>
-					<Fill />
-					<Outline />
-				</div>
-			</TweenProvider>
-			<div className='flex flex-col items-center font-notoSansRegular text-sm leading-6 text-primary'>
+		<TweenProvider
+			defaultStyle={{ y: 200 }}
+			tweenStyle={{ y: 0 }}
+			active={active}
+			options={{ easing: Bezier.easeInOutQuart }}
+		>
+			<div className='Logo'>
+				<CrownLogo steps={steps} />
 				<SubTitle />
+				<AuthorIntroduction />
 			</div>
-		</div>
+		</TweenProvider>
 	);
 });
 export default Logo;

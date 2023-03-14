@@ -4,19 +4,19 @@ export const ACTION = {
 };
 
 export const PAGE_CONTEXT_NAME = {
-	author0: 0,
-	author1: 1,
-	author2: 2,
-	author3: 3,
-	author4: 4,
-	author5: 5,
-	author6: 6,
-	author7: 7,
-	detailPage: 8,
+	content_0: 0,
+	content_1: 1,
+	content_2: 2,
+	content_3: 3,
+	content_4: 4,
+	content_5: 5,
+	content_6: 6,
+	content_7: 7,
+	detailVideo: 8,
 };
 
 export const PAGE_STATE = {
-	author: PAGE_CONTEXT_NAME.author2,
+	author: PAGE_CONTEXT_NAME.content_0,
 	enabled: false,
 };
 
@@ -33,6 +33,7 @@ export const PAYLOAD_STATE = {
 		PAYLOAD_STATUS[window.location.hash.split('#').join('') || 'preset'] || PAYLOAD_STATUS.preset,
 	total: 0,
 	loaded: 0,
+	video: 0,
 };
 
 export const TRANSITION = {

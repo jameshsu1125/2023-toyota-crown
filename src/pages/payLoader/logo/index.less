@@ -1,28 +1,27 @@
 .Logo {
-	position: relative;
+	@apply relative -mt-20 flex h-full w-full flex-col items-center justify-center space-y-12 md:space-y-8;
+
+	.subtitle {
+		@apply flex flex-col items-center text-xl font-light leading-10 text-neutral md:text-lg md:leading-9;
+	}
+
 	.logo {
-		position: relative;
 		width: image-width(@img) * @scale;
 
-		@scale: 0.7;
+		@scale: 0.82;
 		@img: './img/logo.svg';
+		@apply relative;
 
 		.fill {
-			position: absolute;
-			top: 0;
-			width: 100%;
-			height: 100%;
-
 			mask-image: url(@img);
 			mask-repeat: no-repeat;
 			mask-position: center;
 			mask-size: 100%;
 
+			@apply absolute top-0 h-full w-full bg-neutral;
+
 			.gradient {
-				position: absolute;
-				left: 0%;
 				width: 200%;
-				height: 100%;
 				background: linear-gradient(
 					90deg,
 					rgba(255, 109, 0, 1) 0%,
@@ -30,18 +29,19 @@
 					rgba(255, 109, 0, 1) 100%
 				);
 				animation: brushed 10s ease-in-out infinite;
-				pointer-events: none;
+
+				@apply pointer-events-none absolute left-0 h-full;
 			}
 
 			@keyframes brushed {
 				0% {
-					left: 0%;
+					@apply left-0;
 				}
 				50% {
 					left: -100%;
 				}
 				100% {
-					left: 0%;
+					@apply left-0;
 				}
 			}
 		}

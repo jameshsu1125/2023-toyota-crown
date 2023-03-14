@@ -36,14 +36,6 @@ const Pages = memo(() => {
 							<VoiceOver />
 						</SectionVerticalAlign>
 					</Section>
-
-					<img className='hidden' src='https://picsum.photos/500/300' alt='' />
-					<img className='hidden' src='https://picsum.photos/500/300' alt='' />
-					<img className='hidden' src='https://picsum.photos/500/300' alt='' />
-					<img className='hidden' src='https://picsum.photos/500/300' alt='' />
-					<img className='hidden' src='https://picsum.photos/500/300' alt='' />
-					<img className='hidden' src='https://picsum.photos/500/300' alt='' />
-					<img className='hidden' src='https://picsum.photos/500/300' alt='' />
 				</Container>
 			)}
 			<Audio />

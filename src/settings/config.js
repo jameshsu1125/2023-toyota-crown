@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { CaptionsPaths } from './captionsPath';
-import { ACTION, PAGE_STATE, PAYLOAD_STATE } from './constant';
+import { ACTION, PAGE_CONTEXT_NAME, PAGE_STATE, PAYLOAD_STATE } from './constant';
 
 export const Context = createContext();
 
@@ -35,11 +35,43 @@ export const reducer = (state, action) => {
 	return state;
 };
 
-export const AuthorInformation = [
+export const Authors = [
 	{
-		index: 0,
 		name: '宍戶 惠子',
 		positionName: 'Color Design',
+		className: 'author-0',
+	},
+	{
+		name: '宮崎 滿則',
+		positionName: '外觀設計師',
+		className: 'author-1',
+	},
+	{
+		name: '井上 克哉',
+		positionName: 'Platform開發擔當',
+		className: 'author-2',
+	},
+	{
+		name: '田中 俊輔',
+		positionName: '內裝設計師',
+		className: 'author-3',
+	},
+	{
+		name: '奧津 玄',
+		positionName: '車體開發擔當',
+		className: 'author-4',
+	},
+	{
+		name: '岡松 秀悟',
+		positionName: '車輛性能開發擔當',
+		className: 'author-5',
+	},
+];
+
+export const AuthorInformation = [
+	{
+		...Authors[0],
+		index: PAGE_CONTEXT_NAME.content_0,
 		breadcrumbs: '外型之最',
 		captions: CaptionsPaths[0],
 		vo: [
@@ -50,9 +82,8 @@ export const AuthorInformation = [
 		],
 	},
 	{
-		index: 1,
-		name: '宮崎 滿則',
-		positionName: '外觀設計師',
+		...Authors[1],
+		index: PAGE_CONTEXT_NAME.content_1,
 		breadcrumbs: '外型之最',
 		captions: CaptionsPaths[1],
 		vo: [
@@ -62,9 +93,8 @@ export const AuthorInformation = [
 		],
 	},
 	{
-		index: 2,
-		name: '奧津 玄',
-		positionName: '車體開發擔當',
+		...Authors[4],
+		index: PAGE_CONTEXT_NAME.content_2,
 		breadcrumbs: '細節之最',
 		captions: CaptionsPaths[2],
 		vo: [
@@ -75,9 +105,8 @@ export const AuthorInformation = [
 		],
 	},
 	{
-		index: 3,
-		name: '井上 克哉',
-		positionName: 'Platform開發擔當',
+		...Authors[2],
+		index: PAGE_CONTEXT_NAME.content_3,
 		breadcrumbs: '細節之最',
 		captions: CaptionsPaths[3],
 		vo: [
@@ -88,9 +117,8 @@ export const AuthorInformation = [
 		],
 	},
 	{
-		index: 4,
-		name: '田中 俊輔',
-		positionName: '內裝設計師',
+		...Authors[3],
+		index: PAGE_CONTEXT_NAME.content_4,
 		breadcrumbs: '駕駛之最',
 		captions: CaptionsPaths[4],
 		vo: [
@@ -101,9 +129,8 @@ export const AuthorInformation = [
 		],
 	},
 	{
-		index: 5,
-		name: '宍戶 惠子',
-		positionName: 'Color Design',
+		...Authors[0],
+		index: PAGE_CONTEXT_NAME.content_5,
 		breadcrumbs: '內裝之最',
 		captions: CaptionsPaths[5],
 		vo: [
@@ -114,9 +141,8 @@ export const AuthorInformation = [
 		],
 	},
 	{
-		index: 6,
-		name: '田中 俊輔',
-		positionName: '內裝設計師',
+		...Authors[3],
+		index: PAGE_CONTEXT_NAME.content_6,
 		breadcrumbs: '內裝之最',
 		captions: CaptionsPaths[6],
 		vo: [
@@ -127,9 +153,8 @@ export const AuthorInformation = [
 		],
 	},
 	{
-		index: 7,
-		name: '岡松 秀悟',
-		positionName: '車輛性能開發擔當',
+		...Authors[5],
+		index: PAGE_CONTEXT_NAME.content_7,
 		breadcrumbs: '動力之最',
 		captions: CaptionsPaths[7],
 		vo: [
@@ -142,3 +167,8 @@ export const AuthorInformation = [
 ];
 
 export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 50 };
+
+export const VideoConfig = {
+	checkPoint: [4.0, 25.0, 38.93, 53.52, 71.7, 88.62, 102.83, 118.0, 133.86, 149.72, 155.72],
+	transitionDuration: 2000,
+};

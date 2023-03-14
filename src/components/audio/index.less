@@ -11,16 +11,13 @@
 	@apply absolute bottom-0 z-10 w-full;
 
 	.content {
-		position: absolute;
 		height: 50px;
 
-		@apply flex flex-row items-center justify-end;
+		@apply absolute flex flex-row items-center justify-end;
 
 		.text {
 			width: image-width(@img) * @scale;
 			height: image-height(@img) * @scale;
-			// background-image: url(@img);
-			// background-size: 100%;
 
 			@scale: 0.9;
 			@img: './img/text.svg';
@@ -28,13 +25,11 @@
 			mask-repeat: no-repeat;
 			mask-position: center;
 			mask-size: 100%;
+
 			@apply ml-8;
 
 			.gradient {
-				position: absolute;
-				left: 0%;
 				width: 200%;
-				height: 100%;
 				background: linear-gradient(
 					90deg,
 					rgba(255, 109, 0, 1) 0%,
@@ -42,7 +37,8 @@
 					rgba(255, 109, 0, 1) 100%
 				);
 				animation: brushed 5s ease-in-out infinite;
-				pointer-events: none;
+
+				@apply pointer-events-none absolute left-0 h-full;
 			}
 
 			@keyframes brushed {

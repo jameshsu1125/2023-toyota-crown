@@ -1,10 +1,11 @@
 import ImagePreloader from 'lesca-image-onload';
 import { TweenProvider } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import BackgroundGrid from '../../components/backgroundGrid';
 import { Context } from '../../settings/config';
 import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../settings/constant';
-import BackgroundGrid from '../../components/backgroundGrid';
 import CarOutline from './carOutline';
+import PayLoaderContainer from './container';
 import ForegroundGradient from './foregroundGradient';
 import './index.less';
 import Logo from './logo';
@@ -30,6 +31,7 @@ const PayLoader = memo(() => {
 	}, []);
 
 	useEffect(() => {
+		console.log(state.steps);
 		if (state.steps === PayLoaderSteps.logoDidStay) {
 			setTweenStyle({ opacity: 0 });
 		}
@@ -43,12 +45,14 @@ const PayLoader = memo(() => {
 		>
 			<div ref={ref} className='PayLoader relative h-full w-full'>
 				<PayLoaderContext.Provider value={value}>
-					<BackgroundGrid />
-					<CarOutline />
-					<Logo />
-					<LogoType />
-					<ProcessBar />
-					<ForegroundGradient />
+					<PayLoaderContainer>
+						<BackgroundGrid />
+						<CarOutline />
+						<Logo />
+						<LogoType />
+						<ProcessBar />
+						<ForegroundGradient />
+					</PayLoaderContainer>
 				</PayLoaderContext.Provider>
 			</div>
 		</TweenProvider>
