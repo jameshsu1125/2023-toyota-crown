@@ -16,8 +16,8 @@ export const PAGE_CONTEXT_NAME = {
 };
 
 export const PAGE_STATE = {
-	author: PAGE_CONTEXT_NAME.content_0,
-	enabled: false,
+	index: PAGE_CONTEXT_NAME.content_0,
+	enabled: true,
 };
 
 export const PAYLOAD_STATUS = {
@@ -25,7 +25,8 @@ export const PAYLOAD_STATUS = {
 	onReady: 1, // payLoader component loaded
 	onPayLoaderFadeIn: 2, // payLoader Logo did fade in
 	onLoaded: 3, // main content loaded
-	onContextDidFadeIn: 4,
+	userDidActive: 4, // user 開滑
+	onContextDidFadeIn: 5,
 };
 
 export const PAYLOAD_STATE = {
@@ -45,4 +46,4 @@ export const TRANSITION = {
 	loop: 5,
 };
 
-export default {};
+export const DIRECTION_STATE = { unset: 0, next: 1, prev: 2 };

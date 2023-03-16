@@ -18,11 +18,12 @@ Click.install();
 const Pages = memo(() => {
 	const [context] = useContext(Context);
 	const payLoaderState = context[ACTION.payLoad];
+	const { status } = payLoaderState;
 
 	useEffect(() => {
-		// console.log(context);
+		console.log(status);
 		// console.log(payLoaderState.status);
-	}, [context]);
+	}, [status]);
 
 	return (
 		<div className='h-full w-full'>
@@ -47,7 +48,7 @@ const App = () => {
 	const [state, setState] = useReducer(reducer, initialState);
 	const value = useMemo(() => [state, setState], [state]);
 	return (
-		<div className='absolute h-full w-full min-w-[447px]'>
+		<div className='app absolute h-full w-full min-w-[447px]'>
 			<Context.Provider {...{ value }}>
 				<Pages />
 			</Context.Provider>

@@ -1,7 +1,7 @@
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef } from 'react';
 import { Context } from '../../../settings/config';
-import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../../settings/constant';
+import { ACTION, PAYLOAD_STATUS } from '../../../settings/constant';
 import { PayLoaderContext, PayLoaderLogoTypeStayTime, PayLoaderSteps } from '../setting';
 import './index.less';
 
@@ -27,10 +27,13 @@ const TypeWord = memo(() => {
 });
 
 const SubTitle = memo(() => {
-	const [, setContext] = useContext(Context);
+	const [context, setContext] = useContext(Context);
+	const payLoad = context[ACTION.payLoad];
+
 	const [payLoaderContext, setPayLoaderContext] = useContext(PayLoaderContext);
 	const { steps } = payLoaderContext;
 	const [style, setStyle] = useTween({ opacity: 0, y: 20 });
+
 	useEffect(() => {
 		if (steps === PayLoaderSteps.userDidActive) {
 			setStyle(
@@ -43,7 +46,7 @@ const SubTitle = memo(() => {
 							setPayLoaderContext((S) => ({ ...S, steps: PayLoaderSteps.logoDidStay }));
 							setContext({
 								type: ACTION.payLoad,
-								state: { ...PAYLOAD_STATE, status: PAYLOAD_STATUS.onLoaded },
+								state: { ...payLoad, status: PAYLOAD_STATUS.onContextDidFadeIn },
 							});
 						}, PayLoaderLogoTypeStayTime);
 					},

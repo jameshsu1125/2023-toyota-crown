@@ -25,8 +25,8 @@ const Bar = memo(() => {
 				width === '100%'
 					? () => {
 							setContext({
-								type: ACTION,
-								state: { ...PAYLOAD_STATE, status: PAYLOAD_STATUS.onLoaded },
+								type: ACTION.payLoad,
+								state: { ...payLoad, status: PAYLOAD_STATUS.onLoaded },
 							});
 							setPayLoadContext((S) => ({ ...S, steps: PayLoaderSteps.contextLoaded }));
 					  }
@@ -71,7 +71,7 @@ const ProcessBar = memo(() => {
 			});
 			setStyle({ opacity: 1 }, 500);
 		} else if (steps === PayLoaderSteps.userDidActive) {
-			// setStyle({ opacity: 0 }, 1000);
+			setStyle({ opacity: 0 }, 1000);
 		}
 	}, [steps]);
 

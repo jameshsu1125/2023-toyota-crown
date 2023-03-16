@@ -31,7 +31,6 @@ const PayLoader = memo(() => {
 	}, []);
 
 	useEffect(() => {
-		console.log(state.steps);
 		if (state.steps === PayLoaderSteps.logoDidStay) {
 			setTweenStyle({ opacity: 0 });
 		}
@@ -43,7 +42,7 @@ const PayLoader = memo(() => {
 			tweenStyle={tweenStyle}
 			options={{ duration: 5000 }}
 		>
-			<div ref={ref} className='PayLoader relative h-full w-full'>
+			<div ref={ref} className='PayLoader'>
 				<PayLoaderContext.Provider value={value}>
 					<PayLoaderContainer>
 						<BackgroundGrid />

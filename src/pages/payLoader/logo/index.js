@@ -1,5 +1,6 @@
 import useTween, { Bezier, TweenProvider } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
+import { BreakPoint, BreakPointHeightMobile } from '../../../settings/config';
 import AuthorIntroduction from '../authorsIntroduction';
 import { PayLoaderContext, PayLoaderSteps } from '../setting';
 import Fill from './fill';
@@ -52,10 +53,11 @@ const CrownLogo = ({ steps }) => {
 	useEffect(() => {
 		if (steps === PayLoaderSteps.userDidActive) {
 			const { innerWidth } = window;
-			const property = innerWidth > 768 ? { y: 100, scale: 0.6 } : { y: 200, scale: 0.45 };
+			const property = innerWidth >= BreakPoint ? { y: 100, scale: 0.6 } : { y: 200, scale: 0.45 };
 			setStyle(property, { easing: Bezier.easeInOutQuart, duration: 2000 });
 		}
 	}, [steps]);
+
 	return (
 		<div style={style} className='logo'>
 			<Fill />
@@ -75,6 +77,24 @@ const Logo = memo(() => {
 		}
 	}, [steps]);
 
+	const [scale, setScale] = useState(1);
+
+	useEffect(() => {
+		const resize = () => {
+			// ... script here
+			const { innerHeight, innerWidth } = window;
+			if (innerWidth < BreakPoint) {
+				if (innerHeight > BreakPointHeightMobile) setScale(1);
+				else {
+					setScale(innerHeight / BreakPointHeightMobile);
+				}
+			}
+		};
+		resize();
+		window.addEventListener('resize', resize);
+		return () => window.removeEventListener('resize', resize);
+	}, []);
+
 	return (
 		<TweenProvider
 			defaultStyle={{ y: 200 }}
@@ -83,9 +103,11 @@ const Logo = memo(() => {
 			options={{ easing: Bezier.easeInOutQuart }}
 		>
 			<div className='Logo'>
-				<CrownLogo steps={steps} />
-				<SubTitle />
-				<AuthorIntroduction />
+				<div className='scaler' style={{ transform: `scale(${scale})` }}>
+					<CrownLogo steps={steps} />
+					<SubTitle />
+					<AuthorIntroduction />
+				</div>
 			</div>
 		</TweenProvider>
 	);

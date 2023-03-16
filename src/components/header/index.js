@@ -2,13 +2,13 @@ import { TweenProvider } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import { Context } from '../../settings/config';
 import { ACTION, PAYLOAD_STATUS } from '../../settings/constant';
-import Wave from '../audio/wave';
 import BackgroundGrid from '../backgroundGrid';
 import './index.less';
 
 const Header = memo(() => {
 	const [context, setContext] = useContext(Context);
-	const { status } = context[ACTION.payLoad];
+	const payLoad = context[ACTION.payLoad];
+	const { status } = payLoad;
 
 	const [tweenStyle, setTweenStyle] = useState(false);
 
@@ -17,6 +17,7 @@ const Header = memo(() => {
 			setTweenStyle({ y: 0 });
 		}
 	}, [status]);
+
 	return (
 		<TweenProvider
 			defaultStyle={{ y: -133 }}
@@ -35,9 +36,6 @@ const Header = memo(() => {
 				<BackgroundGrid />
 				<div className='relative h-full w-full max-w-7xl p-10 md:p-5'>
 					<div className='logo' />
-					<div className='absolute right-0 top-0 flex h-full items-center p-10'>
-						<Wave />
-					</div>
 				</div>
 			</div>
 		</TweenProvider>

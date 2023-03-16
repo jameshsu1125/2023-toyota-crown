@@ -1,47 +1,51 @@
 .Logo {
-	@apply relative -mt-20 flex h-full w-full flex-col items-center justify-center space-y-12 md:space-y-8;
+	@apply relative h-full w-full;
 
-	.subtitle {
-		@apply flex flex-col items-center text-xl font-light leading-10 text-neutral md:text-lg md:leading-9;
-	}
+	.scaler {
+		@apply relative -mt-20 flex h-full w-full flex-col items-center justify-center space-y-5 md:space-y-8;
 
-	.logo {
-		width: image-width(@img) * @scale;
+		.subtitle {
+			@apply flex flex-col items-center text-xl font-light leading-10 text-neutral md:text-lg md:leading-9;
+		}
 
-		@scale: 0.82;
-		@img: './img/logo.svg';
-		@apply relative;
+		.logo {
+			width: image-width(@img) * @scale;
 
-		.fill {
-			mask-image: url(@img);
-			mask-repeat: no-repeat;
-			mask-position: center;
-			mask-size: 100%;
+			@scale: 0.82;
+			@img: './img/logo.svg';
+			@apply relative;
 
-			@apply absolute top-0 h-full w-full bg-neutral;
+			.fill {
+				mask-image: url(@img);
+				mask-repeat: no-repeat;
+				mask-position: center;
+				mask-size: 100%;
 
-			.gradient {
-				width: 200%;
-				background: linear-gradient(
-					90deg,
-					rgba(255, 109, 0, 1) 0%,
-					#e0c5af 50%,
-					rgba(255, 109, 0, 1) 100%
-				);
-				animation: brushed 10s ease-in-out infinite;
+				@apply absolute top-0 h-full w-full bg-neutral;
 
-				@apply pointer-events-none absolute left-0 h-full;
-			}
+				.gradient {
+					width: 200%;
+					background: linear-gradient(
+						90deg,
+						rgba(255, 109, 0, 1) 0%,
+						#e0c5af 50%,
+						rgba(255, 109, 0, 1) 100%
+					);
+					animation: brushed 10s ease-in-out infinite;
 
-			@keyframes brushed {
-				0% {
-					@apply left-0;
+					@apply pointer-events-none absolute left-0 h-full;
 				}
-				50% {
-					left: -100%;
-				}
-				100% {
-					@apply left-0;
+
+				@keyframes brushed {
+					0% {
+						@apply left-0;
+					}
+					50% {
+						left: -100%;
+					}
+					100% {
+						@apply left-0;
+					}
 				}
 			}
 		}

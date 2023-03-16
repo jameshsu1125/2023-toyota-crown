@@ -2,6 +2,10 @@ import { createContext } from 'react';
 import { CaptionsPaths } from './captionsPath';
 import { ACTION, PAGE_CONTEXT_NAME, PAGE_STATE, PAYLOAD_STATE } from './constant';
 
+export const BreakPoint = 768;
+export const BreakPointHeightMobile = 1138;
+export const BreakPointHeightDesktop = 1200;
+
 export const Context = createContext();
 
 export const initialState = {
@@ -169,6 +173,6 @@ export const AuthorInformation = [
 export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 50 };
 
 export const VideoConfig = {
-	checkPoint: [4.0, 25.0, 38.93, 53.52, 71.7, 88.62, 102.83, 118.0, 133.86, 149.72, 155.72],
-	transitionDuration: 2000,
+	checkPoint: [4.04, 24.07, 37.37, 51.41, 69.04, 85.41, 99.57, 114.21, 130.17],
+	transitionDuration: 1000,
 };

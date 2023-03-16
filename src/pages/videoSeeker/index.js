@@ -1,15 +1,58 @@
-import { useEffect, useMemo, useReducer, useRef } from 'react';
+import { useContext, useEffect, useMemo, useReducer, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import Video from '../../components/video';
+import useWheelHeavy from '../../hooks/useWheelHeavy';
 import { Context, initialState, reducer } from '../../settings/config';
+import { ACTION, DIRECTION_STATE, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../settings/constant';
 import '../../settings/global.less';
+
+const Provider = ({ children }) => {
+	const [context, setContext] = useContext(Context);
+	const [active, launcher, direction] = useWheelHeavy(true);
+
+	useEffect(() => {
+		if (active) {
+			const { index, enabled } = context[ACTION.page];
+
+			if (!enabled) return;
+
+			let i = index;
+
+			if (direction === DIRECTION_STATE.next) i += 1;
+			else i -= 1;
+
+			setContext({
+				type: ACTION.page,
+				state: { ...context[ACTION.page], index: i, enabled: false },
+			});
+		}
+	}, [active, direction]);
+
+	return (
+		<div
+			className='absolute h-full w-full min-w-[447px]'
+			role='none'
+			onWheel={(e) => {
+				launcher(e.deltaY);
+			}}
+		>
+			{children}
+		</div>
+	);
+};
 
 const App = () => {
 	const [state, setState] = useReducer(reducer, initialState);
 	const value = useMemo(() => [state, setState], [state]);
 	const ref = useRef();
+	const inputRef = useRef();
 
 	useEffect(() => {
+		setState({
+			type: ACTION.payLoad,
+			state: { ...PAYLOAD_STATE, status: PAYLOAD_STATUS.userDidActive },
+		});
+
 		const onKeyDown = (e) => {
 			const { keyCode } = e;
 			switch (keyCode) {
@@ -34,15 +77,27 @@ const App = () => {
 	}, []);
 
 	return (
-		<div className='absolute h-full w-full min-w-[447px]'>
-			<Context.Provider {...{ value }}>
+		<Context.Provider {...{ value }}>
+			<Provider>
 				<div className='h-full w-full'>
 					<Video ref={ref} />
 					<div className='absolute flex flex-col'>
 						<div className='form-control'>
 							<div className='input-group'>
-								<input type='text' placeholder='Seeking to...' className='input-bordered input' />
-								<button className='btn-square btn' type='button'>
+								<input
+									ref={inputRef}
+									type='text'
+									placeholder='Seeking to...'
+									className='input-bordered input'
+								/>
+								<button
+									className='btn-square btn'
+									type='button'
+									onClick={() => {
+										const { value: v } = inputRef.current;
+										ref.current.seek(Number(v));
+									}}
+								>
 									<svg
 										className='h-6 w-6'
 										fill='none'
@@ -62,8 +117,8 @@ const App = () => {
 						</div>
 					</div>
 				</div>
-			</Context.Provider>
-		</div>
+			</Provider>
+		</Context.Provider>
 	);
 };
 createRoot(document.getElementById('app')).render(<App />);

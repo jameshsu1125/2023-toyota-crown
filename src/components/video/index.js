@@ -10,13 +10,21 @@ import './index.less';
 import VideoURL from './video/video.mp4';
 
 const Video = forwardRef(({ onLoaded }, ref) => {
-	const [context] = useContext(Context);
+	const [context, setContext] = useContext(Context);
 	const { status } = context[ACTION.payLoad];
+	const page = context[ACTION.page];
+	const { index } = page;
+	const indexRef = useRef(index);
+
 	const [tweenStyle, setTweenStyle] = useState(false);
 
 	const videoRef = useRef();
 	const screenRef = useRef();
 	const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+
+	useEffect(() => {
+		indexRef.current = index;
+	}, [index]);
 
 	useEffect(() => {
 		const resize = () => {
@@ -72,19 +80,27 @@ const Video = forwardRef(({ onLoaded }, ref) => {
 				}
 				screenRef.current.opacity(opacity);
 			}
+			const stopTime =
+				VideoConfig.checkPoint[indexRef.current] - VideoConfig.transitionDuration * 0.0011;
+			if (currentTime > stopTime) {
+				videoRef.current.pause();
+				EnterFrame.stop();
+			}
 		});
-		EnterFrame.play();
 	}, []);
 
 	useEffect(() => {
-		if (status === PAYLOAD_STATUS.onLoaded) {
-			setTweenStyle({ opacity: 1 });
-		} else if (status === PAYLOAD_STATUS.onContextDidFadeIn) {
-			// script...
+		if (status === PAYLOAD_STATUS.userDidActive) {
+			setTweenStyle({ opacity: 1 }, { duration: 2000, easing: Bezier.easeOutQuart });
+			EnterFrame.play();
 		}
 	}, [status]);
 
 	useImperativeHandle(ref, () => ({
+		resume() {
+			EnterFrame.play();
+			videoRef.current.play();
+		},
 		seek(time) {
 			videoRef.current.currentTime = time;
 		},
@@ -101,7 +117,7 @@ const Video = forwardRef(({ onLoaded }, ref) => {
 			else videoRef.current.pause();
 		},
 		muted(bool) {
-			videoRef.videoRef.muted = bool;
+			videoRef.current.muted = bool;
 		},
 		getTime() {
 			return videoRef.current.currentTime;
@@ -109,7 +125,7 @@ const Video = forwardRef(({ onLoaded }, ref) => {
 	}));
 
 	return (
-		<div className='Video absolute flex h-full w-full items-center justify-center' role='none'>
+		<div className='Video'>
 			<TweenProvider
 				defaultStyle={{ opacity: 0 }}
 				tweenStyle={tweenStyle}
