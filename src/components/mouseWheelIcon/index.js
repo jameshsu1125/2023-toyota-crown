@@ -1,6 +1,6 @@
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect } from 'react';
-import { PayLoaderContext, PayLoaderSteps } from '../setting';
+import { PayLoaderContext, PayLoaderSteps } from '../../pages/payLoader/setting';
 import './index.less';
 
 const Text = ({ steps }) => {

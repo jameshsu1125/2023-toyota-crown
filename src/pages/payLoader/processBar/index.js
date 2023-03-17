@@ -6,7 +6,7 @@ import { Context } from '../../../settings/config';
 import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../../settings/constant';
 import { PayLoaderContext, PayLoaderSteps } from '../setting';
 import './index.less';
-import Mouse from './mouse';
+import Mouse from '../../../components/mouseWheelIcon';
 
 const Bar = memo(() => {
 	const [context, setContext] = useContext(Context);

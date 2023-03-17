@@ -1,5 +1,6 @@
+import { CoverSize } from 'lesca-number';
 import { TweenProvider } from 'lesca-use-tween';
-import { memo, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { VideoConfig } from '../../settings/config';
 import { PAGE_CONTEXT_NAME } from '../../settings/constant';
 import './index.less';
@@ -22,6 +23,20 @@ const Video = memo(({ onLoaded, fadeIn = false, onEnded }) => {
 			});
 		}
 	};
+
+	useEffect(() => {
+		// 重新設定影片尺寸
+		const resize = () => {
+			const size = CoverSize(
+				{ width: 1920, height: 1080 },
+				{ width: window.innerWidth, height: window.innerHeight },
+			);
+			ref.current.forEach((e) => e.setSize(size));
+		};
+		resize();
+		window.addEventListener('resize', resize);
+		return () => window.removeEventListener('resize', resize);
+	}, []);
 
 	return (
 		<TweenProvider
