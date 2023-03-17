@@ -1,5 +1,7 @@
+import { CoverSize } from 'lesca-number';
 import useTween, { Bezier } from 'lesca-use-tween';
-import { memo, useContext, useEffect, useRef } from 'react';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
+import { VideoConfig } from '../../../settings/config';
 import { PayLoaderContext, PayLoaderSteps } from '../setting';
 import './index.less';
 
@@ -7,15 +9,46 @@ const CarOutline = memo(() => {
 	const ref = useRef();
 	const [context] = useContext(PayLoaderContext);
 	const { steps } = context;
-	const [style, setStyle] = useTween({ opacity: 0, x: 0, y: 0 });
+	const [style, setStyle] = useTween({ ...VideoConfig.offset, opacity: 0 });
+	const [size, setSize] = useState({ width: 0, height: 0 });
+
+	useEffect(() => {
+		const resize = () => {
+			const { width, height } = CoverSize(
+				{ width: 2801, height: 1576 },
+				{ width: window.innerWidth, height: window.innerHeight },
+			);
+			setSize({ width, height });
+		};
+		resize();
+		window.addEventListener('resize', resize);
+		return () => window.removeEventListener('resize', resize);
+	}, []);
 
 	useEffect(() => {
 		if (steps === PayLoaderSteps.logoDidFadeIn) {
 			setStyle(
-				{ opacity: 0.9, x: 0, y: 0 },
+				{ opacity: 0.5 },
 				{
-					duration: 5000,
+					duration: 2000,
 					easing: Bezier.easeOutSine,
+					onStart: () => {
+						[...ref.current.getElementsByTagName('path')].forEach((path) => {
+							const total = path.getTotalLength();
+							path.classList.add('on');
+							path.setAttribute('style', `stroke-dasharray:${total}; stroke-dashoffset:${total}`);
+						});
+					},
+				},
+			);
+		} else if (steps === PayLoaderSteps.logoDidStay) {
+			const property = Object.fromEntries(
+				Object.entries(VideoConfig.offset).map((e) => [e[0], e[0] === 'scale' ? 1 : 0]),
+			);
+			setStyle(
+				{ ...property },
+				{
+					duration: VideoConfig.fadeInDuration,
 					onStart: () => {
 						[...ref.current.getElementsByTagName('path')].forEach((path) => {
 							const total = path.getTotalLength();
@@ -32,24 +65,24 @@ const CarOutline = memo(() => {
 		<div className='CarOutline'>
 			<svg
 				ref={ref}
-				style={style}
+				style={{ ...style, ...size }}
 				xmlns='http://www.w3.org/2000/svg'
-				width='2801.947'
-				height='1074.263'
-				viewBox='0 0 2801.947 1074.263'
+				width='2801'
+				height='1576'
+				viewBox='0 0 2801 1576'
 			>
 				<defs>
 					<clipPath id='clip-path'>
 						<rect
 							id='Rectangle_273'
 							data-name='Rectangle 273'
-							width='2801.947'
-							height='1074.263'
+							width='2801'
+							height='1576'
 							fill='none'
 						/>
 					</clipPath>
 				</defs>
-				<g id='Group_572' data-name='Group 572' opacity='0.3'>
+				<g id='Group_572' data-name='Group 572' opacity='1' transform='translate(27 376)'>
 					<g id='Group_574' data-name='Group 574' clipPath='url(#clip-path)'>
 						<path
 							id='Path_3257'

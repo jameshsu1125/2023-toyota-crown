@@ -5,8 +5,8 @@ import './index.less';
 
 const Author = memo(() => {
 	const [context] = useContext(Context);
-	const { author } = context[ACTION.page];
-	const authorData = useMemo(() => AuthorInformation[author], [author]);
+	const { index } = context[ACTION.page];
+	const authorData = useMemo(() => AuthorInformation[index], [index]);
 	return (
 		<div className='Author -mt-[5.2rem] flex flex-col items-center justify-start space-y-4 px-10 md:mt-0 md:mt-0 md:flex-row md:space-y-0 md:space-x-6 md:px-5'>
 			<div className='avatar -ml-[4rem] md:ml-0'>

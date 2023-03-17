@@ -1,6 +1,16 @@
 import { createContext } from 'react';
 import { CaptionsPaths } from './captionsPath';
 import { ACTION, PAGE_CONTEXT_NAME, PAGE_STATE, PAYLOAD_STATE } from './constant';
+import video0 from './video/0.mp4';
+import video1 from './video/1.mp4';
+import video2 from './video/2.mp4';
+import video3 from './video/3.mp4';
+import video4 from './video/4.mp4';
+import video5 from './video/5.mp4';
+import video6 from './video/6.mp4';
+import video7 from './video/7.mp4';
+import video8 from './video/8.mp4';
+import video9 from './video/9.mp4';
 
 export const BreakPoint = 768;
 export const BreakPointHeightMobile = 1138;
@@ -173,6 +183,12 @@ export const AuthorInformation = [
 export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 50 };
 
 export const VideoConfig = {
-	checkPoint: [4.04, 24.07, 37.37, 51.41, 69.04, 85.41, 99.57, 114.21, 130.17],
+	urls: [video0, video1, video2, video3, video4, video5, video6, video7, video8, video9],
 	transitionDuration: 1000,
+	offset: {
+		// x: 240,
+		// y: 0,
+		// scale: 1.3,
+	},
+	fadeInDuration: 5000,
 };

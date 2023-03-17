@@ -6,15 +6,15 @@ import './index.less';
 
 const VoiceOver = memo(() => {
 	const [context] = useContext(Context);
-	const { author } = context[ACTION.page];
-	const { vo } = useMemo(() => AuthorInformation[author], [author]);
+	const { index } = context[ACTION.page];
+	const { vo } = useMemo(() => AuthorInformation[index], [index]);
 
 	const { status } = context[ACTION.payLoad];
 	const [tweenStyle, setTweenStyle] = useState(false);
 	useEffect(() => {
-		if (status === PAYLOAD_STATUS.onContextDidFadeIn) {
-			setTweenStyle({ opacity: 1, y: 0 });
-		}
+		// if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
+		// 	setTweenStyle({ opacity: 1, y: 0 });
+		// }
 	}, [status]);
 
 	return (

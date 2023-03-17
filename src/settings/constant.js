@@ -4,20 +4,24 @@ export const ACTION = {
 };
 
 export const PAGE_CONTEXT_NAME = {
-	content_0: 0,
-	content_1: 1,
-	content_2: 2,
-	content_3: 3,
-	content_4: 4,
-	content_5: 5,
-	content_6: 6,
-	content_7: 7,
-	detailVideo: 8,
+	intro: 0,
+	content_0: 1,
+	content_1: 2,
+	content_2: 3,
+	content_3: 4,
+	content_4: 5,
+	content_5: 6,
+	content_6: 7,
+	content_7: 8,
+	detailVideo: 9,
 };
+
+export const DIRECTION_STATE = { unset: 0, next: 1, prev: 2 };
 
 export const PAGE_STATE = {
 	index: PAGE_CONTEXT_NAME.content_0,
-	enabled: true,
+	direction: DIRECTION_STATE.unset,
+	enabled: false,
 };
 
 export const PAYLOAD_STATUS = {
@@ -26,7 +30,8 @@ export const PAYLOAD_STATUS = {
 	onPayLoaderFadeIn: 2, // payLoader Logo did fade in
 	onLoaded: 3, // main content loaded
 	userDidActive: 4, // user 開滑
-	onContextDidFadeIn: 5,
+	logoDidFadeIn: 5,
+	introVideoDidPlayed: 6,
 };
 
 export const PAYLOAD_STATE = {
@@ -45,5 +50,3 @@ export const TRANSITION = {
 	fadeOutEnd: 4,
 	loop: 5,
 };
-
-export const DIRECTION_STATE = { unset: 0, next: 1, prev: 2 };

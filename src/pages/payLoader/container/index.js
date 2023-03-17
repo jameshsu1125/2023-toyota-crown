@@ -1,4 +1,4 @@
-import { memo, useCallback, useContext, useEffect } from 'react';
+import { memo, useCallback, useContext, useEffect, useRef } from 'react';
 import useWheelHeavy from '../../../hooks/useWheelHeavy';
 import { Context } from '../../../settings/config';
 import { ACTION, PAYLOAD_STATUS } from '../../../settings/constant';
@@ -11,6 +11,7 @@ const PayLoaderContainer = memo(({ children }) => {
 	const [payLoadContext, setPayLoadContext] = useContext(PayLoaderContext);
 	const { steps } = payLoadContext;
 
+	const touchRef = useRef(0);
 	const [active, launcher] = useWheelHeavy();
 
 	useEffect(() => {
@@ -32,8 +33,29 @@ const PayLoaderContainer = memo(({ children }) => {
 		[steps],
 	);
 
+	const onTouchStart = useCallback(
+		(e) => {
+			touchRef.current = e.targetTouches[0].clientY;
+		},
+		[steps],
+	);
+
+	const onTouchMove = useCallback(
+		(e) => {
+			const deltaY = touchRef.current - e.targetTouches[0].clientY;
+			launcher(deltaY * 1.5);
+			touchRef.current = e.targetTouches[0].clientY;
+		},
+		[steps],
+	);
+
 	return (
-		<div className='absolute top-0 h-full w-full' onWheel={onWheel}>
+		<div
+			className='absolute top-0 h-full w-full'
+			onWheel={onWheel}
+			onTouchStart={onTouchStart}
+			onTouchMove={onTouchMove}
+		>
 			{children}
 		</div>
 	);

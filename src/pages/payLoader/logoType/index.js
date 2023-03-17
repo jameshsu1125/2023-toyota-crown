@@ -19,6 +19,7 @@ const TypeWord = memo(() => {
 			);
 		}
 	}, [steps]);
+
 	return (
 		<div style={style} className='typeWord'>
 			<div ref={ref} className='gradient' />
@@ -46,7 +47,7 @@ const SubTitle = memo(() => {
 							setPayLoaderContext((S) => ({ ...S, steps: PayLoaderSteps.logoDidStay }));
 							setContext({
 								type: ACTION.payLoad,
-								state: { ...payLoad, status: PAYLOAD_STATUS.onContextDidFadeIn },
+								state: { ...payLoad, status: PAYLOAD_STATUS.logoDidFadeIn },
 							});
 						}, PayLoaderLogoTypeStayTime);
 					},

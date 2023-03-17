@@ -1,7 +1,6 @@
 @import url('../../settings/config.less');
 
-.Header {
-	height: 133px;
+.header-material {
 	background-color: black;
 	background-image: url('../img/background.svg');
 	background-position: calc(~'50% + 300px') calc(~'50% - 40px');
@@ -22,6 +21,10 @@
 
 		@apply absolute w-full;
 	}
+}
+
+.Header {
+	height: 133px;
 
 	@apply absolute w-full;
 
@@ -35,7 +38,7 @@
 			background-image: url(@img);
 			background-size: 100%;
 
-			@scale: 0.9;
+			@scale: 0.7;
 			@img: './img/logo.svg';
 		}
 
@@ -58,8 +61,7 @@
 }
 
 @media only screen and (max-width: @bp) {
-	.Header {
-		height: 115px;
+	.header-material {
 		background-color: transparent;
 		background-image: url('./img/foregroundGradient.png');
 		background-position: 0 0;
@@ -68,5 +70,9 @@
 		&::after {
 			height: 0;
 		}
+	}
+
+	.Header {
+		height: 115px;
 	}
 }

@@ -11,9 +11,9 @@ const Caption = memo(() => {
 	const [active, setActive] = useState(false);
 
 	useEffect(() => {
-		if (status === PAYLOAD_STATUS.onContextDidFadeIn) {
-			setActive(true);
-		}
+		// if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
+		// 	setActive(true);
+		// }
 	}, [status]);
 
 	useEffect(() => {}, []);

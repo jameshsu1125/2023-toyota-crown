@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { memo, useContext, useMemo, useState } from 'react';
 import { AuthorInformation, CaptionConfig, Context } from '../../settings/config';
 import { ACTION } from '../../settings/constant';
@@ -22,32 +23,32 @@ const GradientCaption = ({ author, show = false }) => {
 
 const CaptionSVG = memo(({ active = false }) => {
 	const [context] = useContext(Context);
-	const { author } = context[ACTION.page];
+	const { index } = context[ACTION.page];
 	const [show, setShow] = useState(false);
 
 	const Paths = useMemo(() => {
-		const property = AuthorInformation[author];
+		const property = AuthorInformation[index];
 
 		const onComplete = () => {
 			setShow(true);
 		};
 
-		return property.captions.map((e, index) => (
+		return property.captions.map((e, idx) => (
 			<TranslatePath
-				key={JSON.stringify(e + index)}
-				delay={CaptionConfig.eachCharacterDelay * index}
+				key={JSON.stringify(e) + idx}
+				delay={CaptionConfig.eachCharacterDelay * idx}
 				active={active}
-				onComplete={index === property.captions.length - 1 ? onComplete : () => {}}
+				onComplete={idx === property.captions.length - 1 ? onComplete : () => {}}
 			>
 				{e}
 			</TranslatePath>
 		));
-	}, [author, active]);
+	}, [index, active]);
 
 	return (
 		<div className='relative h-[200px] w-[550px]'>
 			<SVG>{Paths}</SVG>
-			<GradientCaption show={show} author={author} />
+			<GradientCaption show={show} author={index} />
 		</div>
 	);
 });

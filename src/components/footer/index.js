@@ -12,9 +12,9 @@ const Footer = memo(() => {
 	const [tweenStyle, setTweenStyle] = useState(false);
 
 	useEffect(() => {
-		if (status >= PAYLOAD_STATUS.onContextDidFadeIn) {
-			setTweenStyle({ y: 0 });
-		}
+		// if (status >= PAYLOAD_STATUS.introVideoDidPlayed) {
+		// 	setTweenStyle({ y: 0 });
+		// }
 	}, [status]);
 	return (
 		<TweenProvider defaultStyle={{ y: 300 }} tweenStyle={tweenStyle} options={{ delay: 1000 }}>

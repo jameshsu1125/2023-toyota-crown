@@ -21,13 +21,13 @@ const Pages = memo(() => {
 	const { status } = payLoaderState;
 
 	useEffect(() => {
-		console.log(status);
+		//	console.log(status);
 		// console.log(payLoaderState.status);
 	}, [status]);
 
 	return (
 		<div className='h-full w-full'>
-			{payLoaderState.status < PAYLOAD_STATUS.onContextDidFadeIn && <PayLoader />}
+			{payLoaderState.status < PAYLOAD_STATUS.introVideoDidPlayed && <PayLoader />}
 			{payLoaderState.status >= PAYLOAD_STATUS.onPayLoaderFadeIn && (
 				<Container>
 					<Section>

@@ -6,23 +6,23 @@ import './index.less';
 
 const Breadcrumbs = memo(() => {
 	const [context] = useContext(Context);
-	const { author } = context[ACTION.page];
+	const { index } = context[ACTION.page];
 	const { status } = context[ACTION.payLoad];
 
 	const [tweenStyle, setTweenStyle] = useState(false);
-	const [index, setIndex] = useState(false);
+	const [idx, setIndex] = useState(false);
 	const [didFadeIn, setDidFadeIn] = useState(false);
 
 	const property = useMemo(() => {
-		const data = AuthorInformation[author];
+		const data = AuthorInformation[index];
 		if (didFadeIn) setIndex(data.index);
 		return data;
-	}, [author, didFadeIn]);
+	}, [index, didFadeIn]);
 
 	useEffect(() => {
-		if (status === PAYLOAD_STATUS.onContextDidFadeIn) {
-			setTweenStyle({ opacity: 1 });
-		}
+		// if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
+		// 	setTweenStyle({ opacity: 1 });
+		// }
 	}, [status]);
 
 	return (
@@ -40,7 +40,7 @@ const Breadcrumbs = memo(() => {
 				<div className='font-notoSans'>{property.breadcrumbs}</div>
 				<div className='bars flex flex-row space-x-1'>
 					{AuthorInformation.map((e, i) => (
-						<div key={JSON.stringify(e)} className={i === index ? 'active' : ''} />
+						<div key={JSON.stringify(e)} className={i === idx ? 'active' : ''} />
 					))}
 				</div>
 			</div>
