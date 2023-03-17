@@ -1,16 +1,23 @@
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect } from 'react';
-import { PayLoaderContext, PayLoaderSteps } from '../../pages/payLoader/setting';
+import { Context } from '../../settings/config';
+import { ACTION, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
 import './index.less';
 
-const Text = ({ steps }) => {
-	const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+const Text = ({ status, index, onend }) => {
+	const [style, setStyle] = useTween({ opacity: 0, y: 30 });
 
 	useEffect(() => {
-		if (steps === PayLoaderSteps.contextLoaded) {
-			setStyle({ opacity: 1, y: 5 }, { duration: 1000, delay: 200 });
+		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
+			if (onend) setStyle({ opacity: 1, y: -20 }, { duration: 1000, delay: 200 });
+		} else setStyle({ opacity: 0, y: 30 }, { duration: 1000, delay: 200 });
+	}, [index, onend]);
+
+	useEffect(() => {
+		if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
+			setStyle({ opacity: 1, y: -20 }, { duration: 1000, delay: 200 });
 		}
-	}, [steps]);
+	}, [status]);
 
 	return (
 		<div style={style} className='text'>
@@ -20,34 +27,59 @@ const Text = ({ steps }) => {
 };
 
 const Mouse = memo(() => {
-	const [payLoadContext, setContext] = useContext(PayLoaderContext);
-	const { steps } = payLoadContext;
+	const [context] = useContext(Context);
+	const page = context[ACTION.page];
+	const { index, onend } = page;
+
+	const payLoad = context[ACTION.payLoad];
+	const { status } = payLoad;
 	const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
 	useEffect(() => {
-		if (steps === PayLoaderSteps.contextLoaded) {
-			setStyle(
-				{ opacity: 1, y: 0 },
-				{
-					duration: 1000,
-					onComplete: () => {
-						setContext((S) => ({ ...S, steps: PayLoaderSteps.iconDidFadeIn }));
-					},
-				},
-			);
+		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
+			if (onend) setStyle({ opacity: 1, y: 0 });
+		} else setStyle({ opacity: 0, y: 50 });
+	}, [index, onend]);
+
+	useEffect(() => {
+		if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
+			setStyle({ opacity: 1, y: 0 });
 		}
-	}, [steps]);
+	}, [status]);
 
 	return (
-		<div className='Mouse'>
-			<div style={style} className='gradient'>
-				{[...new Array(2).keys()].map((e) => (
-					<div className='shadow' key={e} />
-				))}
-				<div className='icon' />
+		<div className='absolute left-0 bottom-0 flex h-[200px] w-full justify-center'>
+			<div className='Mouse'>
+				<div style={style} className='gradient'>
+					{[...new Array(2).keys()].map((e) => (
+						<div className='shadow' key={e} />
+					))}
+					<div className='icon' />
+				</div>
+				<Text status={status} index={index} onend={onend} />
 			</div>
-			<Text steps={steps} />
 		</div>
 	);
 });
 export default Mouse;
+
+// const [context] = useContext(Context);
+// const page = context[ACTION.page];
+// const { index, onend } = page;
+
+// const [tweenStyle, setTweenStyle] = useState(false);
+// const [idx, setIndex] = useState(false);
+// const [didFadeIn, setDidFadeIn] = useState(false);
+
+// const property = useMemo(() => {
+// 	const sn = index - 1;
+// 	const data = AuthorInformation[sn < 0 ? 0 : sn];
+// 	if (didFadeIn) setIndex(data.index - 1);
+// 	return data;
+// }, [index, didFadeIn]);
+
+// useEffect(() => {
+// 	if (index !== PAGE_CONTEXT_NAME.intro || index !== PAGE_CONTEXT_NAME.detailVideo) {
+// 		if (onend) setTweenStyle({ opacity: 1 });
+// 	} else setTweenStyle({ opacity: 0 });
+// }, [index, onend]);

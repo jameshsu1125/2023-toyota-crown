@@ -3,10 +3,15 @@
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect } from 'react';
 import { Context } from '../../../settings/config';
-import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../../settings/constant';
+import {
+	ACTION,
+	PAGE_CONTEXT_NAME,
+	PAYLOAD_STATE,
+	PAYLOAD_STATUS,
+} from '../../../settings/constant';
 import { PayLoaderContext, PayLoaderSteps } from '../setting';
 import './index.less';
-import Mouse from '../../../components/mouseWheelIcon';
+import Mouse from './mouse';
 
 const Bar = memo(() => {
 	const [context, setContext] = useContext(Context);
@@ -18,7 +23,9 @@ const Bar = memo(() => {
 
 	useEffect(() => {
 		if (loaded !== 0 && total !== 0) {
-			const width = `${Math.floor(((loaded + video) / (total + 1)) * 100)}%`;
+			const width = `${Math.floor(
+				((loaded + video) / (total + Object.keys(PAGE_CONTEXT_NAME).length)) * 100,
+			)}%`;
 			const duration = 300;
 			const easing = Bezier.linear;
 			const onComplete =

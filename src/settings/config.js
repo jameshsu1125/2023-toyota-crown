@@ -183,7 +183,18 @@ export const AuthorInformation = [
 export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 50 };
 
 export const VideoConfig = {
-	urls: [video0, video1, video2, video3, video4, video5, video6, video7, video8, video9],
+	targets: [
+		{ url: video0, name: PAGE_CONTEXT_NAME.intro },
+		{ url: video1, name: PAGE_CONTEXT_NAME.content_0 },
+		{ url: video2, name: PAGE_CONTEXT_NAME.content_1 },
+		{ url: video3, name: PAGE_CONTEXT_NAME.content_2 },
+		{ url: video4, name: PAGE_CONTEXT_NAME.content_3 },
+		{ url: video5, name: PAGE_CONTEXT_NAME.content_4 },
+		{ url: video6, name: PAGE_CONTEXT_NAME.content_5 },
+		{ url: video7, name: PAGE_CONTEXT_NAME.content_6 },
+		{ url: video8, name: PAGE_CONTEXT_NAME.content_7 },
+		{ url: video9, name: PAGE_CONTEXT_NAME.detailVideo },
+	],
 	transitionDuration: 1000,
 	offset: {
 		// x: 240,

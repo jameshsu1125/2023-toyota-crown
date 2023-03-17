@@ -1,7 +1,7 @@
-import { TweenProvider } from 'lesca-use-tween';
+import { TweenProviderMemo } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { AuthorInformation, Context } from '../../settings/config';
-import { ACTION, PAYLOAD_STATUS } from '../../settings/constant';
+import { ACTION } from '../../settings/constant';
 import './index.less';
 
 const VoiceOver = memo(() => {
@@ -18,7 +18,7 @@ const VoiceOver = memo(() => {
 	}, [status]);
 
 	return (
-		<TweenProvider
+		<TweenProviderMemo
 			defaultStyle={{ opacity: 0, y: 50 }}
 			tweenStyle={tweenStyle}
 			options={{ delay: 2000 }}
@@ -28,7 +28,7 @@ const VoiceOver = memo(() => {
 					<div key={e}>{e}</div>
 				))}
 			</div>
-		</TweenProvider>
+		</TweenProviderMemo>
 	);
 });
 export default VoiceOver;

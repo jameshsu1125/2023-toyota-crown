@@ -19,9 +19,11 @@ export const PAGE_CONTEXT_NAME = {
 export const DIRECTION_STATE = { unset: 0, next: 1, prev: 2 };
 
 export const PAGE_STATE = {
-	index: PAGE_CONTEXT_NAME.content_0,
+	index: PAGE_CONTEXT_NAME.intro,
 	direction: DIRECTION_STATE.unset,
+	stopForward: false,
 	enabled: false,
+	onend: false,
 };
 
 export const PAYLOAD_STATUS = {

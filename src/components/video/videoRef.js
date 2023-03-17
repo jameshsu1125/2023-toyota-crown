@@ -28,6 +28,10 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 		pause() {
 			videoRef.current.pause();
 		},
+		replay() {
+			videoRef.current.currentTime = 0;
+			videoRef.current.play();
+		},
 		play() {
 			if (videoRef.current.currentTime !== videoRef.current.duration) videoRef.current.play();
 		},
@@ -42,11 +46,20 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 		getTime() {
 			return videoRef.current.currentTime;
 		},
+		getTotal() {
+			return videoRef.current.duration;
+		},
 		show() {
 			videoRef.current.style.display = 'block';
 		},
 		hide() {
 			videoRef.current.style.display = 'none';
+		},
+		isPlaying() {
+			return videoRef.current.style.display === 'block';
+		},
+		getURL() {
+			return url;
 		},
 	}));
 

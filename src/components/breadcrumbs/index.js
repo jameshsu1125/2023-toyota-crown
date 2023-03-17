@@ -1,36 +1,40 @@
-import { TweenProvider } from 'lesca-use-tween';
+import { TweenProviderMemo } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { AuthorInformation, Context } from '../../settings/config';
-import { ACTION, PAYLOAD_STATUS } from '../../settings/constant';
+import { ACTION, PAGE_CONTEXT_NAME } from '../../settings/constant';
 import './index.less';
 
 const Breadcrumbs = memo(() => {
 	const [context] = useContext(Context);
-	const { index } = context[ACTION.page];
-	const { status } = context[ACTION.payLoad];
+	const page = context[ACTION.page];
+	const { index, onend } = page;
 
 	const [tweenStyle, setTweenStyle] = useState(false);
 	const [idx, setIndex] = useState(false);
 	const [didFadeIn, setDidFadeIn] = useState(false);
 
 	const property = useMemo(() => {
-		const data = AuthorInformation[index];
-		if (didFadeIn) setIndex(data.index);
+		const sn = index - 1;
+		const data = AuthorInformation[sn < 0 ? 0 : sn];
+		if (didFadeIn) setIndex(data.index - 1);
 		return data;
 	}, [index, didFadeIn]);
 
 	useEffect(() => {
-		// if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
-		// 	setTweenStyle({ opacity: 1 });
-		// }
-	}, [status]);
+		if (index !== PAGE_CONTEXT_NAME.intro || index !== PAGE_CONTEXT_NAME.detailVideo) {
+			if (onend) setTweenStyle({ opacity: 1 });
+		} else setTweenStyle({ opacity: 0 });
+	}, [index, onend]);
 
 	return (
-		<TweenProvider
+		<TweenProviderMemo
 			defaultStyle={{ opacity: 0 }}
 			tweenStyle={tweenStyle}
 			options={{
-				delay: 1000,
+				delay: 500,
+				onStart: () => {
+					setDidFadeIn(false);
+				},
 				onComplete: () => {
 					setDidFadeIn(true);
 				},
@@ -44,7 +48,7 @@ const Breadcrumbs = memo(() => {
 					))}
 				</div>
 			</div>
-		</TweenProvider>
+		</TweenProviderMemo>
 	);
 });
 export default Breadcrumbs;

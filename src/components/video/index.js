@@ -1,23 +1,32 @@
 import { CoverSize } from 'lesca-number';
-import { TweenProvider } from 'lesca-use-tween';
-import { memo, useEffect, useRef, useState } from 'react';
-import { VideoConfig } from '../../settings/config';
-import { PAGE_CONTEXT_NAME } from '../../settings/constant';
+import { TweenProviderMemo } from 'lesca-use-tween';
+import { memo, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { Context, VideoConfig } from '../../settings/config';
+import { ACTION, DIRECTION_STATE, PAGE_CONTEXT_NAME } from '../../settings/constant';
+import DarkScreen from './darkScreen';
 import './index.less';
 import VideoRef from './videoRef';
 
-const Video = memo(({ onLoaded, fadeIn = false, onEnded }) => {
-	const [url, setUrl] = useState([VideoConfig.urls[0]]);
-	const ref = useRef([]);
+const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
+	const [context] = useContext(Context);
+	const { stopForward, index, direction } = context[ACTION.page];
+
+	const [targets, setTarget] = useState([VideoConfig.targets[0]]);
+	const videoRef = useRef([]);
+	const darkScreenRef = useRef();
+
+	useEffect(() => {
+		if (fadeIn) videoRef.current[PAGE_CONTEXT_NAME.intro].play();
+	}, [fadeIn]);
 
 	const onload = () => {
-		if (url.length === VideoConfig.urls.length) {
-			ref.current[PAGE_CONTEXT_NAME.intro].show();
-			onLoaded();
+		onLoaded(targets[targets.length - 1]);
+		if (targets.length === VideoConfig.targets.length) {
+			videoRef.current[PAGE_CONTEXT_NAME.intro].show();
 		} else {
-			setUrl((S) => {
+			setTarget((S) => {
 				const { length } = S;
-				const u = VideoConfig.urls[length];
+				const u = VideoConfig.targets[length];
 				if (u) return [...S, u];
 				return S;
 			});
@@ -31,15 +40,38 @@ const Video = memo(({ onLoaded, fadeIn = false, onEnded }) => {
 				{ width: 1920, height: 1080 },
 				{ width: window.innerWidth, height: window.innerHeight },
 			);
-			ref.current.forEach((e) => e.setSize(size));
+			videoRef.current.forEach((e) => e.setSize(size));
 		};
 		resize();
 		window.addEventListener('resize', resize);
 		return () => window.removeEventListener('resize', resize);
 	}, []);
 
+	useEffect(() => {
+		if (stopForward) {
+			let idx = index;
+			if (direction === DIRECTION_STATE.next) idx -= 1;
+			else idx += 1;
+
+			videoRef.current[idx].play();
+			darkScreenRef.current.play();
+		}
+	}, [stopForward]);
+
+	const onend = useCallback(() => {
+		onEnded?.();
+
+		let idx = index;
+		if (direction === DIRECTION_STATE.next) idx -= 1;
+		else idx += 1;
+
+		videoRef.current[idx].hide();
+		videoRef.current[index].show();
+		videoRef.current[index].replay();
+	}, [index]);
+
 	return (
-		<TweenProvider
+		<TweenProviderMemo
 			defaultStyle={{ ...VideoConfig.offset, opacity: 0 }}
 			tweenStyle={{
 				...Object.fromEntries(
@@ -49,26 +81,24 @@ const Video = memo(({ onLoaded, fadeIn = false, onEnded }) => {
 			}}
 			options={{
 				duration: VideoConfig.fadeInDuration,
-				onStart: () => {
-					ref.current[PAGE_CONTEXT_NAME.intro].play();
-				},
 			}}
 			active={fadeIn}
 		>
 			<div className='Video'>
-				{url.map((e, index) => (
+				{targets.map((e, i) => (
 					<VideoRef
 						ref={(target) => {
-							ref.current[index] = target;
+							videoRef.current[i] = target;
 						}}
-						key={e}
-						url={e}
+						key={e.url}
+						url={e.url}
 						onload={onload}
-						onEnded={onEnded}
+						onEnded={onend}
 					/>
 				))}
+				<DarkScreen ref={darkScreenRef} videoRef={videoRef} onStop={onStop} />
 			</div>
-		</TweenProvider>
+		</TweenProviderMemo>
 	);
 });
 export default Video;

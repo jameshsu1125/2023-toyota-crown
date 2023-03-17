@@ -35,16 +35,20 @@ const PayLoaderContainer = memo(({ children }) => {
 
 	const onTouchStart = useCallback(
 		(e) => {
-			touchRef.current = e.targetTouches[0].clientY;
+			if (steps === PayLoaderSteps.iconDidFadeIn) {
+				touchRef.current = e.targetTouches[0].clientY;
+			}
 		},
 		[steps],
 	);
 
 	const onTouchMove = useCallback(
 		(e) => {
-			const deltaY = touchRef.current - e.targetTouches[0].clientY;
-			launcher(deltaY * 1.5);
-			touchRef.current = e.targetTouches[0].clientY;
+			if (steps === PayLoaderSteps.iconDidFadeIn) {
+				const deltaY = touchRef.current - e.targetTouches[0].clientY;
+				launcher(deltaY * 1.5);
+				touchRef.current = e.targetTouches[0].clientY;
+			}
 		},
 		[steps],
 	);

@@ -1,7 +1,8 @@
 import ImagePreloader from 'lesca-image-onload';
-import { TweenProvider } from 'lesca-use-tween';
+import { TweenProviderMemo } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import BackgroundGrid from '../../components/backgroundGrid';
+import Mouse from '../../components/mouseWheelIcon';
 import { Context, VideoConfig } from '../../settings/config';
 import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../settings/constant';
 import CarOutline from './carOutline';
@@ -37,7 +38,7 @@ const PayLoader = memo(() => {
 	}, [state.steps]);
 
 	return (
-		<TweenProvider
+		<TweenProviderMemo
 			defaultStyle={{ opacity: 1 }}
 			tweenStyle={tweenStyle}
 			options={{ duration: VideoConfig.fadeInDuration }}
@@ -50,11 +51,12 @@ const PayLoader = memo(() => {
 						<Logo />
 						<LogoType />
 						<ProcessBar />
+						<Mouse />
 						<ForegroundGradient />
 					</PayLoaderContainer>
 				</PayLoaderContext.Provider>
 			</div>
-		</TweenProvider>
+		</TweenProviderMemo>
 	);
 });
 export default PayLoader;
