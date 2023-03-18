@@ -2,6 +2,19 @@
 	transform-origin: 0 0;
 	@apply relative;
 
+	.fadeOut {
+		animation: FadeOut 1s ease-out forwards;
+	}
+
+	@keyframes FadeOut {
+		0% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
+	}
+
 	.caption {
 		mask-repeat: no-repeat;
 		mask-position: center;
@@ -14,7 +27,7 @@
 			height: 100%;
 			background: linear-gradient(
 				90deg,
-				rgba(126, 77, 61, 1) 25%,
+				rgba(126, 77, 61, 1) 30%,
 				rgba(206, 178, 154, 1) 50%,
 				rgba(126, 77, 61, 1) 75%
 			);

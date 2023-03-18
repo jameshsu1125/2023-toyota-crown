@@ -20,7 +20,7 @@ const WheelEventProvider = memo(({ children }) => {
 	const [active, launcher, direction] = useWheelHeavy(true);
 
 	useEffect(() => {
-		// console.log(page);
+		// console.table(page);
 	}, [page]);
 
 	useEffect(() => {

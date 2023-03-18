@@ -1,25 +1,29 @@
-import { memo, useContext, useEffect, useState } from 'react';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect } from 'react';
 import { Context } from '../../settings/config';
-import { ACTION, PAYLOAD_STATUS } from '../../settings/constant';
+import { ACTION, PAGE_CONTEXT_NAME } from '../../settings/constant';
 import CaptionSVG from './caption';
 import './index.less';
 
 const Caption = memo(() => {
 	const [context] = useContext(Context);
-	const { status } = context[ACTION.payLoad];
+	const page = context[ACTION.page];
+	const { index, onend } = page;
 
-	const [active, setActive] = useState(false);
+	const [style, setStyle] = useTween({ opacity: 0 });
 
 	useEffect(() => {
-		// if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
-		// 	setActive(true);
-		// }
-	}, [status]);
+		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
+			setStyle({ opacity: 0 });
+		} else {
+			setStyle({ opacity: 1 });
+		}
+	}, [index, onend]);
 
 	useEffect(() => {}, []);
 	return (
-		<div className='Caption w-full scale-90'>
-			<CaptionSVG active={active} />
+		<div style={style} className='Caption w-full scale-90'>
+			<CaptionSVG active />
 		</div>
 	);
 });

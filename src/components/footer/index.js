@@ -14,9 +14,9 @@ const Footer = memo(() => {
 	const [style, setStyle] = useTween({ opacity: 0, y: 300 });
 
 	useEffect(() => {
-		if (index !== PAGE_CONTEXT_NAME.intro || index !== PAGE_CONTEXT_NAME.detailVideo) {
-			if (onend) setStyle({ opacity: 1, y: 0 }, { duration: 1200, delay: 1000 });
-		} else setStyle({ opacity: 0, y: 300 });
+		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
+			setStyle({ opacity: 0, y: 300 });
+		} else if (onend) setStyle({ opacity: 1, y: 0 }, { duration: 1200, delay: 1000 });
 	}, [index, onend]);
 
 	return (

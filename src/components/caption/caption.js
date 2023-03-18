@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { memo, useContext, useMemo, useState } from 'react';
+import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { AuthorInformation, CaptionConfig, Context } from '../../settings/config';
 import { ACTION } from '../../settings/constant';
 import './index.less';
@@ -24,7 +24,12 @@ const GradientCaption = ({ author, show = false }) => {
 const CaptionSVG = memo(({ active = false }) => {
 	const [context] = useContext(Context);
 	const { index } = context[ACTION.page];
+
 	const [show, setShow] = useState(false);
+
+	useEffect(() => {
+		setShow(false);
+	}, [index]);
 
 	const Paths = useMemo(() => {
 		const property = AuthorInformation[index];

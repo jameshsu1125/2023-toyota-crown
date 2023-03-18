@@ -83,6 +83,10 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 		if (status === PAYLOAD_STATUS.logoDidFadeIn) {
 			EnterFrame.play();
 		}
+		// TODO remove it before publish
+		if (window.location.hash === '#introVideoDidPlayed') {
+			EnterFrame.play();
+		}
 	}, [status]);
 
 	useImperativeHandle(ref, () => ({

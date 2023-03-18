@@ -64,8 +64,11 @@ const Container = memo(({ children }) => {
 				type: ACTION.payLoad,
 				state: { ...payLoad, status: PAYLOAD_STATUS.introVideoDidPlayed },
 			});
+			setContext({
+				type: ACTION.page,
+				state: { ...page, enabled: true },
+			});
 		} else {
-			console.log(page);
 			setContext({
 				type: ACTION.page,
 				state: { ...page, enabled: true },
