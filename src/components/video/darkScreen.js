@@ -39,7 +39,7 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 						if (time < transitionDuration * 0.001) {
 							const property = {
 								percent: time / max,
-								easingFunction: Bezier.easeOutQuart,
+								easingFunction: Bezier.easeInQuart,
 							};
 							const easing = BezierEasing(
 								property.easingFunction[0],
@@ -81,10 +81,6 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 
 	useEffect(() => {
 		if (status === VideoConfig.fadeInTiming) {
-			EnterFrame.play();
-		}
-		// TODO remove it before publish
-		if (window.location.hash === '#introVideoDidPlayed') {
 			EnterFrame.play();
 		}
 	}, [status]);

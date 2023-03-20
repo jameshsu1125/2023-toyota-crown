@@ -54,7 +54,6 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 			let idx = index;
 			if (direction === DIRECTION_STATE.next) idx -= 1;
 			else idx += 1;
-
 			videoRef.current[idx].play();
 			darkScreenRef.current.play();
 		}

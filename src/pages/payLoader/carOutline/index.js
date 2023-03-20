@@ -28,7 +28,7 @@ const CarOutline = memo(() => {
 	useEffect(() => {
 		if (steps === PayLoaderSteps.logoDidFadeIn) {
 			setStyle(
-				{ opacity: 0.5 },
+				{ opacity: 0.4 },
 				{
 					duration: 2000,
 					easing: Bezier.easeOutSine,

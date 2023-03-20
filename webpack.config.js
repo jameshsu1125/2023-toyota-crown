@@ -12,7 +12,7 @@ module.exports = () => {
 	const setting = {
 		mode: NODE_ENV || 'development',
 		target: NODE_ENV !== 'production' ? 'web' : 'browserslist',
-		entry: { index: './src/pages/index.js', video: './src/pages/video.js' },
+		entry: { index: './src/pages/index.js' },
 		module: {
 			rules: [
 				{ test: /\.jsx?$/, exclude: /node_modules/, use: [{ loader: 'babel-loader' }] },

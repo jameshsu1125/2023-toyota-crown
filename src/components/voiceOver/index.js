@@ -31,6 +31,8 @@ const EachVO = ({ children, index, didFadeIn }) => {
 					},
 				},
 			);
+		} else if (index < voIndex) {
+			setStyle({ opacity: 1 });
 		}
 	}, [voIndex, index]);
 

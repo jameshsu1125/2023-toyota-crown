@@ -38,8 +38,7 @@ export const PAYLOAD_STATUS = {
 };
 
 export const PAYLOAD_STATE = {
-	status:
-		PAYLOAD_STATUS[window.location.hash.split('#').join('') || 'preset'] || PAYLOAD_STATUS.preset,
+	status: PAYLOAD_STATUS.preset,
 	total: 0,
 	loaded: 0,
 	video: 0,

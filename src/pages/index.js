@@ -1,4 +1,5 @@
 import Click from 'lesca-click';
+import Landscape from 'lesca-react-landscape';
 import { memo, useContext, useEffect, useMemo, useReducer } from 'react';
 import { createRoot } from 'react-dom/client';
 import Audio from '../components/audio';
@@ -55,6 +56,7 @@ const App = () => {
 			<Context.Provider {...{ value }}>
 				<Pages />
 			</Context.Provider>
+			<Landscape style={{ zIndex: 99 }} />
 		</div>
 	);
 };

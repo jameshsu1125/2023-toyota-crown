@@ -1,5 +1,4 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
-import { VideoConfig } from '../../settings/config';
 
 const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 	const videoRef = useRef(undefined);
@@ -37,13 +36,6 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 		},
 		play() {
 			if (videoRef.current.currentTime !== videoRef.current.duration) videoRef.current.play();
-
-			// TODO remove it before publish
-			if (url === VideoConfig.targets[0].url && window.location.hash === '#introVideoDidPlayed') {
-				setTimeout(() => {
-					videoRef.current.play();
-				}, 200);
-			}
 		},
 		playPause() {
 			if (videoRef.current.paused) {
