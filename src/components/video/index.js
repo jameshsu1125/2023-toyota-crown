@@ -42,10 +42,12 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 			);
 			videoRef.current.forEach((e) => e.setSize(size));
 		};
-		resize();
-		window.addEventListener('resize', resize);
+		if (targets.length === VideoConfig.targets.length) {
+			resize();
+			window.addEventListener('resize', resize);
+		}
 		return () => window.removeEventListener('resize', resize);
-	}, []);
+	}, [targets]);
 
 	useEffect(() => {
 		if (stopForward) {
