@@ -81,7 +81,6 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 			autoPlay
 			preload='auto'
 			style={{ display: 'none' }}
-			controls
 			onLoadedData={(event) => {
 				event.target.pause();
 				event.target.setAttribute('autoplay', false);
@@ -91,7 +90,6 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 				onEnded?.({ event, url });
 			}}
 		>
-			<track kind='captions' />
 			<source src={url} type='video/mp4' />
 		</video>
 	);
