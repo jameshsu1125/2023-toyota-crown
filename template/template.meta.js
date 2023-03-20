@@ -1,5 +1,5 @@
 module.exports = {
-	title: '',
+	title: 'toyoda-crown',
 	description: '',
 	url: 'https://jameshsu1125.github.io/',
 };

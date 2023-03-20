@@ -28,7 +28,7 @@ const Author = memo(() => {
 	return (
 		<div
 			style={style}
-			className='Author flex flex-col items-start justify-start space-y-4 px-10 md:flex-row md:space-y-0 md:space-x-6 md:px-5'
+			className='Author flex flex-col items-start justify-start space-y-3 px-10 md:flex-row md:space-y-0 md:space-x-6 md:px-5'
 		>
 			<Avatar data={authorData} page={page} />
 			<div className='flex w-auto flex-col items-start justify-center'>

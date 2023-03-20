@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { DIRECTION_STATE } from '../settings/constant';
 
 const HOW_MUSH_HEAVY = 100;
-const HOW_LONG_RESET = 100;
+const HOW_LONG_RESET = 500;
 
 const useWheelHeavy = (reset = false) => {
 	const [state, setState] = useState();
