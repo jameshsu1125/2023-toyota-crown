@@ -8,7 +8,11 @@ import TranslatePath from './translatePath';
 
 const GradientCaption = ({ author, show = false }) => {
 	const className = useMemo(() => {
-		const classes = ['h-full w-full caption', `caption${author}`];
+		const idx = author - 1;
+		const classes = [
+			'h-full w-full caption',
+			`caption${idx < 0 || idx >= AuthorInformation.length ? 0 : idx}`,
+		];
 		if (show) classes.push('block');
 		else classes.push('hidden');
 		return classes.join(' ');
@@ -26,24 +30,24 @@ const CaptionSVG = memo(({ active = false }) => {
 	const { index } = context[ACTION.page];
 
 	const [show, setShow] = useState(false);
-
-	useEffect(() => {
-		setShow(false);
-	}, [index]);
+	useEffect(() => setShow(false), [index]);
 
 	const Paths = useMemo(() => {
-		const property = AuthorInformation[index];
+		const idx = index - 1;
+		if (idx < 0 || idx >= AuthorInformation.length) return '';
+
+		const property = AuthorInformation[idx];
 
 		const onComplete = () => {
 			setShow(true);
 		};
 
-		return property.captions.map((e, idx) => (
+		return property?.captions.map((e, i) => (
 			<TranslatePath
-				key={JSON.stringify(e) + idx}
-				delay={CaptionConfig.eachCharacterDelay * idx}
+				key={JSON.stringify(e) + i}
+				delay={CaptionConfig.eachCharacterDelay * i}
 				active={active}
-				onComplete={idx === property.captions.length - 1 ? onComplete : () => {}}
+				onComplete={i === property.captions.length - 1 ? onComplete : () => {}}
 			>
 				{e}
 			</TranslatePath>

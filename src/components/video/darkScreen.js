@@ -3,7 +3,7 @@ import EnterFrame from 'lesca-enterframe';
 import { Bezier } from 'lesca-use-tween';
 import { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from 'react';
 import { Context, VideoConfig } from '../../settings/config';
-import { ACTION, PAYLOAD_STATUS } from '../../settings/constant';
+import { ACTION } from '../../settings/constant';
 
 const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 	const [context] = useContext(Context);
@@ -80,7 +80,7 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 	}, []);
 
 	useEffect(() => {
-		if (status === PAYLOAD_STATUS.logoDidFadeIn) {
+		if (status === VideoConfig.fadeInTiming) {
 			EnterFrame.play();
 		}
 		// TODO remove it before publish

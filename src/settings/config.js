@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { CaptionsPaths } from './captionsPath';
-import { ACTION, PAGE_CONTEXT_NAME, PAGE_STATE, PAYLOAD_STATE } from './constant';
+import { ACTION, PAGE_CONTEXT_NAME, PAGE_STATE, PAYLOAD_STATE, PAYLOAD_STATUS } from './constant';
 import video0 from './video/0.mp4';
 import video1 from './video/1.mp4';
 import video2 from './video/2.mp4';
@@ -11,8 +11,17 @@ import video6 from './video/6.mp4';
 import video7 from './video/7.mp4';
 import video8 from './video/8.mp4';
 import video9 from './video/9.mp4';
+import audio1 from './audio/1.mp3';
+import audio2 from './audio/2.mp3';
+import audio3 from './audio/3.mp3';
+import audio4 from './audio/4.mp3';
+import audio5 from './audio/5.mp3';
+import audio6 from './audio/6.mp3';
+import audio7 from './audio/7.mp3';
+import audio8 from './audio/8.mp3';
 
 export const BreakPoint = 768;
+export const BreakPointHeight = 900;
 export const BreakPointHeightMobile = 1138;
 export const BreakPointHeightDesktop = 1200;
 
@@ -104,7 +113,6 @@ export const AuthorInformation = [
 			'並非是SUV也不是房車，',
 			'而是把兩者的優點在更高境界上進行融合，',
 			'我想這應該是這次最大的賣點。',
-			' ',
 		],
 	},
 	{
@@ -184,6 +192,8 @@ export const AuthorInformation = [
 export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 50 };
 
 export const VideoConfig = {
+	fadeInDuration: 4000, // 從loading到intro的淡入時間
+	fadeInTiming: PAYLOAD_STATUS.logoDidFadeIn,
 	targets: [
 		{ url: video0, name: PAGE_CONTEXT_NAME.intro },
 		{ url: video1, name: PAGE_CONTEXT_NAME.content_0 },
@@ -196,11 +206,97 @@ export const VideoConfig = {
 		{ url: video8, name: PAGE_CONTEXT_NAME.content_7 },
 		{ url: video9, name: PAGE_CONTEXT_NAME.detailVideo },
 	],
-	transitionDuration: 1000,
+	transitionDuration: 1000, // 每隻影片的淡入淡出
 	offset: {
 		// x: 240,
 		// y: 0,
 		// scale: 1.3,
 	},
-	fadeInDuration: 5000,
 };
+
+export const AudioConfig = {
+	targets: [
+		{
+			url: audio1,
+			name: PAGE_CONTEXT_NAME.content_0,
+			pos: [
+				{ time: 0.13, index: 0 },
+				{ time: 3.56, index: 1 },
+				{ time: 9.36, index: 2 },
+				{ time: 12.97, index: 3 },
+			],
+		},
+		{
+			url: audio2,
+			name: PAGE_CONTEXT_NAME.content_1,
+			pos: [
+				{ time: 0.06, index: 0 },
+				{ time: 3.3, index: 1 },
+				{ time: 9.73, index: 2 },
+			],
+		},
+		{
+			url: audio3,
+			name: PAGE_CONTEXT_NAME.content_2,
+			pos: [
+				{ time: 0.3, index: 0 },
+				{ time: 2.96, index: 1 },
+				{ time: 6.9, index: 2 },
+				{ time: 11.66, index: 3 },
+			],
+		},
+		{
+			url: audio4,
+			name: PAGE_CONTEXT_NAME.content_3,
+			pos: [
+				{ time: 0.1, index: 0 },
+				{ time: 1.63, index: 1 },
+				{ time: 5.86, index: 2 },
+				{ time: 11.4, index: 3 },
+			],
+		},
+		{
+			url: audio5,
+			name: PAGE_CONTEXT_NAME.content_4,
+			pos: [
+				{ time: 0.1, index: 0 },
+				{ time: 1.77, index: 1 },
+				{ time: 7.46, index: 2 },
+				{ time: 12.33, index: 3 },
+			],
+		},
+		{
+			url: audio6,
+			name: PAGE_CONTEXT_NAME.content_5,
+			pos: [
+				{ time: 0.16, index: 0 },
+				{ time: 2.83, index: 1 },
+				{ time: 5.46, index: 2 },
+				{ time: 9.33, index: 3 },
+			],
+		},
+		{
+			url: audio7,
+			name: PAGE_CONTEXT_NAME.content_6,
+			pos: [
+				{ time: 0.16, index: 0 },
+				{ time: 0.86, index: 1 },
+				{ time: 5.63, index: 2 },
+				{ time: 10.6, index: 3 },
+			],
+		},
+		{
+			url: audio8,
+			name: PAGE_CONTEXT_NAME.content_7,
+			pos: [
+				{ time: 0.1, index: 0 },
+				{ time: 1.93, index: 1 },
+				{ time: 6.13, index: 2 },
+				{ time: 9.7, index: 3 },
+			],
+		},
+	],
+	delay: 0,
+};
+
+export const AutoPlay = false;

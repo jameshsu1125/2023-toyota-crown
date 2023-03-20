@@ -2,7 +2,7 @@
 /* eslint-disable indent */
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect } from 'react';
-import { Context } from '../../../settings/config';
+import { AudioConfig, Context } from '../../../settings/config';
 import {
 	ACTION,
 	PAGE_CONTEXT_NAME,
@@ -17,15 +17,18 @@ const Bar = memo(() => {
 	const [context, setContext] = useContext(Context);
 	const [, setPayLoadContext] = useContext(PayLoaderContext);
 	const payLoad = context[ACTION.payLoad];
-	const { loaded, total, video } = payLoad;
+	const { loaded, total, video, audio } = payLoad;
 
 	const [style, setStyle] = useTween({ width: '0%', opacity: 1 });
 
 	useEffect(() => {
 		if (loaded !== 0 && total !== 0) {
 			const width = `${Math.floor(
-				((loaded + video) / (total + Object.keys(PAGE_CONTEXT_NAME).length)) * 100,
+				((loaded + video + audio) /
+					(total + Object.keys(PAGE_CONTEXT_NAME).length + AudioConfig.targets.length)) *
+					100,
 			)}%`;
+
 			const duration = 300;
 			const easing = Bezier.linear;
 			const onComplete =
@@ -41,7 +44,7 @@ const Bar = memo(() => {
 
 			setStyle({ width }, { duration, easing, onComplete });
 		}
-	}, [loaded, total, video]);
+	}, [loaded, total, video, audio]);
 	return <div style={style} className='bar' />;
 });
 
@@ -53,10 +56,7 @@ const Text = ({ steps }) => {
 		}
 	}, [steps]);
 	return (
-		<div
-			style={style}
-			className='text flex flex-col font-sourceSansPro capitalize tracking-wide text-white'
-		>
+		<div style={style} className='text'>
 			<div className='text-lg'>loading</div>
 			<div className='text-sm'>請開啟音效體驗最佳瀏覽效果</div>
 		</div>

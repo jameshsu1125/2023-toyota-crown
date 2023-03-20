@@ -1,6 +1,7 @@
 @import url('../../settings/config.less');
 
 .Footer {
+	height: 200px;
 	background-image: url('../img/background.svg');
 	background-position: calc(~'50% + 100px') calc(~'50% + 217px');
 	background-repeat: no-repeat;
@@ -28,13 +29,20 @@
 		.square {
 			width: 400px;
 
-			@apply flex h-5/6 items-center justify-start;
+			@apply flex h-5/6 items-start justify-start;
 		}
 	}
 }
 
 @media only screen and (max-width: @bp) {
 	.Footer {
+		height: 155px;
 		background-image: none;
+	}
+}
+
+@media only screen and (max-height: @bpH) {
+	.Footer {
+		height: 130px;
 	}
 }

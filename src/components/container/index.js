@@ -1,7 +1,12 @@
 import ImagePreloader from 'lesca-image-onload';
 import { memo, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { Context, VideoConfig } from '../../settings/config';
-import { ACTION, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
+import { AutoPlay, Context, VideoConfig } from '../../settings/config';
+import {
+	ACTION,
+	DIRECTION_STATE,
+	PAGE_CONTEXT_NAME,
+	PAYLOAD_STATUS,
+} from '../../settings/constant';
 import Footer from '../footer';
 import Header from '../header';
 import Mouse from '../mouseWheelIcon';
@@ -12,9 +17,8 @@ import WheelEventProvider from './wheelEventProvider';
 const Container = memo(({ children }) => {
 	const [context, setContext] = useContext(Context);
 	const payLoad = context[ACTION.payLoad];
-	const { status } = payLoad;
-
 	const page = context[ACTION.page];
+	const { status } = payLoad;
 
 	const ref = useRef();
 	const [fadeIn, setFadeIn] = useState(false);
@@ -42,7 +46,7 @@ const Container = memo(({ children }) => {
 	useEffect(() => {
 		if (status >= PAYLOAD_STATUS.onLoaded) {
 			ref.current.style.visibility = 'visible';
-			if (status >= PAYLOAD_STATUS.logoDidFadeIn) {
+			if (status === VideoConfig.fadeInTiming) {
 				setFadeIn(true);
 			}
 		}
@@ -54,7 +58,10 @@ const Container = memo(({ children }) => {
 	}, [payLoad]);
 
 	const onEnded = () => {
-		setContext({ type: ACTION.page, state: { ...page, onend: true, stopForward: false } });
+		setContext({
+			type: ACTION.page,
+			state: { ...page, onend: true, stopForward: false, voIndex: false },
+		});
 	};
 
 	const onStop = (playingTarget) => {
@@ -73,6 +80,22 @@ const Container = memo(({ children }) => {
 				type: ACTION.page,
 				state: { ...page, enabled: true },
 			});
+			if (AutoPlay) {
+				const { index } = page;
+				const idx = index + 1;
+				if (idx < 0 || idx > PAGE_CONTEXT_NAME.detailVideo) return;
+				setContext({
+					type: ACTION.page,
+					state: {
+						...page,
+						direction: DIRECTION_STATE.next,
+						index: idx,
+						enabled: false,
+						stopForward: true,
+						onend: false,
+					},
+				});
+			}
 		}
 	};
 

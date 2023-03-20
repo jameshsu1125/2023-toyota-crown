@@ -20,7 +20,7 @@ const Footer = memo(() => {
 	}, [index, onend]);
 
 	return (
-		<div style={style} className='Footer h-[155px] md:h-[200px]'>
+		<div style={style} className='Footer'>
 			<BackgroundGrid />
 			<div>
 				<div className='square'>

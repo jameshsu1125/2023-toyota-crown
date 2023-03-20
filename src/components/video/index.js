@@ -1,5 +1,5 @@
 import { CoverSize } from 'lesca-number';
-import { TweenProviderMemo } from 'lesca-use-tween';
+import { TweenProvider } from 'lesca-use-tween';
 import { memo, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Context, VideoConfig } from '../../settings/config';
 import { ACTION, DIRECTION_STATE, PAGE_CONTEXT_NAME } from '../../settings/constant';
@@ -71,7 +71,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 	}, [index]);
 
 	return (
-		<TweenProviderMemo
+		<TweenProvider
 			defaultStyle={{ ...VideoConfig.offset, opacity: 0 }}
 			tweenStyle={{
 				...Object.fromEntries(
@@ -98,7 +98,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 				))}
 				<DarkScreen ref={darkScreenRef} videoRef={videoRef} onStop={onStop} />
 			</div>
-		</TweenProviderMemo>
+		</TweenProvider>
 	);
 });
 export default Video;

@@ -24,6 +24,7 @@ export const PAGE_STATE = {
 	stopForward: false,
 	enabled: false,
 	onend: false,
+	voIndex: false,
 };
 
 export const PAYLOAD_STATUS = {
@@ -42,6 +43,7 @@ export const PAYLOAD_STATE = {
 	total: 0,
 	loaded: 0,
 	video: 0,
+	audio: 0,
 };
 
 export const TRANSITION = {

@@ -9,10 +9,7 @@ const TranslatePath = ({ children, active = false, delay = 0, onComplete = () =>
 
 	useEffect(() => {
 		if (active) {
-			setStyle(
-				{ py: 0, opacity: 1 },
-				{ delay: 1000 + delay, easing: Bezier.easeInOutQuart, onComplete },
-			);
+			setStyle({ py: 0, opacity: 1 }, { delay, easing: Bezier.easeInOutQuart, onComplete });
 		}
 	}, [active]);
 

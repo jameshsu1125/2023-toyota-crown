@@ -1,4 +1,4 @@
-import useTween, { Bezier, TweenProviderMemo } from 'lesca-use-tween';
+import useTween, { Bezier, TweenProvider } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import { BreakPoint, BreakPointHeightMobile } from '../../../settings/config';
 import AuthorIntroduction from '../authorsIntroduction';
@@ -23,27 +23,27 @@ const SubTitle = memo(() => {
 
 	return (
 		<div className='subtitle font-notoSans'>
-			<TweenProviderMemo
+			<TweenProvider
 				defaultStyle={{ opacity: 0, y: 40 }}
 				tweenStyle={tweenStyle}
 				options={{ delay: steps === PayLoaderSteps.loaded ? 1000 : 0, duration: 1000 }}
 			>
 				<span>CROWN 榮耀登場</span>
-			</TweenProviderMemo>
-			<TweenProviderMemo
+			</TweenProvider>
+			<TweenProvider
 				defaultStyle={{ opacity: 0, y: 40 }}
 				tweenStyle={tweenStyle}
 				options={{ delay: steps === PayLoaderSteps.loaded ? 1250 : 0, duration: 1000 }}
 			>
 				<span>以日本極致造車工藝、精益求精專注每處細節、每道工法</span>
-			</TweenProviderMemo>
-			<TweenProviderMemo
+			</TweenProvider>
+			<TweenProvider
 				defaultStyle={{ opacity: 0, y: 40 }}
 				tweenStyle={tweenStyle}
 				options={{ delay: steps === PayLoaderSteps.loaded ? 1500 : 0, duration: 1000 }}
 			>
 				<span>打造全新斜背跨界跑旅，邀您一起鑑賞</span>
-			</TweenProviderMemo>
+			</TweenProvider>
 		</div>
 	);
 });
@@ -53,7 +53,7 @@ const CrownLogo = ({ steps }) => {
 	useEffect(() => {
 		if (steps === PayLoaderSteps.userDidActive) {
 			const { innerWidth } = window;
-			const property = innerWidth >= BreakPoint ? { y: 100, scale: 0.6 } : { y: 200, scale: 0.45 };
+			const property = innerWidth >= BreakPoint ? { y: 0, scale: 0.6 } : { y: 100, scale: 0.45 };
 			setStyle(property, { easing: Bezier.easeInOutQuart, duration: 2000 });
 		}
 	}, [steps]);
@@ -96,7 +96,7 @@ const Logo = memo(() => {
 	}, []);
 
 	return (
-		<TweenProviderMemo
+		<TweenProvider
 			defaultStyle={{ y: 200 }}
 			tweenStyle={{ y: 0 }}
 			active={active}
@@ -109,7 +109,7 @@ const Logo = memo(() => {
 					<AuthorIntroduction />
 				</div>
 			</div>
-		</TweenProviderMemo>
+		</TweenProvider>
 	);
 });
 export default Logo;

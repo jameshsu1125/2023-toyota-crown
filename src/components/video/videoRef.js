@@ -1,4 +1,3 @@
-import UserAgent from 'lesca-user-agent';
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { VideoConfig } from '../../settings/config';
 
@@ -7,13 +6,12 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 
 	useImperativeHandle(ref, () => ({
 		setSize({ width, height }) {
-			if (videoRef.current.style.display === 'block') {
-				videoRef.current.width = width;
-				videoRef.current.height = height;
-				videoRef.current.style.width = `${width}px`;
-				if (UserAgent.get() === 'desktop') videoRef.current.style.height = 'auto';
-				else videoRef.current.style.height = 'inherit';
-			}
+			videoRef.current.width = width;
+			videoRef.current.height = height;
+			videoRef.current.style.width = `${width}px`;
+			videoRef.current.style.height = `${height}px`;
+			videoRef.current.style.maxWidth = `${width}px`;
+			videoRef.current.style.maxHeight = `${height}px`;
 		},
 		seek(time) {
 			videoRef.current.currentTime = time;

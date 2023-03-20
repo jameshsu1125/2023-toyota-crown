@@ -2,6 +2,7 @@ import Click from 'lesca-click';
 import { memo, useContext, useEffect, useMemo, useReducer } from 'react';
 import { createRoot } from 'react-dom/client';
 import Audio from '../components/audio';
+import AudioProvider from '../components/audioProvider';
 import Breadcrumbs from '../components/breadcrumbs';
 import Caption from '../components/caption';
 import Container from '../components/container';
@@ -30,13 +31,15 @@ const Pages = memo(() => {
 			{payLoaderState.status < PAYLOAD_STATUS.introVideoDidPlayed && <PayLoader />}
 			{payLoaderState.status >= PAYLOAD_STATUS.onPayLoaderFadeIn && (
 				<Container>
-					<Section>
-						<SectionVerticalAlign>
-							<Breadcrumbs />
-							<Caption />
-							<VoiceOver />
-						</SectionVerticalAlign>
-					</Section>
+					<AudioProvider>
+						<Section>
+							<SectionVerticalAlign>
+								<Breadcrumbs />
+								<Caption />
+								<VoiceOver />
+							</SectionVerticalAlign>
+						</Section>
+					</AudioProvider>
 				</Container>
 			)}
 			<Audio />

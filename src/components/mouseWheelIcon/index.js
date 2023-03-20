@@ -8,7 +8,7 @@ const Text = ({ status, index, onend }) => {
 	const [style, setStyle] = useTween({ opacity: 0, y: 30 });
 
 	useEffect(() => {
-		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
+		if (index === PAGE_CONTEXT_NAME.intro) {
 			if (onend) setStyle({ opacity: 1, y: -20 }, { duration: 1000, delay: 200 });
 		} else setStyle({ opacity: 0, y: 30 }, { duration: 1000, delay: 200 });
 	}, [index, onend]);
@@ -36,7 +36,7 @@ const Mouse = memo(() => {
 	const [style, setStyle] = useTween({ opacity: 0, y: 50 });
 
 	useEffect(() => {
-		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
+		if (index === PAGE_CONTEXT_NAME.intro) {
 			if (onend) setStyle({ opacity: 1, y: 0 });
 		} else setStyle({ opacity: 0, y: 50 });
 	}, [index, onend]);
@@ -62,24 +62,3 @@ const Mouse = memo(() => {
 	);
 });
 export default Mouse;
-
-// const [context] = useContext(Context);
-// const page = context[ACTION.page];
-// const { index, onend } = page;
-
-// const [tweenStyle, setTweenStyle] = useState(false);
-// const [idx, setIndex] = useState(false);
-// const [didFadeIn, setDidFadeIn] = useState(false);
-
-// const property = useMemo(() => {
-// 	const sn = index - 1;
-// 	const data = AuthorInformation[sn < 0 ? 0 : sn];
-// 	if (didFadeIn) setIndex(data.index - 1);
-// 	return data;
-// }, [index, didFadeIn]);
-
-// useEffect(() => {
-// 	if (index !== PAGE_CONTEXT_NAME.intro || index !== PAGE_CONTEXT_NAME.detailVideo) {
-// 		if (onend) setTweenStyle({ opacity: 1 });
-// 	} else setTweenStyle({ opacity: 0 });
-// }, [index, onend]);

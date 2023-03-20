@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import { memo, useCallback, useContext, useEffect, useRef } from 'react';
 import useWheelHeavy from '../../../hooks/useWheelHeavy';
 import { Context } from '../../../settings/config';
@@ -24,14 +25,11 @@ const PayLoaderContainer = memo(({ children }) => {
 		}
 	}, [active]);
 
-	const onWheel = useCallback(
-		(e) => {
-			if (steps === PayLoaderSteps.iconDidFadeIn) {
-				launcher(e.deltaY);
-			}
-		},
-		[steps],
-	);
+	const onWheel = useCallback(() => {
+		if (steps === PayLoaderSteps.iconDidFadeIn) {
+			// TODO => remove desktop wheel event launcher(e.deltaY);
+		}
+	}, [steps]);
 
 	const onTouchStart = useCallback(
 		(e) => {

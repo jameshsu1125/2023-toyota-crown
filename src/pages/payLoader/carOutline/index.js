@@ -7,8 +7,8 @@ import './index.less';
 
 const CarOutline = memo(() => {
 	const ref = useRef();
-	const [context] = useContext(PayLoaderContext);
-	const { steps } = context;
+	const [payLoaderContext] = useContext(PayLoaderContext);
+	const { steps } = payLoaderContext;
 	const [style, setStyle] = useTween({ ...VideoConfig.offset, opacity: 0 });
 	const [size, setSize] = useState({ width: 0, height: 0 });
 

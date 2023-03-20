@@ -1,25 +1,40 @@
-import { memo, useContext, useMemo } from 'react';
+import useTween from 'lesca-use-tween';
+import { memo, useContext, useEffect, useMemo } from 'react';
 import { AuthorInformation, Context } from '../../../settings/config';
-import { ACTION } from '../../../settings/constant';
+import { ACTION, PAGE_CONTEXT_NAME } from '../../../settings/constant';
+import Avatar from './avatar';
 import './index.less';
+import Name from './name';
+import Position from './position';
 
 const Author = memo(() => {
 	const [context] = useContext(Context);
-	const { index } = context[ACTION.page];
-	const authorData = useMemo(() => AuthorInformation[index], [index]);
+	const page = context[ACTION.page];
+	const { index, onend } = page;
+	const [style, setStyle] = useTween({ opacity: 0 });
+	const authorData = useMemo(() => {
+		const idx = index - 1;
+		return AuthorInformation[idx < 0 || idx >= AuthorInformation.length ? 0 : idx];
+	}, [index]);
+
+	useEffect(() => {
+		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
+			setStyle({ opacity: 0 });
+		} else {
+			setStyle({ opacity: 1 });
+		}
+	}, [index, onend]);
+
 	return (
-		<div className='Author -mt-[5.2rem] flex flex-col items-center justify-start space-y-4 px-10 md:mt-0 md:mt-0 md:flex-row md:space-y-0 md:space-x-6 md:px-5'>
-			<div className='avatar -ml-[4rem] md:ml-0'>
-				<div className='w-24 rounded-full'>
-					<div className='avatar-0 h-full w-full' />
-				</div>
-			</div>
+		<div
+			style={style}
+			className='Author flex flex-col items-start justify-start space-y-4 px-10 md:flex-row md:space-y-0 md:space-x-6 md:px-5'
+		>
+			<Avatar data={authorData} page={page} />
 			<div className='flex w-auto flex-col items-start justify-center'>
 				<div className='font-notoSans text-2xl font-light md:text-base'>導覽者</div>
-				<div className='font-notoSerif text-3xl font-semibold md:text-xl'>{authorData.name}</div>
-				<div className='font-notoSans text-xl font-light md:text-base'>
-					{authorData.positionName}
-				</div>
+				<Name data={authorData} page={page} />
+				<Position data={authorData} page={page} />
 			</div>
 		</div>
 	);
