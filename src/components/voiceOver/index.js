@@ -55,8 +55,8 @@ const VoiceOver = memo(() => {
 	useEffect(() => {
 		setDidFadeIn(false);
 		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
-			setStyle({ opacity: 0 }, { onComplete: () => setDidFadeIn(true) });
-		} else setStyle({ opacity: 1 }, { onComplete: () => setDidFadeIn(true) });
+			setStyle({ opacity: 0 }, { duration: 500, onComplete: () => setDidFadeIn(true) });
+		} else setStyle({ opacity: 1 }, { duration: 500, onComplete: () => setDidFadeIn(true) });
 	}, [index]);
 
 	return (
