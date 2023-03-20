@@ -48,7 +48,7 @@ const Mouse = memo(() => {
 	}, [status]);
 
 	return (
-		<div className='absolute left-0 bottom-0 flex h-[200px] w-full justify-center'>
+		<div className='pointer-events-none absolute left-0 bottom-0 flex h-[200px] w-full justify-center'>
 			<div className='Mouse'>
 				<div style={style} className='gradient'>
 					{[...new Array(2).keys()].map((e) => (

@@ -25,10 +25,7 @@ const Breadcrumbs = memo(() => {
 	}, [index]);
 
 	return (
-		<div
-			style={style}
-			className='Breadcrumbs mb-12 flex w-full flex-col items-start space-y-3 md:mb-20'
-		>
+		<div style={style} className='Breadcrumbs flex w-full flex-col items-start space-y-3 '>
 			<div className='font-notoSans'>{property.breadcrumbs}</div>
 			<div className='bars flex flex-row space-x-1'>
 				{AuthorInformation.map((e, i) => (

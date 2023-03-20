@@ -1,6 +1,8 @@
 @import url('../../settings/config.less');
 
 .Breadcrumbs {
+	// margin-bottom: 80px;
+
 	.bars {
 		& > div {
 			position: relative;
@@ -38,5 +40,12 @@
 
 @media only screen and (max-width: @bp) {
 	.Breadcrumbs {
+		// margin-bottom: 48px;
+	}
+}
+
+@media only screen and (max-height: @bpH) {
+	.Breadcrumbs {
+		// margin-bottom: 0px;
 	}
 }
