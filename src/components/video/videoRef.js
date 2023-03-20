@@ -1,8 +1,12 @@
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import { VideoConfig } from '../../settings/config';
 
 const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
-	const videoRef = useRef();
+	const videoRef = useRef(undefined);
+
+	useEffect(() => {
+		videoRef.current.defaultMuted = true;
+	});
 
 	useImperativeHandle(ref, () => ({
 		setSize({ width, height }) {
@@ -77,6 +81,7 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 			autoPlay
 			preload='auto'
 			style={{ display: 'none' }}
+			controls
 			onLoadedData={(event) => {
 				event.target.pause();
 				event.target.setAttribute('autoplay', false);

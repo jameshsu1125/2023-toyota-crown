@@ -30,8 +30,8 @@ const AudioProvider = memo(({ children }) => {
 			const idx = index - 1;
 			if (index < 0 || index > AudioConfig.targets.length) return;
 			setTimeout(() => {
-				audioRef.current[idx].fade(0, 1, 2000);
-				audioRef.current[idx].play();
+				audioRef.current[idx]?.fade(0, 1, 2000);
+				audioRef.current[idx]?.play();
 			}, AudioConfig.delay);
 		}
 	}, [index, onend]);
