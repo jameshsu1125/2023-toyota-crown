@@ -53,7 +53,7 @@ const CrownLogo = ({ steps }) => {
 	useEffect(() => {
 		if (steps === PayLoaderSteps.userDidActive) {
 			const { innerWidth } = window;
-			const property = innerWidth >= BreakPoint ? { y: 0, scale: 0.6 } : { y: 100, scale: 0.45 };
+			const property = innerWidth >= BreakPoint ? { y: 0, scale: 0.6 } : { y: 70, scale: 0.45 };
 			setStyle(property, { easing: Bezier.easeInOutQuart, duration: 2000 });
 		}
 	}, [steps]);

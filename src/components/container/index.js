@@ -58,10 +58,9 @@ const Container = memo(({ children }) => {
 	}, [payLoad]);
 
 	const onEnded = () => {
-		const enabled = AutoPlay;
 		setContext({
 			type: ACTION.page,
-			state: { ...page, enabled, onend: true, stopForward: false, voIndex: false },
+			state: { ...page, onend: true, stopForward: false, voIndex: false },
 		});
 	};
 

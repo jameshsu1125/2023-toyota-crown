@@ -1,3 +1,5 @@
+@import url('../../settings/config.less');
+
 .Mouse {
 	@apply absolute flex w-full justify-center rounded-full;
 
@@ -11,7 +13,7 @@
 
 		@scale: 0.9;
 		@img: './img/iconShadow.svg';
-		@apply relative flex h-36 w-36 items-center justify-center rounded-full;
+		@apply relative flex h-24 w-24 items-center justify-center rounded-full;
 
 		.icon {
 			position: relative;
@@ -63,6 +65,35 @@
 		}
 		100% {
 			transform: translateY(0px);
+		}
+	}
+}
+
+@media only screen and (max-width: @bp) {
+	.Mouse {
+		.gradient {
+			@apply relative flex h-24 w-24 items-center justify-center rounded-full;
+
+			.icon {
+				width: image-width(@img) * @scale;
+				height: image-height(@img) * @scale;
+
+				@scale: 0.7;
+				@img: './img/mouse.svg';
+			}
+
+			.shadow {
+				margin-left: 0 - image-width(@img) * @scale * 0.5;
+				width: image-width(@img) * @scale;
+				height: image-height(@img) * @scale;
+
+				@scale: 0.7;
+				@img: './img/iconShadow.svg';
+			}
+		}
+
+		.text {
+			display: none;
 		}
 	}
 }

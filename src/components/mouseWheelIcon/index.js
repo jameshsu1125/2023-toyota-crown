@@ -9,13 +9,13 @@ const Text = ({ status, index, onend }) => {
 
 	useEffect(() => {
 		if (index === PAGE_CONTEXT_NAME.intro) {
-			if (onend) setStyle({ opacity: 1, y: -20 }, { duration: 1000, delay: 200 });
+			if (onend) setStyle({ opacity: 1, y: 0 }, { duration: 1000, delay: 200 });
 		} else setStyle({ opacity: 0, y: 30 }, { duration: 1000, delay: 200 });
 	}, [index, onend]);
 
 	useEffect(() => {
 		if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
-			setStyle({ opacity: 1, y: -20 }, { duration: 1000, delay: 200 });
+			setStyle({ opacity: 1, y: 0 }, { duration: 1000, delay: 200 });
 		}
 	}, [status]);
 
@@ -43,7 +43,7 @@ const Mouse = memo(() => {
 
 	useEffect(() => {
 		if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
-			setStyle({ opacity: 1, y: 0 });
+			setStyle({ opacity: 1, y: 0 }, { delay: 400 });
 		}
 	}, [status]);
 

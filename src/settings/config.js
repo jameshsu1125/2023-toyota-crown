@@ -299,4 +299,4 @@ export const AudioConfig = {
 	delay: 0,
 };
 
-export const AutoPlay = true;
+export const AutoPlay = false;
