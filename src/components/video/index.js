@@ -73,13 +73,8 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 
 	return (
 		<TweenProvider
-			defaultStyle={{ ...VideoConfig.offset, opacity: 0 }}
-			tweenStyle={{
-				...Object.fromEntries(
-					Object.entries(VideoConfig.offset).map((e) => [e[0], e[0] === 'scale' ? 1 : 0]),
-				),
-				opacity: 1,
-			}}
+			defaultStyle={{ opacity: 0 }}
+			tweenStyle={{ opacity: 1 }}
 			options={{
 				duration: VideoConfig.fadeInDuration,
 			}}

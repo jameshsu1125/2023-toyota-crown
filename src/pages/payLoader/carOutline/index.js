@@ -9,7 +9,7 @@ const CarOutline = memo(() => {
 	const ref = useRef();
 	const [payLoaderContext] = useContext(PayLoaderContext);
 	const { steps } = payLoaderContext;
-	const [style, setStyle] = useTween({ ...VideoConfig.offset, opacity: 0 });
+	const [style, setStyle] = useTween({ opacity: 0 });
 	const [size, setSize] = useState({ width: 0, height: 0 });
 
 	useEffect(() => {
@@ -42,11 +42,8 @@ const CarOutline = memo(() => {
 				},
 			);
 		} else if (steps === PayLoaderSteps.logoDidStay) {
-			const property = Object.fromEntries(
-				Object.entries(VideoConfig.offset).map((e) => [e[0], e[0] === 'scale' ? 1 : 0]),
-			);
 			setStyle(
-				{ ...property },
+				{ opacity: 0 },
 				{
 					duration: VideoConfig.fadeInDuration,
 					onStart: () => {

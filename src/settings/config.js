@@ -207,11 +207,6 @@ export const VideoConfig = {
 		{ url: video9, name: PAGE_CONTEXT_NAME.detailVideo },
 	],
 	transitionDuration: 1000, // 每隻影片的淡入淡出
-	offset: {
-		// x: 240,
-		// y: 0,
-		// scale: 1.3,
-	},
 };
 
 export const AudioConfig = {
