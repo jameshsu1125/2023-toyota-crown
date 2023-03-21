@@ -51,14 +51,15 @@ const VoiceOver = memo(() => {
 		return AuthorInformation[idx < 0 || idx >= AuthorInformation.length ? 0 : idx];
 	}, [index]);
 	const [style, setStyle] = useTween({ opacity: 0 });
-
 	const [didFadeIn, setDidFadeIn] = useState(false);
 
 	useEffect(() => {
 		setDidFadeIn(false);
 		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
 			setStyle({ opacity: 0 }, { duration: 500, onComplete: () => setDidFadeIn(true) });
-		} else setStyle({ opacity: 1 }, { duration: 500, onComplete: () => setDidFadeIn(true) });
+		} else {
+			setStyle({ opacity: 1 }, { delay: 500, duration: 500, onComplete: () => setDidFadeIn(true) });
+		}
 	}, [index]);
 
 	return (

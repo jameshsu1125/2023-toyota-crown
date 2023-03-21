@@ -1,16 +1,26 @@
 import { createContext } from 'react';
 import { CaptionsPaths } from './captionsPath';
 import { ACTION, PAGE_CONTEXT_NAME, PAGE_STATE, PAYLOAD_STATE, PAYLOAD_STATUS } from './constant';
-import video0 from './video/0.mp4';
-import video1 from './video/1.mp4';
-import video2 from './video/2.mp4';
-import video3 from './video/3.mp4';
-import video4 from './video/4.mp4';
-import video5 from './video/5.mp4';
-import video6 from './video/6.mp4';
-import video7 from './video/7.mp4';
-import video8 from './video/8.mp4';
-import video9 from './video/9.mp4';
+import desktopVideo0 from './video/desktop/0.mp4';
+import desktopVideo1 from './video/desktop/1.mp4';
+import desktopVideo2 from './video/desktop/2.mp4';
+import desktopVideo3 from './video/desktop/3.mp4';
+import desktopVideo4 from './video/desktop/4.mp4';
+import desktopVideo5 from './video/desktop/5.mp4';
+import desktopVideo6 from './video/desktop/6.mp4';
+import desktopVideo7 from './video/desktop/7.mp4';
+import desktopVideo8 from './video/desktop/8.mp4';
+import desktopVideo9 from './video/desktop/9.mp4';
+import mobileVideo0 from './video/mobile/0.mp4';
+import mobileVideo1 from './video/mobile/1.mp4';
+import mobileVideo2 from './video/mobile/2.mp4';
+import mobileVideo3 from './video/mobile/3.mp4';
+import mobileVideo4 from './video/mobile/4.mp4';
+import mobileVideo5 from './video/mobile/5.mp4';
+import mobileVideo6 from './video/mobile/6.mp4';
+import mobileVideo7 from './video/mobile/7.mp4';
+import mobileVideo8 from './video/mobile/8.mp4';
+import mobileVideo9 from './video/mobile/9.mp4';
 import audio1 from './audio/1.mp3';
 import audio2 from './audio/2.mp3';
 import audio3 from './audio/3.mp3';
@@ -191,20 +201,63 @@ export const AuthorInformation = [
 
 export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 50 };
 
+const videoUrl = [
+	{ desktop: desktopVideo0, mobile: mobileVideo0 },
+	{ desktop: desktopVideo1, mobile: mobileVideo1 },
+	{ desktop: desktopVideo2, mobile: mobileVideo2 },
+	{ desktop: desktopVideo3, mobile: mobileVideo3 },
+	{ desktop: desktopVideo4, mobile: mobileVideo4 },
+	{ desktop: desktopVideo5, mobile: mobileVideo5 },
+	{ desktop: desktopVideo6, mobile: mobileVideo6 },
+	{ desktop: desktopVideo7, mobile: mobileVideo7 },
+	{ desktop: desktopVideo8, mobile: mobileVideo8 },
+	{ desktop: desktopVideo9, mobile: mobileVideo9 },
+];
+
 export const VideoConfig = {
 	fadeInDuration: 4000, // 從loading到intro的淡入時間
 	fadeInTiming: PAYLOAD_STATUS.logoDidFadeIn,
 	targets: [
-		{ url: video0, name: PAGE_CONTEXT_NAME.intro },
-		{ url: video1, name: PAGE_CONTEXT_NAME.content_0 },
-		{ url: video2, name: PAGE_CONTEXT_NAME.content_1 },
-		{ url: video3, name: PAGE_CONTEXT_NAME.content_2 },
-		{ url: video4, name: PAGE_CONTEXT_NAME.content_3 },
-		{ url: video5, name: PAGE_CONTEXT_NAME.content_4 },
-		{ url: video6, name: PAGE_CONTEXT_NAME.content_5 },
-		{ url: video7, name: PAGE_CONTEXT_NAME.content_6 },
-		{ url: video8, name: PAGE_CONTEXT_NAME.content_7 },
-		{ url: video9, name: PAGE_CONTEXT_NAME.detailVideo },
+		{
+			url: videoUrl[0][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],
+			name: PAGE_CONTEXT_NAME.intro,
+		},
+		{
+			url: videoUrl[1][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],
+			name: PAGE_CONTEXT_NAME.content_0,
+		},
+		{
+			url: videoUrl[2][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],
+			name: PAGE_CONTEXT_NAME.content_1,
+		},
+		{
+			url: videoUrl[3][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],
+			name: PAGE_CONTEXT_NAME.content_2,
+		},
+		{
+			url: videoUrl[4][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],
+			name: PAGE_CONTEXT_NAME.content_3,
+		},
+		{
+			url: videoUrl[5][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],
+			name: PAGE_CONTEXT_NAME.content_4,
+		},
+		{
+			url: videoUrl[6][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],
+			name: PAGE_CONTEXT_NAME.content_5,
+		},
+		{
+			url: videoUrl[7][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],
+			name: PAGE_CONTEXT_NAME.content_6,
+		},
+		{
+			url: videoUrl[8][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],
+			name: PAGE_CONTEXT_NAME.content_7,
+		},
+		{
+			url: videoUrl[9][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],
+			name: PAGE_CONTEXT_NAME.detailVideo,
+		},
 	],
 	transitionDuration: 1000, // 每隻影片的淡入淡出
 };
@@ -291,7 +344,7 @@ export const AudioConfig = {
 			],
 		},
 	],
-	delay: 0,
+	delay: 500,
 };
 
 export const AutoPlay = false;

@@ -16,10 +16,14 @@ const Footer = memo(() => {
 	const { status } = context[ACTION.payLoad];
 
 	useEffect(() => {
-		if (!device && status === PAYLOAD_STATUS.introVideoDidPlayed) {
+		if (
+			!device &&
+			status === PAYLOAD_STATUS.introVideoDidPlayed &&
+			index === PAGE_CONTEXT_NAME.intro
+		) {
 			setStyle({ opacity: 1, y: 0 }, { duration: 500 });
 		}
-	}, [device, status]);
+	}, [device, status, index]);
 
 	useEffect(() => {
 		const resize = () => {

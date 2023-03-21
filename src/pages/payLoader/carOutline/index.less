@@ -1,6 +1,8 @@
+@import url('../../../settings/config.less');
+
 .CarOutline {
-	margin-top: 3%;
-	margin-left: 31.7%;
+	margin-top: 43px;
+	margin-left: 452px;
 	transform: scale(1.42);
 	@apply absolute top-0 flex h-full w-full items-center justify-center;
 
@@ -18,5 +20,13 @@
 		100% {
 			stroke-dashoffset: 0;
 		}
+	}
+}
+
+@media only screen and (max-width: @bp) {
+	.CarOutline {
+		margin-top: -5px;
+		margin-left: 311.8px;
+		transform: scale(0.644);
 	}
 }

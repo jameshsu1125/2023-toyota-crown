@@ -1,7 +1,7 @@
 import { CoverSize } from 'lesca-number';
 import { TweenProvider } from 'lesca-use-tween';
 import { memo, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { Context, VideoConfig } from '../../settings/config';
+import { BreakPoint, Context, VideoConfig } from '../../settings/config';
 import { ACTION, DIRECTION_STATE, PAGE_CONTEXT_NAME } from '../../settings/constant';
 import DarkScreen from './darkScreen';
 import './index.less';
@@ -35,11 +35,12 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 
 	useEffect(() => {
 		// 重新設定影片尺寸
+		const videoSize =
+			window.innerWidth >= BreakPoint
+				? { width: 1920, height: 1080 }
+				: { width: 1080, height: 1920 };
 		const resize = () => {
-			const size = CoverSize(
-				{ width: 1920, height: 1080 },
-				{ width: window.innerWidth, height: window.innerHeight },
-			);
+			const size = CoverSize(videoSize, { width: window.innerWidth, height: window.innerHeight });
 			videoRef.current.forEach((e) => e.setSize(size));
 		};
 		if (targets.length === VideoConfig.targets.length) {

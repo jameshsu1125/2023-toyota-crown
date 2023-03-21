@@ -1,6 +1,6 @@
 import Click from 'lesca-click';
 import Landscape from 'lesca-react-landscape';
-import { memo, useContext, useEffect, useMemo, useReducer } from 'react';
+import { memo, useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import Audio from '../components/audio';
 import AudioProvider from '../components/audioProvider';
@@ -10,7 +10,7 @@ import Container from '../components/container';
 import Section from '../components/section';
 import SectionVerticalAlign from '../components/sectionVerticalAlign';
 import VoiceOver from '../components/voiceOver';
-import { Context, initialState, reducer } from '../settings/config';
+import { BreakPoint, Context, initialState, reducer } from '../settings/config';
 import { ACTION, PAYLOAD_STATUS } from '../settings/constant';
 import '../settings/global.less';
 import PayLoader from './payLoader';
@@ -40,7 +40,6 @@ const Pages = memo(() => {
 								<VoiceOver />
 							</SectionVerticalAlign>
 						</Section>
-						<Section>asd</Section>
 					</AudioProvider>
 				</Container>
 			)}
@@ -52,6 +51,21 @@ const Pages = memo(() => {
 const App = () => {
 	const [state, setState] = useReducer(reducer, initialState);
 	const value = useMemo(() => [state, setState], [state]);
+
+	const [device, setDevice] = useState(window.innerWidth >= BreakPoint);
+	const deviceRef = useRef(device);
+
+	useEffect(() => {
+		if (deviceRef.current !== device) window.location.reload();
+	}, [device]);
+
+	useEffect(() => {
+		const resize = () => setDevice(window.innerWidth >= BreakPoint);
+		resize();
+		window.addEventListener('resize', resize);
+		return () => window.removeEventListener('resize', resize);
+	}, []);
+
 	return (
 		<div className='app absolute h-full w-full min-w-[447px]'>
 			<Context.Provider {...{ value }}>

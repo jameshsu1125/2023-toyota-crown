@@ -4,6 +4,12 @@ import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { AudioConfig, Context, VideoConfig } from '../../settings/config';
 import { ACTION, PAGE_CONTEXT_NAME } from '../../settings/constant';
 
+const STATE = {
+	playing: 'playing',
+	pause: 'pause',
+	end: 'end',
+};
+
 const AudioProvider = memo(({ children }) => {
 	const [context, setContext] = useContext(Context);
 	const payLoad = context[ACTION.payLoad];
@@ -15,8 +21,30 @@ const AudioProvider = memo(({ children }) => {
 	const [targets, setTarget] = useState([]);
 	const audioRef = useRef([]);
 	const indexRef = useRef(index);
+	const stateRef = useRef();
 
 	const [voIndex, setVoIndex] = useState(false);
+
+	useEffect(() => {
+		const blur = () => {
+			const idx = indexRef.current - 1;
+			if (idx < 0 || idx > AudioConfig.targets.length) return;
+			if (stateRef.current === STATE.playing) {
+				audioRef.current[idx].pause();
+			}
+		};
+
+		const focus = () => {
+			const idx = indexRef.current - 1;
+			if (idx < 0 || idx > AudioConfig.targets.length) return;
+			if (stateRef.current === STATE.pause) {
+				audioRef.current[idx].play();
+			}
+		};
+		window.addEventListener('blur', blur);
+		window.addEventListener('focus', focus);
+		return () => {};
+	}, []);
 
 	useEffect(() => {
 		if (voIndex !== false) {
@@ -80,6 +108,15 @@ const AudioProvider = memo(({ children }) => {
 				autoplay: false,
 				loop: false,
 				onload: () => onload(idx),
+				onplay: () => {
+					stateRef.current = STATE.playing;
+				},
+				onpause: () => {
+					stateRef.current = STATE.pause;
+				},
+				onend: () => {
+					stateRef.current = STATE.end;
+				},
 			});
 		}
 	}, [targets]);

@@ -5,17 +5,17 @@ import { ACTION, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/consta
 import './index.less';
 
 const Text = ({ status, index, onend }) => {
-	const [style, setStyle] = useTween({ opacity: 0, y: 30 });
+	const [style, setStyle] = useTween({ opacity: 0 });
 
 	useEffect(() => {
 		if (index === PAGE_CONTEXT_NAME.intro) {
-			if (onend) setStyle({ opacity: 1, y: 0 }, { duration: 1000, delay: 200 });
-		} else setStyle({ opacity: 0, y: 30 }, { duration: 1000, delay: 200 });
+			if (onend) setStyle({ opacity: 1 }, { duration: 1000, delay: 200 });
+		} else setStyle({ opacity: 0 }, { duration: 1000, delay: 200 });
 	}, [index, onend]);
 
 	useEffect(() => {
 		if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
-			setStyle({ opacity: 1, y: 0 }, { duration: 1000, delay: 200 });
+			setStyle({ opacity: 1 }, { duration: 1000, delay: 200 });
 		}
 	}, [status]);
 
@@ -33,17 +33,17 @@ const Mouse = memo(() => {
 
 	const payLoad = context[ACTION.payLoad];
 	const { status } = payLoad;
-	const [style, setStyle] = useTween({ opacity: 0, y: 50 });
+	const [style, setStyle] = useTween({ opacity: 0 });
 
 	useEffect(() => {
 		if (index === PAGE_CONTEXT_NAME.intro) {
-			if (onend) setStyle({ opacity: 1, y: 0 });
-		} else setStyle({ opacity: 0, y: 50 });
+			if (onend) setStyle({ opacity: 1 });
+		} else setStyle({ opacity: 0 });
 	}, [index, onend]);
 
 	useEffect(() => {
 		if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
-			setStyle({ opacity: 1, y: 0 }, { delay: 400 });
+			setStyle({ opacity: 1 }, { delay: 400 });
 		}
 	}, [status]);
 
