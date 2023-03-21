@@ -2,11 +2,16 @@
 
 .Footer {
 	height: 200px;
-	background-image: url('../img/background.svg');
-	background-position: calc(~'50% + 100px') calc(~'50% + 217px');
-	background-repeat: no-repeat;
 
 	@apply absolute bottom-0 flex w-full justify-center bg-black;
+
+	& > div:nth-child(1) {
+		background-image: url('../img/background.svg');
+		background-position: calc(~'50% + 100px') calc(~'50% + 217px');
+		background-repeat: no-repeat;
+		opacity: 0.5;
+		@apply absolute top-0 h-full w-full;
+	}
 
 	&::before {
 		height: 1px;
@@ -37,7 +42,10 @@
 @media only screen and (max-width: @bp) {
 	.Footer {
 		height: 155px;
-		background-image: none;
+
+		& > div:nth-child(1) {
+			background-image: none;
+		}
 
 		& > div {
 			.square {

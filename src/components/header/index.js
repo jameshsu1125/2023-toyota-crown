@@ -43,6 +43,7 @@ const MaterialHeader = () => {
 
 	return (
 		<div style={style} className='Header header-material'>
+			<div />
 			<BackgroundGrid />
 		</div>
 	);

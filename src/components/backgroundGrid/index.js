@@ -11,7 +11,7 @@ const BackgroundGrid = memo(() => {
 
 	useEffect(() => {
 		if (status >= PAYLOAD_STATUS.onReady) {
-			setStyle({ opacity: 0.5 }, 2000);
+			setStyle({ opacity: 0.3 }, 2000);
 		}
 	}, [status]);
 	return <div className='BackgroundGrid' style={style} />;

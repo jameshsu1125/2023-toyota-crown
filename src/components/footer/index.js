@@ -43,6 +43,7 @@ const Footer = memo(() => {
 
 	return (
 		<div style={style} className='Footer'>
+			<div />
 			<BackgroundGrid />
 			<div>
 				<div className='square'>

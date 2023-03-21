@@ -18,4 +18,4 @@ export const initialPayLoaderState = {
 	steps: PayLoaderSteps.unset,
 };
 
-export const PayLoaderLogoTypeStayTime = 4000; // logo 停留時間
+export const PayLoaderLogoTypeStayTime = 100; // logo 停留時間
