@@ -40,7 +40,7 @@ const Pages = memo(() => {
 								<VoiceOver />
 							</SectionVerticalAlign>
 						</Section>
-						<Section></Section>
+						<Section>asd</Section>
 					</AudioProvider>
 				</Container>
 			)}
