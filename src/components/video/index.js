@@ -70,6 +70,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 		videoRef.current[idx].hide();
 		videoRef.current[index].show();
 		videoRef.current[index].replay();
+		darkScreenRef.current.play();
 	}, [index]);
 
 	return (

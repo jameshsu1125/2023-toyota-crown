@@ -25,8 +25,9 @@ const WheelEventProvider = memo(({ children }) => {
 
 	useEffect(() => {
 		if (active && status === PAYLOAD_STATUS.introVideoDidPlayed) {
-			const { enabled, index } = page;
+			const { enabled, index, stopForward, skipEnabled } = page;
 			if (enabled) {
+				console.log('nor');
 				const idx = index + (direction === DIRECTION_STATE.next ? 1 : -1);
 				if (idx < 0 || idx > PAGE_CONTEXT_NAME.detailVideo) return;
 				setContext({
@@ -38,6 +39,29 @@ const WheelEventProvider = memo(({ children }) => {
 						enabled: false,
 						stopForward: true,
 						onend: false,
+						skip: false,
+						skipEnabled: false,
+					},
+				});
+			} else {
+				if (stopForward) return;
+				if (!skipEnabled) return;
+				console.log('skip');
+
+				const idx = index + (direction === DIRECTION_STATE.next ? 1 : -1);
+				if (idx < 0 || idx > PAGE_CONTEXT_NAME.detailVideo) return;
+
+				setContext({
+					type: ACTION.page,
+					state: {
+						...page,
+						direction,
+						index: idx,
+						enabled: false,
+						stopForward: false,
+						onend: false,
+						skip: true,
+						skipEnabled: false,
 					},
 				});
 			}

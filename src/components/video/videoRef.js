@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
 const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 	const videoRef = useRef(undefined);
+	const videoState = useRef();
 
 	useEffect(() => {
 		videoRef.current.defaultMuted = true;
@@ -35,7 +36,9 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 			videoRef.current.play();
 		},
 		play() {
-			if (videoRef.current.currentTime !== videoRef.current.duration) videoRef.current.play();
+			if (videoRef.current.currentTime !== videoRef.current.duration) {
+				videoRef.current.play();
+			}
 		},
 		playPause() {
 			if (videoRef.current.paused) {
@@ -56,13 +59,18 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 		},
 		hide() {
 			videoRef.current.style.display = 'none';
+			videoRef.current.pause();
 		},
 		isPlaying() {
-			return videoRef.current.style.display === 'block';
+			return videoState.current === 'playing';
 		},
 		getURL() {
 			return url;
 		},
+		skip() {
+			videoRef.current.currentTime = videoRef.current.duration;
+		},
+		url,
 	}));
 
 	return (
@@ -73,12 +81,22 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 			autoPlay
 			preload='auto'
 			style={{ display: 'none' }}
+			onPlay={() => {
+				// console.log(url, 'playing');
+				videoState.current = 'playing';
+			}}
+			onPause={() => {
+				// console.log(url, 'pause');
+				videoState.current = 'pause';
+			}}
 			onLoadedData={(event) => {
 				event.target.pause();
 				event.target.setAttribute('autoplay', false);
 				onload?.({ event, url });
 			}}
 			onEnded={(event) => {
+				// console.log(url, 'end');
+				videoState.current = 'end';
 				onEnded?.({ event, url });
 			}}
 		>

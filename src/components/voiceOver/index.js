@@ -26,8 +26,10 @@ const EachVO = ({ children, index, didFadeIn }) => {
 					duration: 1000,
 					easing: Bezier.easeInOutQuart,
 					onComplete: () => {
-						ref.current.style.opacity = 1;
-						ref.current.style.transform = 'translateY(0px)';
+						if (ref.current) {
+							ref.current.style.opacity = 1;
+							ref.current.style.transform = 'translateY(0px)';
+						}
 					},
 				},
 			);

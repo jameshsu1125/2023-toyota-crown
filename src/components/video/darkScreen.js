@@ -6,17 +6,32 @@ import { Context, VideoConfig } from '../../settings/config';
 import { ACTION } from '../../settings/constant';
 
 const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
+	// contexts
 	const [context] = useContext(Context);
 	const { status } = context[ACTION.payLoad];
 	const page = context[ACTION.page];
-	const { stopForward } = page;
+	const { stopForward, skip } = page;
+
+	// refs
 	const domRef = useRef();
 	const stopForwardRef = useRef(stopForward);
 	const onStopRef = useRef(onStop);
+	const skipRef = useRef({ skip, time: 0 });
 
 	useEffect(() => {
 		stopForwardRef.current = stopForward;
 	}, [stopForward]);
+
+	useEffect(() => {
+		if (skip) {
+			const all = videoRef.current.filter((e) => e.isPlaying());
+			const [playingTarget] = all;
+			if (playingTarget) {
+				const time = playingTarget.getTime();
+				skipRef.current = { skip, time };
+			}
+		}
+	}, [skip]);
 
 	useEffect(() => {
 		onStopRef.current = onStop;
@@ -28,49 +43,71 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 				const [playingTarget] = videoRef.current.filter((e) => e.isPlaying());
 				if (playingTarget) {
 					const duration = playingTarget.getTotal();
-					if (duration) {
-						const { transitionDuration } = VideoConfig;
-						const time = playingTarget.getTime();
-						const min = duration - transitionDuration * 0.001;
-						const max = transitionDuration * 0.001;
+					const { transitionDuration } = VideoConfig;
+					if (!skipRef.current.skip) {
+						if (duration) {
+							const time = playingTarget.getTime();
+							const min = duration - transitionDuration * 0.001;
+							const max = transitionDuration * 0.001;
 
-						// set video opacity
-						let opacity;
-						if (time < transitionDuration * 0.001) {
-							const property = {
-								percent: time / max,
-								easingFunction: Bezier.easeInQuart,
-							};
-							const easing = BezierEasing(
-								property.easingFunction[0],
-								property.easingFunction[1],
-								property.easingFunction[2],
-								property.easingFunction[3],
-							);
-							opacity = 1 - easing(property.percent);
-						} else if (time > min) {
-							const property = {
-								percent: (time - min) / (duration - min),
-								easingFunction: Bezier.easeOutQuart,
-							};
-							const easing = BezierEasing(
-								property.easingFunction[0],
-								property.easingFunction[1],
-								property.easingFunction[2],
-								property.easingFunction[3],
-							);
-							opacity = easing(property.percent);
-						} else opacity = 0;
-						domRef.current.style.opacity = opacity;
+							// set video opacity
+							let opacity;
+							if (time < transitionDuration * 0.001) {
+								const property = {
+									percent: time / max,
+									easingFunction: Bezier.easeInQuart,
+								};
+								const easing = BezierEasing(
+									property.easingFunction[0],
+									property.easingFunction[1],
+									property.easingFunction[2],
+									property.easingFunction[3],
+								);
+								opacity = 1 - easing(property.percent);
+							} else if (time > min) {
+								const property = {
+									percent: (time - min) / (duration - min),
+									easingFunction: Bezier.easeOutQuart,
+								};
+								const easing = BezierEasing(
+									property.easingFunction[0],
+									property.easingFunction[1],
+									property.easingFunction[2],
+									property.easingFunction[3],
+								);
+								opacity = easing(property.percent);
+							} else opacity = 0;
+							domRef.current.style.opacity = opacity;
 
-						// set video stop
-						const stopTime = duration - transitionDuration * 0.0011;
-						if (!stopForwardRef.current) {
-							if (time > stopTime) {
-								playingTarget.pause();
-								EnterFrame.stop();
-								onStopRef.current(playingTarget);
+							// set video stop
+							const stopTime = duration - transitionDuration * 0.0011;
+							if (!stopForwardRef.current) {
+								if (time > stopTime) {
+									playingTarget.pause();
+									EnterFrame.stop();
+									onStopRef.current(playingTarget);
+								}
 							}
+						}
+					} else {
+						const currentTime = playingTarget.getTime();
+						const { time } = skipRef.current;
+						const percent = (currentTime - time) / (transitionDuration * 0.001);
+						if (percent >= 1) {
+							// todo jump to end
+							domRef.current.style.opacity = 0.5;
+							skipRef.current.skip = false;
+							playingTarget.skip();
+						} else {
+							// todo tween
+							const easingFunction = Bezier.easeOutQuart;
+							const easing = BezierEasing(
+								easingFunction[0],
+								easingFunction[1],
+								easingFunction[2],
+								easingFunction[3],
+							);
+							domRef.current.style.opacity = easing(percent);
 						}
 					}
 				}

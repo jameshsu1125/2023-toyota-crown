@@ -2,7 +2,7 @@ import { Howl } from 'howler';
 import EnterFrame from 'lesca-enterframe';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { AudioConfig, Context, VideoConfig } from '../../settings/config';
-import { ACTION, PAGE_CONTEXT_NAME } from '../../settings/constant';
+import { ACTION, DIRECTION_STATE, PAGE_CONTEXT_NAME } from '../../settings/constant';
 
 const STATE = {
 	playing: 'playing',
@@ -16,7 +16,7 @@ const AudioProvider = memo(({ children }) => {
 	const { video, audio } = payLoad;
 
 	const page = context[ACTION.page];
-	const { index, onend } = page;
+	const { index, onend, skip, direction } = page;
 
 	const [targets, setTarget] = useState([]);
 	const audioRef = useRef([]);
@@ -24,6 +24,17 @@ const AudioProvider = memo(({ children }) => {
 	const stateRef = useRef();
 
 	const [voIndex, setVoIndex] = useState(false);
+
+	useEffect(() => {
+		if (skip) {
+			let idx = index - 1;
+			if (direction === DIRECTION_STATE.next) idx -= 1;
+			else idx += 1;
+
+			if (index < 0 || index > AudioConfig.targets.length) return;
+			audioRef.current[idx]?.fade(1, 0, 2000);
+		}
+	}, [skip]);
 
 	useEffect(() => {
 		const blur = () => {

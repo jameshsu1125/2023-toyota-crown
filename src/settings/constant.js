@@ -25,6 +25,8 @@ export const PAGE_STATE = {
 	enabled: false,
 	onend: false,
 	voIndex: false,
+	skip: false,
+	skipEnabled: false,
 };
 
 export const PAYLOAD_STATUS = {

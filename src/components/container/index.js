@@ -60,7 +60,14 @@ const Container = memo(({ children }) => {
 	const onEnded = () => {
 		setContext({
 			type: ACTION.page,
-			state: { ...page, onend: true, stopForward: false, voIndex: false },
+			state: {
+				...page,
+				onend: true,
+				stopForward: false,
+				voIndex: false,
+				skipEnabled: true,
+				skip: false,
+			},
 		});
 	};
 
@@ -73,12 +80,12 @@ const Container = memo(({ children }) => {
 			});
 			setContext({
 				type: ACTION.page,
-				state: { ...page, enabled: true },
+				state: { ...page, enabled: true, skip: false, skipEnabled: false },
 			});
 		} else {
 			setContext({
 				type: ACTION.page,
-				state: { ...page, enabled: true },
+				state: { ...page, enabled: true, skip: false, skipEnabled: false },
 			});
 			if (AutoPlay) {
 				const { index } = page;
