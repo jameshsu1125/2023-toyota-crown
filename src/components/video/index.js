@@ -14,6 +14,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 	const [targets, setTarget] = useState([VideoConfig.targets[0]]);
 	const videoRef = useRef([]);
 	const darkScreenRef = useRef();
+	const indexRef = useRef(index);
 
 	useEffect(() => {
 		if (fadeIn) videoRef.current[PAGE_CONTEXT_NAME.intro].play();
@@ -71,7 +72,25 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 		videoRef.current[index].show();
 		videoRef.current[index].replay();
 		darkScreenRef.current.play();
+		indexRef.current = index;
 	}, [index]);
+
+	useEffect(() => {
+		const blur = () => {
+			if (videoRef.current[indexRef.current].getState() === 'playing') {
+				videoRef.current[indexRef.current].pause();
+			}
+		};
+
+		const focus = () => {
+			if (videoRef.current[indexRef.current].getState() === 'pause') {
+				videoRef.current[indexRef.current].play();
+			}
+		};
+		window.addEventListener('blur', blur);
+		window.addEventListener('focus', focus);
+		return () => {};
+	}, []);
 
 	return (
 		<TweenProvider

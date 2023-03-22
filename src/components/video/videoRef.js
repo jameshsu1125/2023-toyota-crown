@@ -69,6 +69,11 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 		},
 		skip() {
 			videoRef.current.currentTime = videoRef.current.duration;
+			videoState.current = 'end';
+			onEnded?.({ url });
+		},
+		getState() {
+			return videoState.current;
 		},
 		url,
 	}));
@@ -82,11 +87,9 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 			preload='auto'
 			style={{ display: 'none' }}
 			onPlay={() => {
-				// console.log(url, 'playing');
 				videoState.current = 'playing';
 			}}
 			onPause={() => {
-				// console.log(url, 'pause');
 				videoState.current = 'pause';
 			}}
 			onLoadedData={(event) => {
@@ -95,7 +98,6 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 				onload?.({ event, url });
 			}}
 			onEnded={(event) => {
-				// console.log(url, 'end');
 				videoState.current = 'end';
 				onEnded?.({ event, url });
 			}}

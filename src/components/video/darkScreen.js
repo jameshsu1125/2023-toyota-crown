@@ -95,7 +95,7 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 						const percent = (currentTime - time) / (transitionDuration * 0.001);
 						if (percent >= 1) {
 							// todo jump to end
-							domRef.current.style.opacity = 0.5;
+							domRef.current.style.opacity = 1;
 							skipRef.current.skip = false;
 							playingTarget.skip();
 						} else {

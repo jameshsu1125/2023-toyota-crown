@@ -1,4 +1,15 @@
 @import url('../../settings/config.less');
 
 .SectionVerticalAlign {
+	& > div {
+		@apply justify-between;
+	}
+}
+
+@media only screen and (max-width: @bp) {
+	.SectionVerticalAlign {
+		& > div {
+			@apply justify-start;
+		}
+	}
 }

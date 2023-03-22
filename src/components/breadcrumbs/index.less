@@ -3,6 +3,8 @@
 .Breadcrumbs {
 	// margin-bottom: 80px;
 
+	@apply flex w-full flex-col items-start space-y-3;
+
 	.bars {
 		& > div {
 			position: relative;
@@ -40,6 +42,7 @@
 
 @media only screen and (max-width: @bp) {
 	.Breadcrumbs {
+		@apply hidden;
 		// margin-bottom: 48px;
 	}
 }
@@ -48,4 +51,11 @@
 	.Breadcrumbs {
 		// margin-bottom: 0px;
 	}
+}
+
+.breadcrumbs-mobile-text {
+	margin-top: 38px;
+	margin-right: 106px;
+
+	@apply fixed top-0 right-0 z-20 font-notoSans md:hidden;
 }

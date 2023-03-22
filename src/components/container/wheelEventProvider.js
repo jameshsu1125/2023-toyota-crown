@@ -27,7 +27,6 @@ const WheelEventProvider = memo(({ children }) => {
 		if (active && status === PAYLOAD_STATUS.introVideoDidPlayed) {
 			const { enabled, index, stopForward, skipEnabled } = page;
 			if (enabled) {
-				console.log('nor');
 				const idx = index + (direction === DIRECTION_STATE.next ? 1 : -1);
 				if (idx < 0 || idx > PAGE_CONTEXT_NAME.detailVideo) return;
 				setContext({
@@ -46,11 +45,11 @@ const WheelEventProvider = memo(({ children }) => {
 			} else {
 				if (stopForward) return;
 				if (!skipEnabled) return;
-				console.log('skip');
 
 				const idx = index + (direction === DIRECTION_STATE.next ? 1 : -1);
 				if (idx < 0 || idx > PAGE_CONTEXT_NAME.detailVideo) return;
 
+				console.log(direction, index, idx);
 				setContext({
 					type: ACTION.page,
 					state: {
@@ -98,13 +97,14 @@ const WheelEventProvider = memo(({ children }) => {
 	);
 
 	return (
-		<div
-			className='relative h-full w-full'
-			onWheel={onWheel}
-			onTouchStart={onTouchStart}
-			onTouchMove={onTouchMove}
-		>
+		<div className='relative h-full w-full '>
 			{children}
+			<div
+				onWheel={onWheel}
+				onTouchStart={onTouchStart}
+				onTouchMove={onTouchMove}
+				className='absolute top-0 h-full w-full bg-[rgba(0,0,0,0)]'
+			/>
 		</div>
 	);
 });

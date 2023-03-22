@@ -2,7 +2,7 @@ import { Howl } from 'howler';
 import EnterFrame from 'lesca-enterframe';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { AudioConfig, Context, VideoConfig } from '../../settings/config';
-import { ACTION, DIRECTION_STATE, PAGE_CONTEXT_NAME } from '../../settings/constant';
+import { ACTION, PAGE_CONTEXT_NAME } from '../../settings/constant';
 
 const STATE = {
 	playing: 'playing',
@@ -16,7 +16,7 @@ const AudioProvider = memo(({ children }) => {
 	const { video, audio } = payLoad;
 
 	const page = context[ACTION.page];
-	const { index, onend, skip, direction } = page;
+	const { index, onend, skip } = page;
 
 	const [targets, setTarget] = useState([]);
 	const audioRef = useRef([]);
@@ -24,15 +24,12 @@ const AudioProvider = memo(({ children }) => {
 	const stateRef = useRef();
 
 	const [voIndex, setVoIndex] = useState(false);
+	const lastIndex = useRef();
 
 	useEffect(() => {
 		if (skip) {
-			let idx = index - 1;
-			if (direction === DIRECTION_STATE.next) idx -= 1;
-			else idx += 1;
-
-			if (index < 0 || index > AudioConfig.targets.length) return;
-			audioRef.current[idx]?.fade(1, 0, 2000);
+			audioRef.current[lastIndex.current].stop();
+			setVoIndex(false);
 		}
 	}, [skip]);
 
@@ -67,10 +64,12 @@ const AudioProvider = memo(({ children }) => {
 		indexRef.current = index;
 		if (onend) {
 			const idx = index - 1;
-			if (index < 0 || index > AudioConfig.targets.length) return;
+			if (idx < 0 || idx >= AudioConfig.targets.length) return;
 			setTimeout(() => {
-				audioRef.current[idx]?.fade(0, 1, 2000);
+				audioRef.current[idx].seek(0);
+				audioRef.current[idx]?.fade(0, 1, 1000);
 				audioRef.current[idx]?.play();
+				lastIndex.current = idx;
 			}, AudioConfig.delay);
 		}
 	}, [index, onend]);

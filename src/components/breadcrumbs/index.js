@@ -25,14 +25,19 @@ const Breadcrumbs = memo(() => {
 	}, [index]);
 
 	return (
-		<div style={style} className='Breadcrumbs flex w-full flex-col items-start space-y-3 '>
-			<div className='font-notoSans'>{property.breadcrumbs}</div>
-			<div className='bars flex flex-row space-x-1'>
-				{AuthorInformation.map((e, i) => (
-					<div key={JSON.stringify(e)} className={i === index - 1 ? 'active' : ''} />
-				))}
+		<>
+			<div style={style} className='Breadcrumbs'>
+				<div className='font-notoSans'>{property.breadcrumbs}</div>
+				<div className='bars flex flex-row space-x-1'>
+					{AuthorInformation.map((e, i) => (
+						<div key={JSON.stringify(e)} className={i === index - 1 ? 'active' : ''} />
+					))}
+				</div>
 			</div>
-		</div>
+			<div style={style} className='breadcrumbs-mobile-text'>
+				{property.breadcrumbs}
+			</div>
+		</>
 	);
 });
 export default Breadcrumbs;
