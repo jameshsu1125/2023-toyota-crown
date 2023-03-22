@@ -28,8 +28,8 @@ const AudioProvider = memo(({ children }) => {
 
 	useEffect(() => {
 		if (skip) {
-			audioRef.current[lastIndex.current].stop();
 			setVoIndex(false);
+			audioRef.current[lastIndex.current].stop();
 		}
 	}, [skip]);
 
@@ -87,15 +87,17 @@ const AudioProvider = memo(({ children }) => {
 					indexRef.current !== PAGE_CONTEXT_NAME.intro &&
 					indexRef.current !== PAGE_CONTEXT_NAME.detailVideo
 				) {
-					const idx = indexRef.current - 1 < 0 ? 0 : indexRef.current - 1;
-					const currentTime = audioRef.current[idx].seek();
-					const audioProperty = AudioConfig.targets[idx].pos.filter(
-						(pos) => currentTime >= pos.time,
-					);
+					if (stateRef.current === STATE.playing) {
+						const idx = indexRef.current - 1 < 0 ? 0 : indexRef.current - 1;
+						const currentTime = audioRef.current[idx].seek();
+						const audioProperty = AudioConfig.targets[idx].pos.filter(
+							(pos) => currentTime >= pos.time,
+						);
 
-					if (audioProperty.length) {
-						const last = audioProperty[audioProperty.length - 1];
-						setVoIndex(last.index);
+						if (audioProperty.length) {
+							const last = audioProperty[audioProperty.length - 1];
+							setVoIndex(last.index);
+						}
 					}
 				}
 			});

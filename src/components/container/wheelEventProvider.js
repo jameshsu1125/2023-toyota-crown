@@ -49,7 +49,6 @@ const WheelEventProvider = memo(({ children }) => {
 				const idx = index + (direction === DIRECTION_STATE.next ? 1 : -1);
 				if (idx < 0 || idx > PAGE_CONTEXT_NAME.detailVideo) return;
 
-				console.log(direction, index, idx);
 				setContext({
 					type: ACTION.page,
 					state: {
