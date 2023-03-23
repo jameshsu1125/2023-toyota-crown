@@ -1,4 +1,4 @@
-import useTween, { Bezier } from 'lesca-use-tween';
+import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useRef } from 'react';
 import { AuthorInformation, BreakPoint, Context } from '../../settings/config';
 import { ACTION, PAGE_CONTEXT_NAME } from '../../settings/constant';
@@ -32,7 +32,6 @@ const Text = ({ children, index, voIndex, i }) => {
 				{ opacity: 1, y: 0 },
 				{
 					duration: 500,
-					easing: Bezier.easeInQuart,
 					onStart: () => {
 						if (device) {
 							ref.current.style.display = 'block';
@@ -51,7 +50,7 @@ const Text = ({ children, index, voIndex, i }) => {
 			{
 				duration: 500,
 				onComplete: () => {
-					setStyle({ opacity: 0.3, y: 0 }, 500);
+					setStyle({ opacity: device ? 0 : 0.3, y: 0 }, 500);
 				},
 			},
 		);
@@ -103,7 +102,7 @@ const VoiceOver = memo(() => {
 	return (
 		<div
 			style={style}
-			className='VoiceOver -mt-16 h-36 space-y-2 font-notoSans text-2xl font-light text-white md:-mt-0 md:text-lg'
+			className='VoiceOver h-36 space-y-2 font-notoSans text-2xl font-light text-white md:text-lg'
 		>
 			{vo.map((e, i) => (
 				<Text i={i} index={index} voIndex={voIndex} key={e}>

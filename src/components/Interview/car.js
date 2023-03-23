@@ -1,5 +1,5 @@
 import { CoverSize } from 'lesca-number';
-import useTween, { Bezier } from 'lesca-use-tween';
+import useTween from 'lesca-use-tween';
 import { memo, useEffect, useRef } from 'react';
 import './index.less';
 

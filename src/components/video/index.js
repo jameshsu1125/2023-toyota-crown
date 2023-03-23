@@ -52,7 +52,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 		const videoSize =
 			window.innerWidth >= BreakPoint
 				? { width: 1920, height: 1080 }
-				: { width: 1080, height: 1920 };
+				: { width: 607, height: 1080 };
 		const resize = () => {
 			const size = CoverSize(videoSize, { width: window.innerWidth, height: window.innerHeight });
 			videoRef.current.forEach((e) => e.setSize(size));

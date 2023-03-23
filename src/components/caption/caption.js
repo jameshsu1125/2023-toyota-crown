@@ -1,10 +1,13 @@
+/* eslint-disable no-lonely-if */
 /* eslint-disable react/no-array-index-key */
 import { memo, useContext, useEffect, useMemo, useState } from 'react';
-import { AuthorInformation, CaptionConfig, Context } from '../../settings/config';
-import { ACTION } from '../../settings/constant';
+import { AuthorInformation, BreakPoint, CaptionConfig, Context } from '../../settings/config';
+import { ACTION, PAGE_CONTEXT_NAME } from '../../settings/constant';
 import './index.less';
 import SVG from './svg';
 import TranslatePath from './translatePath';
+
+const DEVICE = window.innerWidth >= BreakPoint;
 
 const GradientCaption = ({ author, show = false }) => {
 	const className = useMemo(() => {
@@ -29,8 +32,26 @@ const CaptionSVG = memo(({ active = false }) => {
 	const [context] = useContext(Context);
 	const { index } = context[ACTION.page];
 
+	const [height, setHeight] = useState(-22);
+
 	const [show, setShow] = useState(false);
 	useEffect(() => setShow(false), [index]);
+
+	useEffect(() => {
+		if (DEVICE) {
+			if (index !== PAGE_CONTEXT_NAME.content_7) {
+				setHeight(106);
+			} else {
+				setHeight(167);
+			}
+		} else {
+			if (index !== PAGE_CONTEXT_NAME.content_7) {
+				setHeight(107);
+			} else {
+				setHeight(170);
+			}
+		}
+	}, [index]);
 
 	const Paths = useMemo(() => {
 		const idx = index - 1;
@@ -54,8 +75,11 @@ const CaptionSVG = memo(({ active = false }) => {
 		));
 	}, [index, active]);
 
+	// -mb-[22px] md:-mb-[112px]
+	// h-[200px]
+
 	return (
-		<div className='relative -mb-[22px] h-[200px] w-[550px] md:-mb-[112px]'>
+		<div className='relative  w-[550px]' style={{ height: `${height}px` }}>
 			<SVG>{Paths}</SVG>
 			<GradientCaption show={show} author={index} />
 		</div>
