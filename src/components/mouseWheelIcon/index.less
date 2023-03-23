@@ -1,99 +1,113 @@
 @import url('../../settings/config.less');
 
 .Mouse {
-	@apply absolute flex w-full justify-center rounded-full;
+	height: 200px;
+	@apply pointer-events-none absolute left-0 bottom-0 flex w-full justify-center;
 
-	.gradient {
-		background: radial-gradient(
-			circle,
-			rgba(0, 0, 0, 1) 0%,
-			rgba(0, 0, 0, 1) 30%,
-			rgba(0, 0, 0, 0) 70%
-		);
-
-		@scale: 0.9;
-		@img: './img/iconShadow.svg';
-		@apply relative flex h-24 w-24 items-center justify-center rounded-full;
-
-		.icon {
-			position: relative;
-			width: image-width(@img) * @scale;
-			height: image-height(@img) * @scale;
-			background-image: url(@img);
-			background-size: 100%;
-			animation-delay: 5s;
+	& > div:nth-child(1) {
+		margin-top: -37px;
+		@apply absolute flex w-full justify-center rounded-full;
+		.gradient {
+			background: radial-gradient(
+				circle,
+				rgba(0, 0, 0, 1) 0%,
+				rgba(0, 0, 0, 1) 30%,
+				rgba(0, 0, 0, 0) 70%
+			);
 
 			@scale: 0.9;
-			@img: './img/mouse.svg';
+			@img: './img/iconShadow.svg';
+			@apply relative flex h-24 w-24 items-center justify-center rounded-full;
+
+			.icon {
+				position: relative;
+				width: image-width(@img) * @scale;
+				height: image-height(@img) * @scale;
+				background-image: url(@img);
+				background-size: 100%;
+				animation-delay: 5s;
+
+				@scale: 0.9;
+				@img: './img/mouse.svg';
+			}
+
+			.shadow {
+				position: absolute;
+				left: 50%;
+				margin-left: 0 - image-width(@img) * @scale * 0.5;
+				width: image-width(@img) * @scale;
+				height: image-height(@img) * @scale;
+				background-image: url(@img);
+				background-size: 100%;
+			}
+
+			& > div {
+				animation: dragDown 3s ease-in-out infinite;
+			}
+
+			& > div:nth-child(1) {
+				margin-top: 10px;
+				animation-delay: 5.1s;
+			}
+
+			& > div:nth-child(2) {
+				margin-top: 20px;
+				animation-delay: 5.2s;
+			}
+		}
+		.text {
+			top: 87%;
+			@apply absolute font-notoSans text-lg font-normal text-white;
 		}
 
-		.shadow {
-			position: absolute;
-			left: 50%;
-			margin-left: 0 - image-width(@img) * @scale * 0.5;
-			width: image-width(@img) * @scale;
-			height: image-height(@img) * @scale;
-			background-image: url(@img);
-			background-size: 100%;
-		}
-
-		& > div {
-			animation: dragDown 3s ease-in-out infinite;
-		}
-
-		& > div:nth-child(1) {
-			margin-top: 10px;
-			animation-delay: 5.1s;
-		}
-
-		& > div:nth-child(2) {
-			margin-top: 20px;
-			animation-delay: 5.2s;
-		}
-	}
-	.text {
-		top: 87%;
-		@apply absolute font-notoSans text-lg font-normal text-white;
-	}
-
-	@keyframes dragDown {
-		0% {
-			transform: translateY(0px);
-		}
-		80% {
-			transform: translateY(-10px);
-		}
-		100% {
-			transform: translateY(0px);
+		@keyframes dragDown {
+			0% {
+				transform: translateY(0px);
+			}
+			80% {
+				transform: translateY(-10px);
+			}
+			100% {
+				transform: translateY(0px);
+			}
 		}
 	}
 }
 
 @media only screen and (max-width: @bp) {
 	.Mouse {
-		.gradient {
-			@apply relative flex h-24 w-24 items-center justify-center rounded-full;
+		height: 155px;
+		& > div:nth-child(1) {
+			.gradient {
+				@apply relative flex h-24 w-24 items-center justify-center rounded-full;
 
-			.icon {
-				width: image-width(@img) * @scale;
-				height: image-height(@img) * @scale;
+				.icon {
+					width: image-width(@img) * @scale;
+					height: image-height(@img) * @scale;
 
-				@scale: 0.7;
-				@img: './img/mouse.svg';
+					@scale: 0.7;
+					@img: './img/mouse.svg';
+				}
+
+				.shadow {
+					margin-left: 0 - image-width(@img) * @scale * 0.5;
+					width: image-width(@img) * @scale;
+					height: image-height(@img) * @scale;
+
+					@scale: 0.7;
+					@img: './img/iconShadow.svg';
+				}
 			}
 
-			.shadow {
-				margin-left: 0 - image-width(@img) * @scale * 0.5;
-				width: image-width(@img) * @scale;
-				height: image-height(@img) * @scale;
-
-				@scale: 0.7;
-				@img: './img/iconShadow.svg';
+			.text {
+				display: none;
 			}
 		}
+	}
+}
 
-		.text {
-			display: none;
-		}
+@media only screen and (max-height: @bpH) {
+	.Mouse {
+		height: 130px;
 	}
 }

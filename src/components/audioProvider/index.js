@@ -2,7 +2,7 @@ import { Howl } from 'howler';
 import EnterFrame from 'lesca-enterframe';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { AudioConfig, Context, VideoConfig } from '../../settings/config';
-import { ACTION, PAGE_CONTEXT_NAME } from '../../settings/constant';
+import { ACTION, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
 
 const STATE = {
 	playing: 'playing',
@@ -13,7 +13,7 @@ const STATE = {
 const AudioProvider = memo(({ children }) => {
 	const [context, setContext] = useContext(Context);
 	const payLoad = context[ACTION.payLoad];
-	const { video, audio } = payLoad;
+	const { video, audio, status } = payLoad;
 
 	const page = context[ACTION.page];
 	const { index, onend, skip } = page;
@@ -22,9 +22,16 @@ const AudioProvider = memo(({ children }) => {
 	const audioRef = useRef([]);
 	const indexRef = useRef(index);
 	const stateRef = useRef();
+	const bgmRef = useRef();
 
 	const [voIndex, setVoIndex] = useState(false);
 	const lastIndex = useRef();
+
+	useEffect(() => {
+		if (status === PAYLOAD_STATUS.userDidActive) {
+			bgmRef.current.play();
+		}
+	}, [status]);
 
 	useEffect(() => {
 		if (skip) {
@@ -36,17 +43,19 @@ const AudioProvider = memo(({ children }) => {
 	useEffect(() => {
 		const blur = () => {
 			const idx = indexRef.current - 1;
-			if (idx < 0 || idx > AudioConfig.targets.length) return;
+			if (idx < 0 || idx >= AudioConfig.targets.length) return;
 			if (stateRef.current === STATE.playing) {
 				audioRef.current[idx].pause();
+				bgmRef.current.pause();
 			}
 		};
 
 		const focus = () => {
 			const idx = indexRef.current - 1;
-			if (idx < 0 || idx > AudioConfig.targets.length) return;
+			if (idx < 0 || idx >= AudioConfig.targets.length) return;
 			if (stateRef.current === STATE.pause) {
 				audioRef.current[idx].play();
+				bgmRef.current.play();
 			}
 		};
 		window.addEventListener('blur', blur);
@@ -69,6 +78,7 @@ const AudioProvider = memo(({ children }) => {
 				audioRef.current[idx].seek(0);
 				audioRef.current[idx]?.fade(0, 1, 1000);
 				audioRef.current[idx]?.play();
+				bgmRef.current.fade(0.5, 0.3, 1000);
 				lastIndex.current = idx;
 			}, AudioConfig.delay);
 		}
@@ -80,26 +90,37 @@ const AudioProvider = memo(({ children }) => {
 		}
 	}, [video]);
 
-	const onload = (e) => {
-		if (e === AudioConfig.targets.length - 1) {
-			EnterFrame.add(() => {
-				if (
-					indexRef.current !== PAGE_CONTEXT_NAME.intro &&
-					indexRef.current !== PAGE_CONTEXT_NAME.detailVideo
-				) {
-					if (stateRef.current === STATE.playing) {
-						const idx = indexRef.current - 1 < 0 ? 0 : indexRef.current - 1;
-						const currentTime = audioRef.current[idx].seek();
-						const audioProperty = AudioConfig.targets[idx].pos.filter(
-							(pos) => currentTime >= pos.time,
-						);
+	const onloadBGM = () => {
+		setContext({ type: ACTION.payLoad, state: { ...payLoad, bgm: 1 } });
+		EnterFrame.add(() => {
+			if (
+				indexRef.current !== PAGE_CONTEXT_NAME.intro &&
+				indexRef.current !== PAGE_CONTEXT_NAME.detailVideo
+			) {
+				if (stateRef.current === STATE.playing) {
+					const idx = indexRef.current - 1 < 0 ? 0 : indexRef.current - 1;
+					const currentTime = audioRef.current[idx].seek();
+					const audioProperty = AudioConfig.targets[idx].pos.filter(
+						(pos) => currentTime >= pos.time,
+					);
 
-						if (audioProperty.length) {
-							const last = audioProperty[audioProperty.length - 1];
-							setVoIndex(last.index);
-						}
+					if (audioProperty.length) {
+						const last = audioProperty[audioProperty.length - 1];
+						setVoIndex(last.index);
 					}
 				}
+			}
+		});
+	};
+
+	const onload = (e) => {
+		if (e === AudioConfig.targets.length - 1) {
+			bgmRef.current = new Howl({
+				src: [AudioConfig.bgm],
+				autoplay: false,
+				loop: true,
+				volume: 0.5,
+				onload: onloadBGM,
 			});
 		} else {
 			setTarget((S) => {
@@ -128,6 +149,7 @@ const AudioProvider = memo(({ children }) => {
 				},
 				onend: () => {
 					stateRef.current = STATE.end;
+					bgmRef.current.fade(0.3, 0.5, 1000);
 				},
 			});
 		}

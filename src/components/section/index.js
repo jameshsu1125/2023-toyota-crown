@@ -7,7 +7,7 @@ const Section = memo(({ children }) => (
 		<div className='flex w-full flex-1 justify-center'>
 			<div className='h-full w-full max-w-7xl p-10 md:p-5'>{children}</div>
 		</div>
-		<div className='' />
+		<div />
 	</div>
 ));
 export default Section;

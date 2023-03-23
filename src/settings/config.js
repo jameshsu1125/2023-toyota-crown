@@ -21,6 +21,7 @@ import mobileVideo6 from './video/mobile/6.mp4';
 import mobileVideo7 from './video/mobile/7.mp4';
 import mobileVideo8 from './video/mobile/8.mp4';
 import mobileVideo9 from './video/mobile/9.mp4';
+import bgm from './audio/bgm.mp3';
 import audio1 from './audio/1.mp3';
 import audio2 from './audio/2.mp3';
 import audio3 from './audio/3.mp3';
@@ -36,10 +37,15 @@ export const BreakPointHeightMobile = 1138;
 export const BreakPointHeightDesktop = 1200;
 
 export const Context = createContext();
+export const EventContext = createContext();
 
 export const initialState = {
 	[ACTION.payLoad]: PAYLOAD_STATE,
 	[ACTION.page]: PAGE_STATE,
+};
+
+export const initialEventState = {
+	videoStop: false,
 };
 
 export const reducer = (state, action) => {
@@ -263,6 +269,7 @@ export const VideoConfig = {
 };
 
 export const AudioConfig = {
+	bgm,
 	targets: [
 		{
 			url: audio1,

@@ -1,0 +1,39 @@
+.Interview {
+	@apply absolute top-0 h-full w-full;
+
+	.cistern {
+		@apply relative flex h-full w-full items-start justify-center overflow-hidden;
+
+		.vehicle {
+			width: 1920px;
+			height: 1080px;
+			transform-origin: center 80%;
+			@apply relative flex items-center justify-center;
+
+			.image {
+				margin-top: 35px;
+				width: image-width(@img) * @scale;
+				height: image-height(@img) * @scale;
+				background-image: url(@img);
+				background-size: 100%;
+				opacity: 1;
+
+				@scale: 0.5;
+				@img: './img/car.png';
+			}
+		}
+
+		.Gradient {
+			position: absolute;
+			top: 50%;
+			padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+			width: @width;
+			border-top: solid 1px #8a7661;
+			background-image: url(@img);
+			background-size: 100% 100%;
+
+			@width: 100%;
+			@img: './img/g.png';
+		}
+	}
+}

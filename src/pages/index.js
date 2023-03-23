@@ -10,7 +10,14 @@ import Container from '../components/container';
 import Section from '../components/section';
 import SectionVerticalAlign from '../components/sectionVerticalAlign';
 import VoiceOver from '../components/voiceOver';
-import { BreakPoint, Context, initialState, reducer } from '../settings/config';
+import {
+	BreakPoint,
+	Context,
+	EventContext,
+	initialEventState,
+	initialState,
+	reducer,
+} from '../settings/config';
 import { ACTION, PAYLOAD_STATUS } from '../settings/constant';
 import '../settings/global.less';
 import PayLoader from './payLoader';
@@ -22,6 +29,8 @@ const Pages = memo(() => {
 	const payLoaderState = context[ACTION.payLoad];
 	const { status } = payLoaderState;
 
+	const value = useState(initialEventState);
+
 	useEffect(() => {
 		//	console.log(status);
 		// console.log(payLoaderState.status);
@@ -31,17 +40,19 @@ const Pages = memo(() => {
 		<div className='h-full w-full'>
 			{payLoaderState.status < PAYLOAD_STATUS.introVideoDidPlayed && <PayLoader />}
 			{payLoaderState.status >= PAYLOAD_STATUS.onPayLoaderFadeIn && (
-				<Container>
-					<AudioProvider>
-						<Section>
-							<SectionVerticalAlign>
-								<Breadcrumbs />
-								<Caption />
-								<VoiceOver />
-							</SectionVerticalAlign>
-						</Section>
-					</AudioProvider>
-				</Container>
+				<EventContext.Provider value={value}>
+					<Container>
+						<AudioProvider>
+							<Section>
+								<SectionVerticalAlign>
+									<Breadcrumbs />
+									<Caption />
+									<VoiceOver />
+								</SectionVerticalAlign>
+							</Section>
+						</AudioProvider>
+					</Container>
+				</EventContext.Provider>
 			)}
 			<Audio />
 		</div>

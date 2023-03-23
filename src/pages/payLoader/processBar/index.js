@@ -17,14 +17,14 @@ const Bar = memo(() => {
 	const [context, setContext] = useContext(Context);
 	const [, setPayLoadContext] = useContext(PayLoaderContext);
 	const payLoad = context[ACTION.payLoad];
-	const { loaded, total, video, audio } = payLoad;
+	const { loaded, total, video, audio, bgm } = payLoad;
 
 	const [style, setStyle] = useTween({ width: '0%', opacity: 1 });
 
 	useEffect(() => {
 		if (loaded !== 0 && total !== 0) {
 			const width = `${Math.floor(
-				((loaded + video + audio) /
+				((loaded + video + audio + bgm) /
 					(total + Object.keys(PAGE_CONTEXT_NAME).length + AudioConfig.targets.length)) *
 					100,
 			)}%`;
@@ -44,7 +44,7 @@ const Bar = memo(() => {
 
 			setStyle({ width }, { duration, easing, onComplete });
 		}
-	}, [loaded, total, video, audio]);
+	}, [loaded, total, video, audio, bgm]);
 	return <div style={style} className='bar' />;
 });
 

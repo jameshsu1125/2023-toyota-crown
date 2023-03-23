@@ -45,6 +45,7 @@ export const PAYLOAD_STATE = {
 	loaded: 0,
 	video: 0,
 	audio: 0,
+	bgm: 0,
 };
 
 export const TRANSITION = {

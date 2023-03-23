@@ -1,8 +1,11 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from 'react';
+import { EventContext } from '../../settings/config';
 
 const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
+	const [, setEventContext] = useContext(EventContext);
 	const videoRef = useRef(undefined);
 	const videoState = useRef();
+	const videoStopRef = useRef(false);
 
 	useEffect(() => {
 		videoRef.current.defaultMuted = true;
@@ -34,10 +37,14 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 		replay() {
 			videoRef.current.currentTime = 0;
 			videoRef.current.play();
+			videoStopRef.current = false;
+			setEventContext((S) => ({ ...S, videoStop: false }));
 		},
 		play() {
 			if (videoRef.current.currentTime !== videoRef.current.duration) {
 				videoRef.current.play();
+				videoStopRef.current = false;
+				setEventContext((S) => ({ ...S, videoStop: false }));
 			}
 		},
 		playPause() {
@@ -76,6 +83,12 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 			return videoState.current;
 		},
 		url,
+		setStopState() {
+			videoStopRef.current = true;
+		},
+		getStopState() {
+			return videoStopRef.current;
+		},
 	}));
 
 	return (

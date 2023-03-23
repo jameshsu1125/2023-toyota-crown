@@ -2,7 +2,7 @@ import BezierEasing from 'bezier-easing';
 import EnterFrame from 'lesca-enterframe';
 import { Bezier } from 'lesca-use-tween';
 import { forwardRef, useContext, useEffect, useImperativeHandle, useRef } from 'react';
-import { Context, VideoConfig } from '../../settings/config';
+import { Context, EventContext, VideoConfig } from '../../settings/config';
 import { ACTION } from '../../settings/constant';
 
 const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
@@ -11,6 +11,9 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 	const { status } = context[ACTION.payLoad];
 	const page = context[ACTION.page];
 	const { stopForward, skip } = page;
+
+	// event context
+	const [, setEventContext] = useContext(EventContext);
 
 	// refs
 	const domRef = useRef();
@@ -84,8 +87,10 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 							if (!stopForwardRef.current) {
 								if (time > stopTime) {
 									playingTarget.pause();
+									playingTarget.setStopState();
 									EnterFrame.stop();
-									onStopRef.current(playingTarget);
+									onStopRef.current?.(playingTarget);
+									setEventContext((S) => ({ ...S, videoStop: true }));
 								}
 							}
 						}

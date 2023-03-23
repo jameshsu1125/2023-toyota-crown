@@ -65,24 +65,10 @@ const Container = memo(({ children }) => {
 				onend: true,
 				stopForward: false,
 				voIndex: false,
-				// skipEnabled: false,
 				skipEnabled: true,
 				skip: false,
 			},
 		});
-		// setTimeout(() => {
-		// 	setContext({
-		// 		type: ACTION.page,
-		// 		state: {
-		// 			...page,
-		// 			onend: true,
-		// 			stopForward: false,
-		// 			voIndex: false,
-		// 			skipEnabled: true,
-		// 			skip: false,
-		// 		},
-		// 	});
-		// }, 3000);
 	};
 
 	const onStop = (playingTarget) => {
