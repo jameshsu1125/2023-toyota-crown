@@ -206,7 +206,7 @@ export const AuthorInformation = [
 	},
 ];
 
-export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 50 };
+export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 20 };
 
 const videoUrl = [
 	{ desktop: desktopVideo0, mobile: mobileVideo0 },
@@ -359,31 +359,36 @@ export const InterviewConfig = [
 	{
 		breadcrumbs: '外型之最',
 		name: '宍戶 惠子',
-		youtube: 'g3M0uN9Lshk',
+		youtube: 'k0osB5n6FPI',
 		className: 'interviewButton-0',
+		youtubeCover: 'yt-0',
 	},
 	{
 		breadcrumbs: '細節之最',
 		name: '田中 俊輔',
-		youtube: 'g3M0uN9Lshk',
+		youtube: 'Slr3LJ7e3I4',
 		className: 'interviewButton-1',
+		youtubeCover: 'yt-1',
 	},
 	{
 		breadcrumbs: '駕駛之最',
 		name: '田中 俊輔',
-		youtube: 'g3M0uN9Lshk',
+		youtube: 'JjFIEcKSQ8A',
 		className: 'interviewButton-2',
+		youtubeCover: 'yt-2',
 	},
 	{
 		breadcrumbs: '內裝之最',
 		name: '岡松 秀悟',
-		youtube: 'g3M0uN9Lshk',
+		youtube: 'v5X9ZT0XFF4',
 		className: 'interviewButton-3',
+		youtubeCover: 'yt-3',
 	},
 	{
 		breadcrumbs: '動力之最',
 		name: '岡松 秀悟',
-		youtube: 'g3M0uN9Lshk',
+		youtube: 'QFYhmKfqnCQ',
 		className: 'interviewButton-4',
+		youtubeCover: 'yt-4',
 	},
 ];

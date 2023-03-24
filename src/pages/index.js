@@ -7,6 +7,7 @@ import AudioProvider from '../components/audioProvider';
 import Breadcrumbs from '../components/breadcrumbs';
 import Caption from '../components/caption';
 import Container from '../components/container';
+import Interview from '../components/Interview';
 import Section from '../components/section';
 import SectionVerticalAlign from '../components/sectionVerticalAlign';
 import VoiceOver from '../components/voiceOver';
@@ -30,6 +31,7 @@ const Pages = memo(() => {
 	const { status } = payLoaderState;
 
 	const value = useState(initialEventState);
+	const [key, setKey] = useState(new Date());
 
 	useEffect(() => {
 		//	console.log(status);
@@ -50,6 +52,7 @@ const Pages = memo(() => {
 									<VoiceOver />
 								</SectionVerticalAlign>
 							</Section>
+							<Interview key={key} setKey={setKey} />
 						</AudioProvider>
 					</Container>
 				</EventContext.Provider>

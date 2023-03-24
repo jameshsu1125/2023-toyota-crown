@@ -75,9 +75,6 @@ const CaptionSVG = memo(({ active = false }) => {
 		));
 	}, [index, active]);
 
-	// -mb-[22px] md:-mb-[112px]
-	// h-[200px]
-
 	return (
 		<div className='relative  w-[550px]' style={{ height: `${height}px` }}>
 			<SVG>{Paths}</SVG>

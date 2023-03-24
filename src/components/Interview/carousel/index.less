@@ -1,0 +1,129 @@
+@import url('../../../settings/config.less');
+
+.Carousel {
+	@apply pointer-events-none absolute top-0 flex h-full w-full items-center justify-center;
+
+	.content {
+		position: relative;
+		margin-top: -220px;
+		max-width: 600px;
+
+		.arrow {
+			position: absolute;
+			top: 50%;
+			left: -90px;
+			z-index: 10;
+			margin-top: 0 - image-height(@img) * @scale * 0.5;
+			width: image-width(@img) * @scale;
+			height: image-height(@img) * @scale;
+			background-image: url(@img);
+			background-size: 100%;
+			cursor: pointer;
+			transition: 0.3;
+
+			@scale: 0.9;
+			@img: './img/arrow.png';
+
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.2);
+			}
+		}
+
+		.next {
+			right: -90px;
+			left: unset;
+			transform: scale(-1, 1);
+		}
+
+		@apply pointer-events-auto w-full;
+
+		.slick-list {
+			overflow: visible;
+		}
+
+		.yt {
+			position: relative;
+
+			@apply p-5;
+
+			.yt-c {
+				position: relative;
+				background-size: cover;
+				background-repeat: no-repeat;
+				transition: 0.5s;
+
+				& > div {
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+				}
+			}
+
+			.yt-0 {
+				padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+				width: @width;
+				background-image: url(@img);
+
+				@width: 100%;
+				@img: './img/yt0.jpg';
+			}
+
+			.yt-1 {
+				padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+				width: @width;
+				background-image: url(@img);
+
+				@width: 100%;
+				@img: './img/yt1.jpg';
+			}
+
+			.yt-2 {
+				padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+				width: @width;
+				background-image: url(@img);
+
+				@width: 100%;
+				@img: './img/yt2.jpg';
+			}
+
+			.yt-3 {
+				padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+				width: @width;
+				background-image: url(@img);
+
+				@width: 100%;
+				@img: './img/yt3.jpg';
+			}
+
+			.yt-4 {
+				padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
+				width: @width;
+				background-image: url(@img);
+
+				@width: 100%;
+				@img: './img/yt4.jpg';
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: @bp) {
+	.Carousel {
+		.content {
+			.arrow {
+				left: -15px;
+			}
+
+			.next {
+				right: -15px;
+				left: unset;
+			}
+
+			.yt {
+				@apply p-10;
+			}
+		}
+	}
+}

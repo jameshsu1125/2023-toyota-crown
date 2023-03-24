@@ -1,35 +1,42 @@
 import { CoverSize } from 'lesca-number';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useEffect, useRef } from 'react';
+import { PAGE_CONTEXT_NAME } from '../../settings/constant';
 import './index.less';
 import { InterviewState } from './setting';
 
-// 960x401
-// 422x176
-
-const Image = ({ children, state }) => {
-	const [style, setStyle] = useTween({ width: '960px', height: '401px' });
+const Image = ({ children, state, setState }) => {
+	const ref = useRef();
+	const [style, setStyle] = useTween({ width: '960px', height: '401px', y: 0 });
 	useEffect(() => {
 		if (state === InterviewState.buttonDidClick) {
-			setStyle({ width: '422px', height: '176px' }, { easing: Bezier.easeInOutQuart });
+			setStyle(
+				{ width: '422px', height: '176px', y: 190 },
+				{
+					easing: Bezier.easeInOutQuart,
+					onComplete: () => {
+						setState(InterviewState.carDidGoDown);
+					},
+				},
+			);
 		}
 	}, [state]);
 	return (
-		<div style={style} className='image'>
+		<div ref={ref} style={style} className='image'>
 			{children}
 		</div>
 	);
 };
 
-const Car = memo(({ children, videoStop, state }) => {
+const Car = memo(({ children, videoStop, state, setState, index }) => {
 	const vehicleRef = useRef();
 	const [style, setStyle] = useTween({ opacity: 0, y: 30 });
 
 	useEffect(() => {
-		if (videoStop) {
+		if (videoStop && index === PAGE_CONTEXT_NAME.detailVideo) {
 			setStyle({ opacity: 1, y: 0 }, { delay: 600 });
 		}
-	}, [videoStop]);
+	}, [videoStop, index]);
 
 	useEffect(() => {
 		const resize = () => {
@@ -47,7 +54,9 @@ const Car = memo(({ children, videoStop, state }) => {
 
 	return (
 		<div style={style} ref={vehicleRef} className='vehicle'>
-			<Image state={state}>{children}</Image>
+			<Image state={state} setState={setState} index={index}>
+				{children}
+			</Image>
 		</div>
 	);
 });

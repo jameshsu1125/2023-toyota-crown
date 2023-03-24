@@ -1,15 +1,18 @@
 import useTween from 'lesca-use-tween';
 import { memo, useEffect, useRef } from 'react';
+import { PAGE_CONTEXT_NAME } from '../../settings/constant';
 
-const Title = memo(({ state }) => {
+const Title = memo(({ videoStop, index }) => {
 	const ref = useRef();
 
 	const [style, setStyle] = useTween({ opacity: 0, y: 30 });
 	useEffect(() => {
-		if (state) {
-			setStyle({ opacity: 1, y: 0 });
+		if (videoStop && index === PAGE_CONTEXT_NAME.detailVideo) {
+			setStyle({ opacity: 1, y: 0 }, { delay: 300 });
+		} else if (index !== PAGE_CONTEXT_NAME.detailVideo) {
+			setStyle({ opacity: 0 });
 		}
-	}, [state]);
+	}, [videoStop, index]);
 
 	return (
 		<div className='pointer-events-none absolute top-0 flex h-full w-full justify-center'>

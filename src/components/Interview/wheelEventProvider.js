@@ -9,7 +9,7 @@ import {
 } from '../../settings/constant';
 import './index.less';
 
-const WheelEventProvider = memo(({ children }) => {
+const WheelEventProvider = memo(() => {
 	const ref = useRef();
 	const touchRef = useRef(0);
 
@@ -22,8 +22,8 @@ const WheelEventProvider = memo(({ children }) => {
 	const [active, launcher, direction] = useWheelHeavy(true);
 
 	useEffect(() => {
-		if (index === PAGE_CONTEXT_NAME.detailVideo) ref.current.style.display = 'none';
-		else ref.current.style.display = 'block';
+		if (index === PAGE_CONTEXT_NAME.detailVideo) ref.current.style.display = 'block';
+		else ref.current.style.display = 'none';
 	}, [index]);
 
 	useEffect(() => {
@@ -99,16 +99,13 @@ const WheelEventProvider = memo(({ children }) => {
 	);
 
 	return (
-		<div className='relative h-full w-full '>
-			{children}
-			<div
-				ref={ref}
-				onWheel={onWheel}
-				onTouchStart={onTouchStart}
-				onTouchMove={onTouchMove}
-				className='absolute top-0 h-full w-full bg-[rgba(0,0,0,0)]'
-			/>
-		</div>
+		<div
+			ref={ref}
+			onWheel={onWheel}
+			onTouchStart={onTouchStart}
+			onTouchMove={onTouchMove}
+			className='absolute top-0 h-full w-full bg-[rgba(0,0,0,0)]'
+		/>
 	);
 });
 export default WheelEventProvider;
