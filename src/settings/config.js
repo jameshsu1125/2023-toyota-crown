@@ -35,6 +35,7 @@ export const BreakPoint = 768;
 export const BreakPointHeight = 900;
 export const BreakPointHeightMobile = 1138;
 export const BreakPointHeightDesktop = 1200;
+export const AutoPlay = false;
 
 export const Context = createContext();
 export const EventContext = createContext();
@@ -354,4 +355,35 @@ export const AudioConfig = {
 	delay: 500,
 };
 
-export const AutoPlay = false;
+export const InterviewConfig = [
+	{
+		breadcrumbs: '外型之最',
+		name: '宍戶 惠子',
+		youtube: 'g3M0uN9Lshk',
+		className: 'interviewButton-0',
+	},
+	{
+		breadcrumbs: '細節之最',
+		name: '田中 俊輔',
+		youtube: 'g3M0uN9Lshk',
+		className: 'interviewButton-1',
+	},
+	{
+		breadcrumbs: '駕駛之最',
+		name: '田中 俊輔',
+		youtube: 'g3M0uN9Lshk',
+		className: 'interviewButton-2',
+	},
+	{
+		breadcrumbs: '內裝之最',
+		name: '岡松 秀悟',
+		youtube: 'g3M0uN9Lshk',
+		className: 'interviewButton-3',
+	},
+	{
+		breadcrumbs: '動力之最',
+		name: '岡松 秀悟',
+		youtube: 'g3M0uN9Lshk',
+		className: 'interviewButton-4',
+	},
+];

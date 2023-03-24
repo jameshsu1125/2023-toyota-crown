@@ -40,7 +40,7 @@ const App = () => {
 			});
 			setTest(true);
 			setFadeIn(true);
-		}, 1000);
+		}, 1500);
 	}, []);
 
 	return (

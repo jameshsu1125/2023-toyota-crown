@@ -2,7 +2,7 @@
 	@apply absolute top-0 h-full w-full;
 
 	.cistern {
-		@apply relative flex h-full w-full items-start justify-center overflow-hidden;
+		@apply relative flex h-full w-full items-center justify-center overflow-hidden;
 
 		.vehicle {
 			width: 1920px;
@@ -11,21 +11,23 @@
 			@apply relative flex items-center justify-center;
 
 			.image {
-				margin-top: 35px;
+				position: relative;
+				margin-top: 100px;
 				width: image-width(@img) * @scale;
 				height: image-height(@img) * @scale;
 				background-image: url(@img);
 				background-size: 100%;
+				background-repeat: no-repeat;
 				opacity: 1;
 
-				@scale: 0.5;
+				@scale: 0.22;
 				@img: './img/car.png';
 			}
 		}
 
 		.Gradient {
 			position: absolute;
-			top: 50%;
+			top: 60%;
 			padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
 			width: @width;
 			border-top: solid 1px #8a7661;
@@ -34,6 +36,48 @@
 
 			@width: 100%;
 			@img: './img/g.png';
+		}
+	}
+
+	.title {
+		position: absolute;
+		top: 50%;
+		margin-top: -260px;
+		width: image-width(@img) * @scale;
+		height: image-height(@img) * @scale;
+
+		mask-image: url(@img);
+		mask-repeat: no-repeat;
+		mask-position: center;
+		mask-size: 100%;
+		@scale: 0.7;
+		@img: './img/title.svg';
+
+		.gradient {
+			position: absolute;
+			left: -40%;
+			width: 180%;
+			height: 100%;
+			background: linear-gradient(
+				90deg,
+				rgba(126, 77, 61, 1) 0%,
+				rgba(206, 178, 154, 1) 50%,
+				rgba(126, 77, 61, 1) 100%
+			);
+			animation: interviewBrushed 5s ease-in-out infinite;
+			pointer-events: none;
+		}
+
+		@keyframes interviewBrushed {
+			0% {
+				left: 0%;
+			}
+			50% {
+				left: -80%;
+			}
+			100% {
+				left: 0%;
+			}
 		}
 	}
 }
