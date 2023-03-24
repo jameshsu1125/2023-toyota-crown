@@ -1,6 +1,6 @@
 import { VideoConfig } from '../../settings/config';
 
-export const videoFusionDelay = 4000 + VideoConfig.transitionDuration;
+export const videoFusionDelay = 3500 + VideoConfig.transitionDuration;
 
 export const InterviewState = {
 	unset: 0,

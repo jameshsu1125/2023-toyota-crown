@@ -9,6 +9,11 @@ const Button = memo(
 	({ data, videoStop, sn, onFadeIn, state, setYoutubeIndex, setState, index }) => {
 		const ref = useRef();
 		const buttonProperty = useMemo(() => ButtonTransitionProperty[sn], [sn]);
+		const stateRef = useRef(state);
+
+		useEffect(() => {
+			stateRef.current = state;
+		}, [state]);
 
 		const [style, setStyle] = useTween({
 			opacity: 0,
@@ -23,7 +28,7 @@ const Button = memo(
 				setStyle(
 					{ opacity: 1, y: 0 },
 					{
-						delay: 600 + sn * 500,
+						delay: 600 + sn * 200,
 						onComplete: () => {
 							onFadeIn?.(sn);
 						},
@@ -38,7 +43,9 @@ const Button = memo(
 					ref.current?.classList.add('on');
 					Click.add(`#youtube${sn}`, () => {
 						setYoutubeIndex(sn);
-						setState(InterviewState.buttonDidClick);
+						if (stateRef.current < InterviewState.buttonDidClick) {
+							setState(InterviewState.buttonDidClick);
+						}
 					});
 				}, 1000);
 			} else if (state === InterviewState.buttonDidClick) {

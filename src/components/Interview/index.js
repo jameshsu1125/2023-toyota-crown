@@ -3,7 +3,7 @@ import { memo, useContext, useEffect, useState } from 'react';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { Context, EventContext, InterviewConfig } from '../../settings/config';
-import { ACTION, PAGE_CONTEXT_NAME } from '../../settings/constant';
+import { ACTION, DIRECTION_STATE, PAGE_CONTEXT_NAME } from '../../settings/constant';
 import Button from './buttons';
 import Car from './car';
 import Carousel from './carousel';
@@ -14,10 +14,12 @@ import { InterviewState, InterviewYoutube } from './setting';
 import Title from './title';
 import WheelEventProvider from './wheelEventProvider';
 
+let saveRef = true;
+
 const Interview = memo(({ setKey }) => {
 	const [context, setContext] = useContext(Context);
 	const page = context[ACTION.page];
-	const { index } = page;
+	const { index, direction } = page;
 
 	const [eventContext] = useContext(EventContext);
 	const { videoStop } = eventContext;
@@ -35,16 +37,20 @@ const Interview = memo(({ setKey }) => {
 			setStyle({ opacity: 1 }, 500);
 			setActive(true);
 			setContext({ type: ACTION.page, state: { ...page, enabled: false, skipEnabled: false } });
-		} else {
-			setFadeOutStyle(
-				{ opacity: 0 },
-				{
-					duration: 1000,
-					onComplete: () => {
-						setKey(new Date());
+			saveRef = true;
+		} else if (index === PAGE_CONTEXT_NAME.content_7 && direction === DIRECTION_STATE.prev) {
+			if (saveRef) {
+				saveRef = false;
+				setFadeOutStyle(
+					{ opacity: 0 },
+					{
+						duration: 1000,
+						onComplete: () => {
+							setKey(new Date());
+						},
 					},
-				},
-			);
+				);
+			}
 		}
 	}, [index]);
 

@@ -31,7 +31,7 @@ const Pages = memo(() => {
 	const { status } = payLoaderState;
 
 	const value = useState(initialEventState);
-	const [key, setKey] = useState(new Date());
+	const [key, setKey] = useState(true);
 
 	useEffect(() => {
 		//	console.log(status);

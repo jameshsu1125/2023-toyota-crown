@@ -49,6 +49,10 @@ const Carousel = memo(({ state, setState, youtubeIndex, index }) => {
 	const [style, setStyle] = useTween({ opacity: 0, x: 300 });
 	const [idx, setIndex] = useState(youtubeIndex);
 
+	useEffect(() => {
+		slickRef.current.slickGoTo(youtubeIndex);
+	}, [youtubeIndex]);
+
 	const settings = {
 		className: 'center',
 		infinite: true,
