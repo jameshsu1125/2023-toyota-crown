@@ -51,9 +51,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 	useEffect(() => {
 		// 重新設定影片尺寸
 		const videoSize =
-			window.innerWidth >= BreakPoint
-				? { width: 1920, height: 1080 }
-				: { width: 607, height: 1080 };
+			window.innerWidth >= BreakPoint ? { width: 1680, height: 945 } : { width: 590, height: 1050 };
 		const resize = () => {
 			const size = CoverSize(videoSize, { width: window.innerWidth, height: window.innerHeight });
 			videoRef.current.forEach((e) => e.setSize(size));
