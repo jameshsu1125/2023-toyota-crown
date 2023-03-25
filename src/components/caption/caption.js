@@ -8,7 +8,6 @@ import SVG from './svg';
 import TranslatePath from './translatePath';
 
 const DEVICE = window.innerWidth >= BreakPoint;
-
 const GradientCaption = ({ author, show = false }) => {
 	const className = useMemo(() => {
 		const idx = author - 1;
@@ -31,38 +30,25 @@ const GradientCaption = ({ author, show = false }) => {
 const CaptionSVG = memo(({ active = false }) => {
 	const [context] = useContext(Context);
 	const { index } = context[ACTION.page];
-
 	const [height, setHeight] = useState(-22);
-
 	const [show, setShow] = useState(false);
 	useEffect(() => setShow(false), [index]);
 
 	useEffect(() => {
 		if (DEVICE) {
-			if (index !== PAGE_CONTEXT_NAME.content_7) {
-				setHeight(106);
-			} else {
-				setHeight(167);
-			}
+			if (index !== PAGE_CONTEXT_NAME.content_7) setHeight(106);
+			else setHeight(167);
 		} else {
-			if (index !== PAGE_CONTEXT_NAME.content_7) {
-				setHeight(107);
-			} else {
-				setHeight(170);
-			}
+			if (index !== PAGE_CONTEXT_NAME.content_7) setHeight(107);
+			else setHeight(170);
 		}
 	}, [index]);
 
 	const Paths = useMemo(() => {
 		const idx = index - 1;
 		if (idx < 0 || idx >= AuthorInformation.length) return '';
-
 		const property = AuthorInformation[idx];
-
-		const onComplete = () => {
-			setShow(true);
-		};
-
+		const onComplete = () => setShow(true);
 		return property?.captions.map((e, i) => (
 			<TranslatePath
 				key={JSON.stringify(e) + i}

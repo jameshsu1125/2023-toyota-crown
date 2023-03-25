@@ -50,7 +50,7 @@ const Text = ({ children, index, voIndex, i }) => {
 			{
 				duration: 500,
 				onComplete: () => {
-					setStyle({ opacity: device ? 0 : 0.3, y: 0 }, 500);
+					setStyle({ opacity: 0, y: 0 }, 500);
 				},
 			},
 		);
