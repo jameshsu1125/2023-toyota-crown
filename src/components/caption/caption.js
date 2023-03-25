@@ -76,7 +76,7 @@ const CaptionSVG = memo(({ active = false }) => {
 	}, [index, active]);
 
 	return (
-		<div className='relative  w-[550px]' style={{ height: `${height}px` }}>
+		<div className='relative w-[600px]' style={{ height: `${height}px` }}>
 			<SVG>{Paths}</SVG>
 			<GradientCaption show={show} author={index} />
 		</div>

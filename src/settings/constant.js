@@ -1,6 +1,13 @@
 export const ACTION = {
 	payLoad: '預載內容',
 	page: '設計師頁',
+	video: '影片',
+	audio: '聲音',
+};
+
+export const AUDIO_STATE = {
+	muted: false,
+	content: [],
 };
 
 export const PAGE_CONTEXT_NAME = {

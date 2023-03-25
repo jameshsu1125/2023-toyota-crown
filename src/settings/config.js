@@ -1,6 +1,13 @@
 import { createContext } from 'react';
 import { CaptionsPaths } from './captionsPath';
-import { ACTION, PAGE_CONTEXT_NAME, PAGE_STATE, PAYLOAD_STATE, PAYLOAD_STATUS } from './constant';
+import {
+	ACTION,
+	AUDIO_STATE,
+	PAGE_CONTEXT_NAME,
+	PAGE_STATE,
+	PAYLOAD_STATE,
+	PAYLOAD_STATUS,
+} from './constant';
 import desktopVideo0 from './video/desktop/0.mp4';
 import desktopVideo1 from './video/desktop/1.mp4';
 import desktopVideo2 from './video/desktop/2.mp4';
@@ -36,6 +43,7 @@ export const BreakPointHeight = 900;
 export const BreakPointHeightMobile = 1138;
 export const BreakPointHeightDesktop = 1200;
 export const AutoPlay = false;
+export const LinkForTry = 'https://www.toyota.com.tw/showroom/CROWN/';
 
 export const Context = createContext();
 export const EventContext = createContext();
@@ -43,6 +51,8 @@ export const EventContext = createContext();
 export const initialState = {
 	[ACTION.payLoad]: PAYLOAD_STATE,
 	[ACTION.page]: PAGE_STATE,
+	[ACTION.video]: [],
+	[ACTION.audio]: AUDIO_STATE,
 };
 
 export const initialEventState = {
@@ -270,6 +280,8 @@ export const VideoConfig = {
 };
 
 export const AudioConfig = {
+	defaultVolume: 0.5,
+	minScaleVolume: 0.3,
 	bgm,
 	targets: [
 		{

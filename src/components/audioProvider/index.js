@@ -2,7 +2,7 @@ import { Howl } from 'howler';
 import EnterFrame from 'lesca-enterframe';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { AudioConfig, Context, VideoConfig } from '../../settings/config';
-import { ACTION, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
+import { ACTION, AUDIO_STATE, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
 
 const STATE = {
 	playing: 'playing',
@@ -18,6 +18,10 @@ const AudioProvider = memo(({ children }) => {
 	const page = context[ACTION.page];
 	const { index, onend, skip } = page;
 
+	const audioContext = context[ACTION.audio];
+	const { muted } = audioContext;
+	const mutedRef = useRef(muted);
+
 	const [targets, setTarget] = useState([]);
 	const audioRef = useRef([]);
 	const indexRef = useRef(index);
@@ -26,6 +30,10 @@ const AudioProvider = memo(({ children }) => {
 
 	const [voIndex, setVoIndex] = useState(false);
 	const lastIndex = useRef();
+
+	useEffect(() => {
+		mutedRef.current = muted;
+	}, [muted]);
 
 	useEffect(() => {
 		if (status === PAYLOAD_STATUS.userDidActive) {
@@ -74,11 +82,14 @@ const AudioProvider = memo(({ children }) => {
 		if (onend) {
 			const idx = index - 1;
 			if (idx < 0 || idx >= AudioConfig.targets.length) return;
+
 			setTimeout(() => {
 				audioRef.current[idx].seek(0);
-				audioRef.current[idx]?.fade(0, 1, 1000);
+				if (!mutedRef.current) {
+					audioRef.current[idx]?.fade(0, 1, 1000);
+					bgmRef.current.fade(AudioConfig.defaultVolume, AudioConfig.minScaleVolume, 1000);
+				}
 				audioRef.current[idx]?.play();
-				bgmRef.current.fade(0.5, 0.3, 1000);
 				lastIndex.current = idx;
 			}, AudioConfig.delay);
 		}
@@ -92,6 +103,10 @@ const AudioProvider = memo(({ children }) => {
 
 	const onloadBGM = () => {
 		setContext({ type: ACTION.payLoad, state: { ...payLoad, bgm: 1 } });
+		setContext({
+			type: ACTION.audio,
+			state: { ...AUDIO_STATE, content: [...audioRef.current, bgmRef.current] },
+		});
 		EnterFrame.add(() => {
 			if (
 				indexRef.current !== PAGE_CONTEXT_NAME.intro &&
@@ -119,7 +134,7 @@ const AudioProvider = memo(({ children }) => {
 				src: [AudioConfig.bgm],
 				autoplay: false,
 				loop: true,
-				volume: 0.5,
+				volume: AudioConfig.defaultVolume,
 				onload: onloadBGM,
 			});
 		} else {
@@ -149,7 +164,9 @@ const AudioProvider = memo(({ children }) => {
 				},
 				onend: () => {
 					stateRef.current = STATE.end;
-					bgmRef.current.fade(0.3, 0.5, 1000);
+					if (!mutedRef.current) {
+						bgmRef.current.fade(AudioConfig.minScaleVolume, AudioConfig.defaultVolume, 1000);
+					}
 				},
 			});
 		}

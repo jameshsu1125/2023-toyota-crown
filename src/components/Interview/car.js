@@ -1,24 +1,35 @@
 import { CoverSize } from 'lesca-number';
 import useTween, { Bezier } from 'lesca-use-tween';
-import { memo, useEffect, useRef } from 'react';
-import { PAGE_CONTEXT_NAME } from '../../settings/constant';
+import { memo, useEffect, useMemo, useRef } from 'react';
+import { BreakPoint } from '../../settings/config';
 import './index.less';
 import { InterviewState } from './setting';
 
+const DEVICE = window.innerWidth >= BreakPoint;
+const DefaultTweenProperty = {
+	width: '960px',
+	height: '401px',
+	y: 0,
+	scale: DEVICE ? 1 : 0.58,
+};
+
 const Image = ({ children, state, setState }) => {
 	const ref = useRef();
-	const [style, setStyle] = useTween({ width: '960px', height: '401px', y: 0 });
+	const [style, setStyle] = useTween(DefaultTweenProperty);
+
+	const tweenProps = useMemo(() => {
+		if (DEVICE) return { width: '422px', height: '176px', y: 190 };
+		return { width: '720px', height: '301px', y: 175 };
+	}, []);
+
 	useEffect(() => {
 		if (state === InterviewState.buttonDidClick) {
-			setStyle(
-				{ width: '422px', height: '176px', y: 190 },
-				{
-					easing: Bezier.easeInOutQuart,
-					onComplete: () => {
-						setState(InterviewState.carDidGoDown);
-					},
+			setStyle(tweenProps, {
+				easing: Bezier.easeInOutQuart,
+				onComplete: () => {
+					setState(InterviewState.carDidGoDown);
 				},
-			);
+			});
 		}
 	}, [state]);
 	return (
@@ -28,15 +39,15 @@ const Image = ({ children, state, setState }) => {
 	);
 };
 
-const Car = memo(({ children, videoStop, state, setState, index }) => {
+const Car = memo(({ children, state, setState }) => {
 	const vehicleRef = useRef();
 	const [style, setStyle] = useTween({ opacity: 0, y: 30 });
 
 	useEffect(() => {
-		if (videoStop && index === PAGE_CONTEXT_NAME.detailVideo) {
-			setStyle({ opacity: 1, y: 0 }, { delay: 600 });
+		if (state === InterviewState.videoDidFadeOut) {
+			setStyle({ opacity: 1, y: 0 });
 		}
-	}, [videoStop, index]);
+	}, [state]);
 
 	useEffect(() => {
 		const resize = () => {
@@ -54,7 +65,7 @@ const Car = memo(({ children, videoStop, state, setState, index }) => {
 
 	return (
 		<div style={style} ref={vehicleRef} className='vehicle'>
-			<Image state={state} setState={setState} index={index}>
+			<Image state={state} setState={setState}>
 				{children}
 			</Image>
 		</div>

@@ -10,7 +10,7 @@ import VideoRef from './videoRef';
 let fixVideoOnEndBug = true;
 
 const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false }) => {
-	const [context] = useContext(Context);
+	const [context, setContext] = useContext(Context);
 	const { stopForward, index, direction } = context[ACTION.page];
 
 	const [targets, setTarget] = useState([VideoConfig.targets[0]]);
@@ -37,6 +37,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 		onLoaded(targets[targets.length - 1]);
 		if (targets.length === VideoConfig.targets.length) {
 			videoRef.current[PAGE_CONTEXT_NAME.intro].show();
+			setContext({ type: ACTION.video, state: videoRef.current });
 		} else {
 			setTarget((S) => {
 				const { length } = S;

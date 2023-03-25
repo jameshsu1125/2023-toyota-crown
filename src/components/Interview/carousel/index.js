@@ -3,7 +3,6 @@ import useTween from 'lesca-use-tween';
 import { memo, useEffect, useId, useMemo, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import { InterviewConfig } from '../../../settings/config';
-import { PAGE_CONTEXT_NAME } from '../../../settings/constant';
 import { InterviewState } from '../setting';
 import './index.less';
 import Player from './youtube';
@@ -44,7 +43,7 @@ const Arrows = ({ direction, onClick }) => {
 	return <div id={id} className={`${direction ? 'arrow next' : 'arrow'}`} />;
 };
 
-const Carousel = memo(({ state, setState, youtubeIndex, index }) => {
+const Carousel = memo(({ state, setState, youtubeIndex }) => {
 	const slickRef = useRef();
 	const [style, setStyle] = useTween({ opacity: 0, x: 300 });
 	const [idx, setIndex] = useState(youtubeIndex);
@@ -84,7 +83,7 @@ const Carousel = memo(({ state, setState, youtubeIndex, index }) => {
 	};
 
 	useEffect(() => {
-		if (index === PAGE_CONTEXT_NAME.detailVideo && state === InterviewState.carDidGoDown) {
+		if (state === InterviewState.carDidGoDown) {
 			setStyle(
 				{ opacity: 1, x: 0 },
 				{
@@ -95,7 +94,7 @@ const Carousel = memo(({ state, setState, youtubeIndex, index }) => {
 				},
 			);
 		}
-	}, [state, index]);
+	}, [state]);
 
 	return (
 		<div className='Carousel'>

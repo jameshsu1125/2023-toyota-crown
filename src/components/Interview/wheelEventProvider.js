@@ -8,8 +8,9 @@ import {
 	PAYLOAD_STATUS,
 } from '../../settings/constant';
 import './index.less';
+import { InterviewState } from './setting';
 
-const WheelEventProvider = memo(() => {
+const WheelEventProvider = memo(({ setState }) => {
 	const ref = useRef();
 	const touchRef = useRef(0);
 
@@ -65,6 +66,9 @@ const WheelEventProvider = memo(() => {
 						skipEnabled: false,
 					},
 				});
+			}
+			if (direction === DIRECTION_STATE.prev) {
+				setState(InterviewState.userDidGoAway);
 			}
 		}
 	}, [active]);

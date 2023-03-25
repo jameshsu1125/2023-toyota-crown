@@ -21,11 +21,13 @@ const App = () => {
 	const value = useMemo(() => [state, setState], [state]);
 	const values = useState(initialEventState);
 
+	const video = state[ACTION.video];
+
 	const [test, setTest] = useState(false);
 	const [fadeIn, setFadeIn] = useState(false);
 
 	useEffect(() => {
-		setTimeout(() => {
+		if (Object.keys(video).length > 0) {
 			setState({
 				type: ACTION.page,
 				state: {
@@ -40,8 +42,8 @@ const App = () => {
 			});
 			setTest(true);
 			setFadeIn(true);
-		}, 1500);
-	}, []);
+		}
+	}, [video]);
 
 	return (
 		<div className='app absolute flex h-full w-full min-w-[447px] items-center justify-center'>

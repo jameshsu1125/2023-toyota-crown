@@ -1,5 +1,6 @@
+@import url('../../../settings/config.less');
+
 .Button {
-	top: 50%;
 	border-bottom: solid 0.5px #fff;
 	@apply absolute whitespace-nowrap pb-3;
 
@@ -29,61 +30,109 @@
 }
 
 .interviewButton-0 {
+	top: 50%;
 	right: 50%;
 	margin-top: -134px;
 	margin-right: 251px;
 	padding-right: 150px;
-
-	// right: 50%;
-	// margin-top: -83px;
-	// margin-right: 174px;
-	// padding-right: 20px;
 }
 
 .interviewButton-1 {
+	top: 50%;
 	left: 50%;
 	margin-top: -261px;
 	margin-left: 138px;
 	padding-left: 130px;
-
-	// left: 50%;
-	// margin-top: -152px;
-	// margin-left: 73px;
-	// padding-left: 20px;
 }
 
 .interviewButton-2 {
+	top: 50%;
 	right: 50%;
 	margin-top: -218px;
 	margin-right: 76px;
 	padding-right: 150px;
-
-	// right: 50%;
-	// margin-top: -140px;
-	// margin-right: 35px;
-	// padding-right: 20px;
 }
 
 .interviewButton-3 {
+	top: 50%;
 	left: 50%;
 	margin-top: -128px;
 	margin-left: 361px;
 	padding-left: 150px;
-
-	// left: 50%;
-	// margin-top: -112px;
-	// margin-left: 179px;
-	// padding-left: 56px;
 }
 
 .interviewButton-4 {
+	top: 50%;
 	left: 50%;
 	margin-top: 126px;
 	margin-left: -40px;
 	padding-left: 150px;
+}
 
-	// left: 50%;
-	// margin-top: 50px;
-	// margin-left: -23px;
-	// padding-left: 50px;
+@media only screen and (max-width: @bp) {
+	.Button {
+		.target {
+			@apply px-5;
+
+			.breadcrumbs {
+			}
+
+			.name {
+			}
+		}
+
+		.on {
+		}
+	}
+
+	.interviewButton-0 {
+		top: 50%;
+		right: 50%;
+		bottom: inherit;
+		left: inherit;
+		border-bottom: none;
+		border-left: solid 0.5px #fff;
+		@apply mx-0;
+	}
+
+	.interviewButton-1 {
+		top: 50%;
+		right: 50%;
+		bottom: inherit;
+		left: inherit;
+		padding-left: 0;
+		border-bottom: none;
+		border-left: solid 0.5px #fff;
+		@apply mx-0;
+	}
+
+	.interviewButton-2 {
+		top: 50%;
+		right: 50%;
+		bottom: inherit;
+		left: inherit;
+		border-bottom: none;
+		border-left: solid 0.5px #fff;
+		@apply mx-0;
+	}
+
+	.interviewButton-3 {
+		top: inherit;
+		right: inherit;
+		bottom: 50%;
+		left: 50%;
+		border-right: solid 0.5px #fff;
+		border-bottom: none;
+		@apply mx-0;
+	}
+
+	.interviewButton-4 {
+		top: initial;
+		right: inherit;
+		bottom: 50%;
+		left: 50%;
+		border-right: solid 0.5px #fff;
+		border-bottom: none;
+		@apply mx-0;
+	}
 }
