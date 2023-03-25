@@ -1,4 +1,14 @@
+import QueryString from 'lesca-url-parameters';
 import { createContext } from 'react';
+import audio1 from './audio/1.mp3';
+import audio2 from './audio/2.mp3';
+import audio3 from './audio/3.mp3';
+import audio4 from './audio/4.mp3';
+import audio5 from './audio/5.mp3';
+import audio6 from './audio/6.mp3';
+import audio7 from './audio/7.mp3';
+import audio8 from './audio/8.mp3';
+import bgm from './audio/bgm.mp3';
 import { CaptionsPaths } from './captionsPath';
 import {
 	ACTION,
@@ -28,21 +38,12 @@ import mobileVideo6 from './video/mobile/6.mp4';
 import mobileVideo7 from './video/mobile/7.mp4';
 import mobileVideo8 from './video/mobile/8.mp4';
 import mobileVideo9 from './video/mobile/9.mp4';
-import bgm from './audio/bgm.mp3';
-import audio1 from './audio/1.mp3';
-import audio2 from './audio/2.mp3';
-import audio3 from './audio/3.mp3';
-import audio4 from './audio/4.mp3';
-import audio5 from './audio/5.mp3';
-import audio6 from './audio/6.mp3';
-import audio7 from './audio/7.mp3';
-import audio8 from './audio/8.mp3';
 
 export const BreakPoint = 768;
 export const BreakPointHeight = 900;
 export const BreakPointHeightMobile = 1138;
 export const BreakPointHeightDesktop = 1200;
-export const AutoPlay = false;
+export const AutoPlay = QueryString.get('autoplay') === '1';
 export const LinkForTry = 'https://www.toyota.com.tw/showroom/CROWN/';
 
 export const Context = createContext();
@@ -84,6 +85,8 @@ export const reducer = (state, action) => {
 	if (action.type) return { ...state, [action.type]: action.state };
 	return state;
 };
+
+export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 20 };
 
 export const Authors = [
 	{
@@ -215,8 +218,6 @@ export const AuthorInformation = [
 		],
 	},
 ];
-
-export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 20 };
 
 const videoUrl = [
 	{ desktop: desktopVideo0, mobile: mobileVideo0 },

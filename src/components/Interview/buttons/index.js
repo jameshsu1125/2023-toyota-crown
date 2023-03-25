@@ -20,28 +20,39 @@ const Button = memo(({ data, sn, onFadeIn, state, setYoutubeIndex, setState }) =
 		const style = {
 			opacity: 0,
 			y: 50,
-			[`margin${property.dir === 'right' ? 'Top' : 'Bottom'}`]: `${property.p1.y}px`,
+
 			[`margin${property.dir === 'left' ? 'Left' : 'Right'}`]: `${property.p1.x}px`,
 		};
 		let ext;
 		if (DEVICE === 'desktop') {
-			ext = { [`padding${property.dir === 'left' ? 'Left' : 'Right'}`]: `${property.p1.w}px` };
+			ext = {
+				[`margin${property.dir === 'right' ? 'Top' : 'Top'}`]: `${property.p1.y}px`,
+				[`padding${property.dir === 'left' ? 'Left' : 'Right'}`]: `${property.p1.w}px`,
+			};
 		} else {
-			ext = { [`padding${property.dir === 'left' ? 'Top' : 'Bottom'}`]: `${property.p1.w}px` };
+			ext = {
+				[`padding${property.dir === 'left' ? 'Top' : 'Bottom'}`]: `${property.p1.w}px`,
+				[`margin${property.dir === 'right' ? 'Top' : 'Bottom'}`]: `${property.p1.y}px`,
+			};
 		}
 		return { ...style, ...ext };
 	}, [property]);
 
 	const tweenToProps = useMemo(() => {
 		const style = {
-			[`margin${property.dir === 'right' ? 'Top' : 'Bottom'}`]: `${property.p2.y}px`,
 			[`margin${property.dir === 'left' ? 'Left' : 'Right'}`]: `${property.p2.x}px`,
 		};
 		let ext;
 		if (DEVICE === 'desktop') {
-			ext = { [`padding${property.dir === 'left' ? 'Left' : 'Right'}`]: `${property.p2.w}px` };
+			ext = {
+				[`margin${property.dir === 'right' ? 'Top' : 'Top'}`]: `${property.p2.y}px`,
+				[`padding${property.dir === 'left' ? 'Left' : 'Right'}`]: `${property.p2.w}px`,
+			};
 		} else {
-			ext = { [`padding${property.dir === 'left' ? 'Top' : 'Bottom'}`]: `${property.p2.w}px` };
+			ext = {
+				[`margin${property.dir === 'right' ? 'Top' : 'Bottom'}`]: `${property.p2.y}px`,
+				[`padding${property.dir === 'left' ? 'Top' : 'Bottom'}`]: `${property.p2.w}px`,
+			};
 		}
 		return { ...style, ...ext };
 	}, [property]);

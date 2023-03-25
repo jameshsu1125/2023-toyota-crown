@@ -12,7 +12,7 @@ const Gradient = memo(({ state }) => {
 
 	useEffect(() => {
 		if (state === InterviewState.videoDidFadeOut) {
-			setStyle({ opacity: 1, height: '211px' }, { delay: 500 });
+			setStyle({ opacity: 0.8, height: '211px' }, { delay: 500 });
 		}
 	}, [state]);
 

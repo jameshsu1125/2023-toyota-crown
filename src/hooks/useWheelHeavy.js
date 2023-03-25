@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { DIRECTION_STATE } from '../settings/constant';
 
 const HOW_MUSH_HEAVY = 100;
-const HOW_LONG_RESET = 500;
+const HOW_LONG_RESET = 50;
 
 const useWheelHeavy = (reset = false) => {
 	const [state, setState] = useState();
@@ -14,7 +14,7 @@ const useWheelHeavy = (reset = false) => {
 	const launcher = (delta) => {
 		clearTimeout(timeOutRef.current);
 		storage.current += delta;
-		if (Math.abs(storage.current) > HOW_MUSH_HEAVY) {
+		if (Math.abs(storage.current) >= HOW_MUSH_HEAVY) {
 			setState(true);
 			setDirection(storage.current > 0 ? DIRECTION_STATE.next : DIRECTION_STATE.prev);
 		}

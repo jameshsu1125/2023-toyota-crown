@@ -91,6 +91,7 @@ const AudioProvider = memo(({ children }) => {
 				}
 				audioRef.current[idx]?.play();
 				lastIndex.current = idx;
+				setContext({ type: ACTION.page, state: { ...page, skipEnabled: true } });
 			}, AudioConfig.delay);
 		}
 	}, [index, onend]);

@@ -29,7 +29,7 @@ export const ButtonTransitionProperty = [
 		desktop: {
 			dir: 'left',
 			p1: { y: -261, x: 138, w: 150 },
-			p2: { y: -202, x: 73, w: 20 },
+			p2: { y: -151, x: 73, w: 20 },
 		},
 		mobile: {
 			dir: 'right',
@@ -65,7 +65,7 @@ export const ButtonTransitionProperty = [
 		desktop: {
 			dir: 'left',
 			p1: { y: 126, x: -40, w: 150 },
-			p2: { y: 50, x: -23, w: 40 },
+			p2: { y: 53, x: -16, w: 40 },
 		},
 		mobile: {
 			dir: 'left',

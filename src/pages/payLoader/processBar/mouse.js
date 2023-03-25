@@ -32,6 +32,7 @@ const Mouse = memo(() => {
 								type: ACTION.payLoad,
 								state: { ...payLoad, status: PAYLOAD_STATUS.userDidActive },
 							});
+							Click.remove('#mouse');
 						});
 					},
 				},

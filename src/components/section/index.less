@@ -1,16 +1,25 @@
 @import url('../../settings/config.less');
 
 .Section {
+	.bg-gradient-dark {
+		background-image: url('./img/bg.png');
+		background-position: left;
+		background-size: 50% 100%;
+		background-repeat: no-repeat;
+	}
 	& > div:nth-child(1) {
 		height: 133px;
 	}
 	& > div:nth-child(3) {
-		height: 212px;
+		height: 200px;
 	}
 }
 
 @media only screen and (max-width: @bp) {
 	.Section {
+		.bg-gradient-dark {
+			display: none;
+		}
 		& > div:nth-child(1) {
 			height: 115px;
 		}

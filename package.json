@@ -54,6 +54,7 @@
 		"lesca-image-onload": "^3.0.1",
 		"lesca-number": "^1.5.1",
 		"lesca-react-landscape": "^2.2.2",
+		"lesca-url-parameters": "^2.0.7",
 		"lesca-use-tween": "^2.4.9",
 		"lesca-user-agent": "^2.0.0",
 		"react": "^18.2.0",

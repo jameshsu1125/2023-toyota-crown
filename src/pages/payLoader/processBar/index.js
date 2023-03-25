@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable indent */
 import useTween, { Bezier } from 'lesca-use-tween';
-import { memo, useContext, useEffect } from 'react';
+import { memo, useContext, useEffect, useRef } from 'react';
 import { AudioConfig, Context } from '../../../settings/config';
 import {
 	ACTION,
@@ -18,8 +18,8 @@ const Bar = memo(() => {
 	const [, setPayLoadContext] = useContext(PayLoaderContext);
 	const payLoad = context[ACTION.payLoad];
 	const { loaded, total, video, audio, bgm } = payLoad;
-
 	const [style, setStyle] = useTween({ width: '0%', opacity: 1 });
+	const onCompleteOnce = useRef(false);
 
 	useEffect(() => {
 		if (loaded !== 0 && total !== 0) {
@@ -34,6 +34,8 @@ const Bar = memo(() => {
 			const onComplete =
 				width === '100%'
 					? () => {
+							if (onCompleteOnce.current) return;
+							onCompleteOnce.current = true;
 							setContext({
 								type: ACTION.payLoad,
 								state: { ...payLoad, status: PAYLOAD_STATUS.onLoaded },
@@ -86,7 +88,7 @@ const ProcessBar = memo(() => {
 		<div className='ProcessBar' style={style}>
 			<Bar />
 			<Text steps={steps} />
-			<Mouse />
+			{steps >= PayLoaderSteps.contextLoaded && steps < PayLoaderSteps.logoDidStay && <Mouse />}
 		</div>
 	);
 });

@@ -65,7 +65,7 @@ const Container = memo(({ children }) => {
 				onend: true,
 				stopForward: false,
 				voIndex: false,
-				skipEnabled: true,
+				skipEnabled: false,
 				skip: false,
 			},
 		});

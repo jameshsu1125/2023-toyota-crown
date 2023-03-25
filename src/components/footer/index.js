@@ -38,6 +38,8 @@ const Footer = memo(() => {
 	useEffect(() => {
 		if (index === PAGE_CONTEXT_NAME.intro) {
 			setStyle({ opacity: 0, y: 300 });
+		} else if (index === PAGE_CONTEXT_NAME.detailVideo) {
+			if (device) setStyle({ opacity: 0, y: 300 });
 		} else if (onend) setStyle({ opacity: 1, y: 0 }, { duration: 1200, delay: 1000 });
 	}, [index, onend]);
 
