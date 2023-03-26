@@ -23,9 +23,10 @@ const Bar = memo(() => {
 
 	useEffect(() => {
 		if (loaded !== 0 && total !== 0) {
+			const v = Math.min(video, PAGE_CONTEXT_NAME.content_2);
 			const width = `${Math.floor(
-				((loaded + video + audio + bgm) /
-					(total + Object.keys(PAGE_CONTEXT_NAME).length + AudioConfig.targets.length)) *
+				((loaded + v + audio + bgm) /
+					(total + PAGE_CONTEXT_NAME.content_2 + AudioConfig.targets.length)) *
 					100,
 			)}%`;
 

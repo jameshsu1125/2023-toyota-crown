@@ -1,7 +1,7 @@
 import { Howl } from 'howler';
 import EnterFrame from 'lesca-enterframe';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
-import { AudioConfig, Context, VideoConfig } from '../../settings/config';
+import { AudioConfig, Context } from '../../settings/config';
 import { ACTION, AUDIO_STATE, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
 
 const STATE = {
@@ -97,8 +97,7 @@ const AudioProvider = memo(({ children }) => {
 	}, [index, onend]);
 
 	useEffect(() => {
-		if (video === VideoConfig.targets.length) {
-			// TODO => setLoading
+		if (video === PAGE_CONTEXT_NAME.content_2) {
 			setTarget([AudioConfig.targets[0]]);
 		}
 	}, [video]);

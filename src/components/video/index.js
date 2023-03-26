@@ -1,7 +1,7 @@
 import { CoverSize } from 'lesca-number';
 import useTween from 'lesca-use-tween';
 import { memo, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { BreakPoint, Context, VideoConfig } from '../../settings/config';
+import { AudioConfig, BreakPoint, Context, VideoConfig } from '../../settings/config';
 import { ACTION, DIRECTION_STATE, PAGE_CONTEXT_NAME } from '../../settings/constant';
 import DarkScreen from './darkScreen';
 import './index.less';
@@ -13,12 +13,26 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 	const [context, setContext] = useContext(Context);
 	const { stopForward, index, direction } = context[ACTION.page];
 
+	const audio = context[ACTION.audio];
+	const { content } = audio;
+
 	const [targets, setTarget] = useState([VideoConfig.targets[0]]);
 	const videoRef = useRef([]);
 	const darkScreenRef = useRef();
 	const indexRef = useRef(index);
 
 	const [style, setStyle] = useTween({ opacity: 0 });
+
+	useEffect(() => {
+		if (content.length === AudioConfig.targets.length + 1) {
+			setTarget((S) => {
+				const { length } = S;
+				const u = VideoConfig.targets[length];
+				if (u) return [...S, u];
+				return S;
+			});
+		}
+	}, [content]);
 
 	useEffect(() => {
 		if (test) {
@@ -35,8 +49,10 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 
 	const onload = () => {
 		onLoaded(targets[targets.length - 1]);
-		if (targets.length === VideoConfig.targets.length) {
+
+		if (targets.length === PAGE_CONTEXT_NAME.content_2) {
 			videoRef.current[PAGE_CONTEXT_NAME.intro].show();
+		} else if (targets.length === VideoConfig.targets.length) {
 			setContext({ type: ACTION.video, state: videoRef.current });
 		} else {
 			setTarget((S) => {
@@ -46,6 +62,18 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 				return S;
 			});
 		}
+
+		// if (targets.length === VideoConfig.targets.length) {
+		// 	videoRef.current[PAGE_CONTEXT_NAME.intro].show();
+		// 	setContext({ type: ACTION.video, state: videoRef.current });
+		// } else {
+		// 	setTarget((S) => {
+		// 		const { length } = S;
+		// 		const u = VideoConfig.targets[length];
+		// 		if (u) return [...S, u];
+		// 		return S;
+		// 	});
+		// }
 	};
 
 	useEffect(() => {
