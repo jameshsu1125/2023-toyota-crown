@@ -1,54 +1,23 @@
 /* eslint-disable no-lonely-if */
-import Click from 'lesca-click';
 import useTween from 'lesca-use-tween';
-import { memo, useContext, useEffect, useId, useRef, useState } from 'react';
-import { BreakPoint, Context, LinkForTry } from '../../settings/config';
-import { ACTION, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
+import { BreakPoint, Context } from '../../settings/config';
+import { ACTION, PAYLOAD_STATUS } from '../../settings/constant';
 import './index.less';
+import { CallForActionText, LinkTryText } from './texts';
 import Wave from './wave';
 
-const Text = ({ status, device, index }) => {
-	const id = useId();
-	const textRef = useRef();
-	const [visibility, setVisibility] = useState('visible');
-	const [align, setAlign] = useState('justify-end');
-
-	useEffect(() => {
-		Click.add(`#${id}`, () => {
-			window.open(LinkForTry);
-		});
-	}, []);
-
-	useEffect(() => {
-		if (device) {
-			setVisibility('visible');
-			setAlign('justify-end');
-		} else {
-			if (status === PAYLOAD_STATUS.introVideoDidPlayed) {
-				if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
-					setVisibility('visible');
-					setAlign('justify-center');
-				} else {
-					setVisibility('visible');
-					setAlign('justify-end');
-				}
-			} else {
-				setVisibility('hidden');
-			}
-		}
-	}, [status, device, index]);
-
-	return (
-		<div className={`relative flex h-full w-full max-w-7xl ${align} p-10 md:p-5`}>
+const Text = ({ status, device, index }) => (
+	<>
+		<div className='absolute top-0 flex h-full w-full max-w-7xl justify-end p-10 md:p-5'>
 			<div className='content top-1/2 -mt-[25px] md:top-[30%]'>
 				{status >= PAYLOAD_STATUS.userDidActive && <Wave belong='footer' />}
-				<div id={id} ref={textRef} className='text' style={{ visibility }}>
-					<div className='gradient' />
-				</div>
+				<LinkTryText status={status} device={device} index={index} />
 			</div>
 		</div>
-	);
-};
+		<CallForActionText status={status} device={device} index={index} />
+	</>
+);
 
 const Audio = memo(() => {
 	const ref = useRef();

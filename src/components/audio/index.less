@@ -9,12 +9,39 @@
 	pointer-events: none;
 	@apply absolute bottom-0 z-10 w-full;
 
+	.gradient {
+		width: 200%;
+		background: linear-gradient(
+			90deg,
+			rgba(126, 77, 61, 1) 0%,
+			rgba(206, 178, 154, 1) 50%,
+			rgba(126, 77, 61, 1) 100%
+		);
+		animation: brushed 5s ease-in-out infinite;
+
+		@apply pointer-events-none absolute left-0 h-full;
+	}
+
+	.scrollDownText {
+		position: relative;
+		width: image-width(@img) * @scale;
+		height: image-height(@img) * @scale;
+
+		mask-image: url(@img);
+		mask-repeat: no-repeat;
+		mask-position: center;
+		mask-size: 100%;
+		@scale: 0.7;
+		@img: './img/scrollDown.svg';
+	}
+
 	.content {
 		height: 50px;
 
 		@apply absolute flex flex-row items-center justify-end;
 
 		.text {
+			display: none;
 			width: image-width(@img) * @scale;
 			height: image-height(@img) * @scale;
 			cursor: pointer;
@@ -28,32 +55,19 @@
 			mask-size: 100%;
 
 			&:active {
-				transform: scale(0.95);
+				transform: translateX(1px) translateY(1px);
 			}
+		}
 
-			.gradient {
-				width: 200%;
-				background: linear-gradient(
-					90deg,
-					rgba(255, 109, 0, 1) 0%,
-					rgba(255, 255, 255, 1) 50%,
-					rgba(255, 109, 0, 1) 100%
-				);
-				animation: brushed 5s ease-in-out infinite;
-
-				@apply pointer-events-none absolute left-0 h-full;
+		@keyframes brushed {
+			0% {
+				left: 0%;
 			}
-
-			@keyframes brushed {
-				0% {
-					left: 0%;
-				}
-				50% {
-					left: -100%;
-				}
-				100% {
-					left: 0%;
-				}
+			50% {
+				left: -100%;
+			}
+			100% {
+				left: 0%;
 			}
 		}
 
@@ -71,6 +85,9 @@
 @media only screen and (max-width: @bp) {
 	.Audio {
 		height: 155px;
+		.scrollDownText {
+			display: block;
+		}
 		.content {
 			.text {
 				width: image-width(@img) * @scale;
@@ -86,5 +103,7 @@
 @media only screen and (max-height: @bpH) {
 	.Audio {
 		height: 90px;
+		.content {
+		}
 	}
 }

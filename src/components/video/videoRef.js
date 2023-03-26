@@ -107,7 +107,9 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 			}}
 			onLoadedData={(event) => {
 				event.target.pause();
-				event.target.setAttribute('autoplay', false);
+				requestAnimationFrame(() => {
+					event.target.pause();
+				});
 				onload?.({ event, url });
 			}}
 			onEnded={(event) => {

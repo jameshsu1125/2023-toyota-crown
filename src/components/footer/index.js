@@ -1,5 +1,6 @@
+/* eslint-disable no-lonely-if */
 import useTween from 'lesca-use-tween';
-import { memo, useContext, useEffect, useState } from 'react';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
 import { BreakPoint, Context } from '../../settings/config';
 import { ACTION, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
 import BackgroundGrid from '../backgroundGrid';
@@ -7,23 +8,15 @@ import Author from './author';
 import './index.less';
 
 const Footer = memo(() => {
+	const ref = useRef();
+
 	const [context] = useContext(Context);
 	const page = context[ACTION.page];
-	const { index, onend } = page;
+	const { index } = page;
 	const [style, setStyle] = useTween({ opacity: 0, y: 300 });
 
 	const [device, setDevice] = useState('unset');
 	const { status } = context[ACTION.payLoad];
-
-	useEffect(() => {
-		if (
-			!device &&
-			status === PAYLOAD_STATUS.introVideoDidPlayed &&
-			index === PAGE_CONTEXT_NAME.intro
-		) {
-			setStyle({ opacity: 1, y: 0 }, { duration: 500 });
-		}
-	}, [device, status, index]);
 
 	useEffect(() => {
 		const resize = () => {
@@ -36,15 +29,21 @@ const Footer = memo(() => {
 	}, []);
 
 	useEffect(() => {
-		if (index === PAGE_CONTEXT_NAME.intro) {
-			setStyle({ opacity: 0, y: 300 });
-		} else if (index === PAGE_CONTEXT_NAME.detailVideo) {
-			if (device) setStyle({ opacity: 0, y: 300 });
-		} else if (onend) setStyle({ opacity: 1, y: 0 }, { duration: 1200, delay: 1000 });
-	}, [index, onend]);
+		if (status < PAYLOAD_STATUS.introVideoDidPlayed) return;
+
+		if (device) {
+			if (index > PAGE_CONTEXT_NAME.intro && index < PAGE_CONTEXT_NAME.detailVideo) {
+				if (ref.current.style.opacity === '0') setStyle({ opacity: 1, y: 0 });
+			} else {
+				if (ref.current.style.opacity === '1') setStyle({ opacity: 0, y: 3000 });
+			}
+		} else {
+			if (ref.current.style.opacity === '0') setStyle({ opacity: 1, y: 0 });
+		}
+	}, [device, status, index]);
 
 	return (
-		<div style={style} className='Footer'>
+		<div ref={ref} style={style} className='Footer'>
 			<div />
 			<BackgroundGrid />
 			<div>

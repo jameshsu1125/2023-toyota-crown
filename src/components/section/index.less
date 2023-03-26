@@ -6,6 +6,7 @@
 		background-position: left;
 		background-size: 50% 100%;
 		background-repeat: no-repeat;
+		transform-origin: left top;
 	}
 	& > div:nth-child(1) {
 		height: 133px;
@@ -18,7 +19,9 @@
 @media only screen and (max-width: @bp) {
 	.Section {
 		.bg-gradient-dark {
-			display: none;
+			height: 200%;
+			background-size: 100% 100%;
+			transform: rotate(45deg) translateX(-40px) translateY(-600px);
 		}
 		& > div:nth-child(1) {
 			height: 115px;
