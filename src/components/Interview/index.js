@@ -72,7 +72,7 @@ const Interview = memo(({ setKey }) => {
 				setFadeOutStyle(
 					{ opacity: 0 },
 					{
-						duration: 500,
+						duration: 1000,
 						onComplete: () => {
 							setKey(new Date());
 						},
