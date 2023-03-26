@@ -61,7 +61,7 @@ const Text = ({ steps }) => {
 	return (
 		<div style={style} className='text'>
 			<div className='text-lg'>loading</div>
-			<div className='text-sm'>請開啟音效體驗最佳瀏覽效果</div>
+			<div className='text-lg tracking-wider md:text-sm'>請開啟音效體驗最佳瀏覽效果</div>
 		</div>
 	);
 };
