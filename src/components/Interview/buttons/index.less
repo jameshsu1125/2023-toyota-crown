@@ -2,7 +2,7 @@
 
 .Button {
 	border-bottom: solid 0.5px #fff;
-	@apply absolute whitespace-nowrap pb-3;
+	@apply pointer-events-none absolute whitespace-nowrap pb-3;
 
 	.target {
 		@apply relative flex h-auto w-auto flex-col items-start;
@@ -82,6 +82,9 @@
 		}
 
 		.on {
+			opacity: 1;
+			cursor: pointer;
+			transition: 1s;
 		}
 	}
 

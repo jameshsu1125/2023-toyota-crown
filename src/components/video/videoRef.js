@@ -39,12 +39,18 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 			videoRef.current.play();
 			videoStopRef.current = false;
 			setEventContext((S) => ({ ...S, videoStop: false }));
+			requestAnimationFrame(() => {
+				videoRef.current.play();
+			});
 		},
 		play() {
 			if (videoRef.current.currentTime !== videoRef.current.duration) {
 				videoRef.current.play();
 				videoStopRef.current = false;
 				setEventContext((S) => ({ ...S, videoStop: false }));
+				requestAnimationFrame(() => {
+					videoRef.current.play();
+				});
 			}
 		},
 		playPause() {

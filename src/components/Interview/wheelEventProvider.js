@@ -102,6 +102,8 @@ const WheelEventProvider = memo(({ setState }) => {
 		[status],
 	);
 
+	useEffect(() => {}, []);
+
 	return (
 		<div
 			ref={ref}

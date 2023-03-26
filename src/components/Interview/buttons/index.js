@@ -96,7 +96,10 @@ const Button = memo(({ data, sn, onFadeIn, state, setYoutubeIndex, setState }) =
 			<div ref={ref} className='target'>
 				<div className='breadcrumbs'>{data.breadcrumbs}</div>
 				<div className='name'>{data.name}</div>
-				<div id={`youtube${sn}`} className='absolute top-0 h-[120%] w-full bg-transparent' />
+				<div
+					id={`youtube${sn}`}
+					className='pointer-events-auto absolute top-0 h-[120%] w-full bg-transparent'
+				/>
 			</div>
 		</div>
 	);
