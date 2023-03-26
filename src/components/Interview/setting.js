@@ -16,7 +16,7 @@ export const ButtonTransitionProperty = [
 	{
 		desktop: {
 			dir: 'right',
-			p1: { y: -134, x: 251, w: 150 },
+			p1: { y: -134, x: 321, w: 150 },
 			p2: { y: -83, x: 174, w: 20 },
 		},
 		mobile: {
