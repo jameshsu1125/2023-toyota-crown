@@ -37,10 +37,10 @@ const CaptionSVG = memo(({ active = false }) => {
 	useEffect(() => {
 		if (DEVICE) {
 			if (index !== PAGE_CONTEXT_NAME.content_7) setHeight(106);
-			else setHeight(167);
+			else setHeight(106);
 		} else {
 			if (index !== PAGE_CONTEXT_NAME.content_7) setHeight(107);
-			else setHeight(170);
+			else setHeight(107);
 		}
 	}, [index]);
 
@@ -62,7 +62,7 @@ const CaptionSVG = memo(({ active = false }) => {
 	}, [index, active]);
 
 	return (
-		<div className='relative w-[600px]' style={{ height: `${height}px` }}>
+		<div className='relative w-[750px]' style={{ height: `${height}px` }}>
 			<SVG>{Paths}</SVG>
 			<GradientCaption show={show} author={index} />
 		</div>
