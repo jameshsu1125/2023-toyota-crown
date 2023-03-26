@@ -29,9 +29,10 @@ const WheelEventProvider = memo(({ setState }) => {
 
 	useEffect(() => {
 		if (active && status === PAYLOAD_STATUS.introVideoDidPlayed) {
+			if (direction === DIRECTION_STATE.next) return;
 			const { enabled, stopForward, skipEnabled } = page;
 			if (enabled) {
-				const idx = index + (direction === DIRECTION_STATE.next ? 1 : -1);
+				const idx = index - 1;
 				if (idx < 0 || idx > PAGE_CONTEXT_NAME.detailVideo) return;
 				setContext({
 					type: ACTION.page,

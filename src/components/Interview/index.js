@@ -58,9 +58,14 @@ const Interview = memo(({ setKey }) => {
 	useEffect(() => {
 		if (index === PAGE_CONTEXT_NAME.detailVideo) {
 			setStyle({ opacity: 1 }, 500);
-			setActive(true);
 			setContext({ type: ACTION.page, state: { ...page, enabled: false, skipEnabled: false } });
 			saveRef = true;
+			const checkVideoReset = () => {
+				const time = video[PAGE_CONTEXT_NAME.detailVideo].getTime();
+				if (time > 2) requestAnimationFrame(checkVideoReset);
+				else setActive(true);
+			};
+			checkVideoReset();
 		} else if (index === PAGE_CONTEXT_NAME.content_7 && direction === DIRECTION_STATE.prev) {
 			if (saveRef) {
 				saveRef = false;

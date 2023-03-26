@@ -73,6 +73,7 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 		hide() {
 			videoRef.current.style.display = 'none';
 			videoRef.current.pause();
+			videoState.current = 'pause';
 		},
 		isPlaying() {
 			return videoState.current === 'playing';

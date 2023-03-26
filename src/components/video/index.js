@@ -91,10 +91,10 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 
 		setTimeout(() => {
 			fixVideoOnEndBug = true;
-		}, 1000);
+		}, 500);
 	}, [index]);
 
-	useEffect(() => {
+	/* useEffect(() => {
 		const blur = () => {
 			if (videoRef.current[indexRef.current].getState() === 'playing') {
 				videoRef.current[indexRef.current].pause();
@@ -111,7 +111,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 		window.addEventListener('blur', blur);
 		window.addEventListener('focus', focus);
 		return () => {};
-	}, []);
+	}, []); */
 
 	useEffect(() => {
 		if (fadeIn) {

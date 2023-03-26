@@ -98,6 +98,7 @@ const AudioProvider = memo(({ children }) => {
 
 	useEffect(() => {
 		if (video === VideoConfig.targets.length) {
+			// TODO => setLoading
 			setTarget([AudioConfig.targets[0]]);
 		}
 	}, [video]);
