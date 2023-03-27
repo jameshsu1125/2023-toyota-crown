@@ -27,7 +27,7 @@ export const LinkTryText = memo(({ status, device, index }) => {
 				index < PAGE_CONTEXT_NAME.detailVideo
 			) {
 				ref.current.parentNode.parentNode.style.justifyContent = 'flex-end';
-				if (ref.current.style.opacity === '0') {
+				if (ref.current.style.opacity !== '1') {
 					setStyle(
 						{ opacity: 1 },
 						{
@@ -38,7 +38,7 @@ export const LinkTryText = memo(({ status, device, index }) => {
 					);
 				}
 			} else {
-				if (ref.current.style.opacity === '1') {
+				if (ref.current.style.opacity !== '0') {
 					setStyle(
 						{ opacity: 0 },
 						{
@@ -81,7 +81,7 @@ export const CallForActionText = memo(({ status, device, index }) => {
 			if (status === PAYLOAD_STATUS.introVideoDidPlayed && index === 0) {
 				setStyle({ opacity: 1, y: 0 }, { delay: 500 });
 			} else if (index > PAGE_CONTEXT_NAME.intro) {
-				if (ref.current.style.opacity === '1') setStyle({ opacity: 0, y: 10 });
+				if (ref.current.style.opacity !== '0') setStyle({ opacity: 0, y: 10 });
 			}
 		}
 	}, [status, device, index]);

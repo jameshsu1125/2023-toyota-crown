@@ -33,12 +33,12 @@ const Footer = memo(() => {
 
 		if (device) {
 			if (index > PAGE_CONTEXT_NAME.intro && index < PAGE_CONTEXT_NAME.detailVideo) {
-				if (ref.current.style.opacity === '0') setStyle({ opacity: 1, y: 0 });
+				if (ref.current.style.opacity !== '1') setStyle({ opacity: 1, y: 0 });
 			} else {
-				if (ref.current.style.opacity === '1') setStyle({ opacity: 0, y: 3000 });
+				if (ref.current.style.opacity !== '0') setStyle({ opacity: 0, y: 3000 });
 			}
 		} else {
-			if (ref.current.style.opacity === '0') setStyle({ opacity: 1, y: 0 });
+			if (ref.current.style.opacity !== '1') setStyle({ opacity: 1, y: 0 });
 		}
 	}, [device, status, index]);
 
