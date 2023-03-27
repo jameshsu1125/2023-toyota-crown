@@ -15,7 +15,7 @@ const Name = memo(({ data, page }) => {
 	}, [index, onend]);
 
 	return (
-		<div style={style} className='font-notoSerif text-3xl font-semibold md:text-xl'>
+		<div style={style} className='font-notoSerif text-3xl font-bold text-[#F8E8DB] md:text-2xl'>
 			{name}
 		</div>
 	);

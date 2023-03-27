@@ -32,7 +32,7 @@ const Author = memo(() => {
 		>
 			<Avatar data={authorData} page={page} />
 			<div className='flex w-auto flex-col items-start justify-center'>
-				<div className='font-notoSans text-2xl font-light md:text-base'>導覽者</div>
+				<div className='font-notoSans text-2xl font-light text-white md:text-base'>導覽者</div>
 				<Name data={authorData} page={page} />
 				<Position data={authorData} page={page} />
 			</div>

@@ -12,7 +12,7 @@ module.exports = () => {
 	const setting = {
 		mode: NODE_ENV || 'development',
 		target: NODE_ENV !== 'production' ? 'web' : 'browserslist',
-		entry: { index: './src/pages/index.js', test: './src/pages/test.js' },
+		entry: { index: './src/pages/index.js' },
 		module: {
 			rules: [
 				{ test: /\.jsx?$/, exclude: /node_modules/, use: [{ loader: 'babel-loader' }] },
@@ -68,7 +68,7 @@ module.exports = () => {
 		},
 		output: {
 			path: path.resolve(__dirname, 'dist'),
-			filename: `${Folder}/js/[name].min.js`,
+			filename: `${Folder}/js/[name].[contenthash].min.js`,
 			publicPath: NODE_ENV === 'production' ? './' : '/',
 		},
 		resolve: {

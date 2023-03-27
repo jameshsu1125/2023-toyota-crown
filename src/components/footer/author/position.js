@@ -15,7 +15,7 @@ const Position = memo(({ data, page }) => {
 	}, [index, onend]);
 
 	return (
-		<div style={style} className='font-notoSans text-xl font-light md:text-base'>
+		<div style={style} className='font-notoSans text-xl font-light text-[#AAAAAA] md:text-base'>
 			{position}
 		</div>
 	);

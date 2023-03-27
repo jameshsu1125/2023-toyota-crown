@@ -21,6 +21,23 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 	</head>
 	<body>
+		<script>
+			var device = window.innerWidth >= 768 ? 'desktop' : 'mobile';
+			var urls = [0, 1, 2];
+			for (var i = 0; i < urls.length; i++) {
+				var video = document.createElement('video');
+				video.src = './bundle/video/settings/video/' + device + '/' + urls[i] + '.mp4';
+				video.autoplay = true;
+				video.controls = false;
+				video.muted = true;
+				video.height = 0;
+				video.width = 0;
+				video.preload = 'auto';
+				video.style.display = 'none';
+				video.style.visibility = 'hidden';
+				document.body.prepend(video);
+			}
+		</script>
 		<div id="app"></div>
 	</body>
 </html>
