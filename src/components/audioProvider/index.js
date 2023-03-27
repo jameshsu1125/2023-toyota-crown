@@ -10,6 +10,8 @@ const STATE = {
 	end: 'end',
 };
 
+let timeout;
+
 const AudioProvider = memo(({ children }) => {
 	const [context, setContext] = useContext(Context);
 	const payLoad = context[ACTION.payLoad];
@@ -84,7 +86,8 @@ const AudioProvider = memo(({ children }) => {
 			const idx = index - 1;
 			if (idx < 0 || idx >= AudioConfig.targets.length) return;
 
-			setTimeout(() => {
+			clearTimeout(timeout);
+			timeout = setTimeout(() => {
 				audioRef.current[idx].seek(0);
 
 				// fadeout if not user not muted
