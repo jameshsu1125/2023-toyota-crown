@@ -23,12 +23,13 @@
 				width: image-width(@img) * @scale;
 				height: image-height(@img) * @scale;
 				background-image: url(@img);
+				background-size: 100%;
 				animation-delay: 5s;
 
 				@scale: 0.9;
 				@img: './img/mouse.svg';
 
-				@apply relative bg-cover;
+				@apply relative;
 			}
 
 			.shadow {
@@ -37,8 +38,9 @@
 				width: image-width(@img) * @scale;
 				height: image-height(@img) * @scale;
 				background-image: url(@img);
+				background-size: 100%;
 
-				@apply relative bg-cover;
+				@apply absolute;
 			}
 
 			& > div {
