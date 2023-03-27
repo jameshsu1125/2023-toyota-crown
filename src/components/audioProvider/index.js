@@ -108,7 +108,12 @@ const AudioProvider = memo(({ children }) => {
 
 	useEffect(() => {
 		// ? start loading mp4 when video content 2 loaded
-		if (video === PAGE_CONTEXT_NAME.content_2) setTarget([AudioConfig.targets[0]]);
+		if (video === PAGE_CONTEXT_NAME.content_2) {
+			setTarget((S) => {
+				if (S.length === 0) return [AudioConfig.targets[0]];
+				return S;
+			});
+		}
 	}, [video]);
 
 	const onloadBGM = () => {
@@ -143,6 +148,7 @@ const AudioProvider = memo(({ children }) => {
 	const onload = (e) => {
 		// load mp3 one by one
 		if (e === AudioConfig.targets.length - 1) {
+			if (bgmRef.current) return;
 			bgmRef.current = new Howl({
 				src: [AudioConfig.bgm],
 				autoplay: false,
@@ -163,6 +169,7 @@ const AudioProvider = memo(({ children }) => {
 
 	useEffect(() => {
 		// howler loader
+		if (targets.length > AudioConfig.targets.length) return;
 		if (targets.length > 0) {
 			const idx = targets.length - 1 < 0 ? 0 : targets.length - 1;
 			audioRef.current[idx] = new Howl({

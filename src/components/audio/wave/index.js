@@ -23,7 +23,6 @@ const Wave = memo(({ belong }) => {
 		if (audio.content.length) {
 			Click.add(`#${id}`, () => {
 				const { muted, content } = audioRef.current;
-				setContext({ type: ACTION.audio, state: { content, muted: !muted } });
 				if (!muted) {
 					ref.current.classList.add('Wave-off');
 					content.forEach((e, i) => {
@@ -37,6 +36,7 @@ const Wave = memo(({ belong }) => {
 						else e.fade(0, 1, 300);
 					});
 				}
+				setContext({ type: ACTION.audio, state: { content, muted: !muted } });
 			});
 		}
 	}, [audio]);
