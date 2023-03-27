@@ -4,13 +4,13 @@ import { memo, useEffect, useState } from 'react';
 const Position = memo(({ data, page }) => {
 	const { index, onend } = page;
 	const [position, setPosition] = useState('');
-	const [style, setStyle] = useTween({ opacity: 0 });
+	const [style, setStyle] = useTween({ opacity: 0, y: 10 });
 
 	useEffect(() => {
-		setStyle({ opacity: 0 }, 500);
+		setStyle({ opacity: 0, y: 10 }, 500);
 		if (onend) {
 			setPosition(data.positionName);
-			setStyle({ opacity: 1 }, { duration: 2000, delay: 600 });
+			setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 400 });
 		}
 	}, [index, onend]);
 

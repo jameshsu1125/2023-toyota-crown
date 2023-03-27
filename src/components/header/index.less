@@ -1,18 +1,16 @@
 @import url('../../settings/config.less');
 
 .header-material {
-	background-color: black;
+	@apply bg-black;
+
 	& > div:nth-child(1) {
 		background-image: url('../img/background.svg');
 		background-position: calc(~'50% + 300px') calc(~'50% - 40px');
-		background-repeat: no-repeat;
-		opacity: 0.5;
 
-		@apply absolute top-0 h-full w-full;
+		@apply absolute top-0 h-full w-full bg-no-repeat opacity-50;
 	}
 
 	&::after {
-		bottom: 0;
 		height: 1px;
 		background: linear-gradient(
 			90deg,
@@ -24,7 +22,7 @@
 		);
 		content: '';
 
-		@apply absolute w-full;
+		@apply absolute bottom-0 w-full;
 	}
 }
 
@@ -35,22 +33,20 @@
 
 	& > div {
 		.logo {
-			position: absolute;
 			top: 50%;
 			margin-top: 0 - image-height(@img) * @scale * 0.5;
 			width: image-width(@img) * @scale;
 			height: image-height(@img) * @scale;
 			background-image: url(@img);
-			background-size: 100%;
 
 			@scale: 0.7;
 			@img: './img/logo.svg';
+
+			@apply absolute bg-cover;
 		}
 
 		.collect {
-			position: absolute;
-			right: 0;
-			height: 100%;
+			@apply absolute right-0 h-full;
 		}
 
 		@media only screen and (max-width: @bp) {
@@ -68,14 +64,14 @@
 @media only screen and (max-width: @bp) {
 	.header-material {
 		& > div:nth-child(1) {
-			background-color: transparent;
 			background-image: url('./img/foregroundGradient.png');
 			background-position: 0 0;
-			background-size: 100%;
+
+			@apply bg-transparent bg-cover;
 		}
 
 		&::after {
-			height: 0;
+			@apply h-0;
 		}
 	}
 

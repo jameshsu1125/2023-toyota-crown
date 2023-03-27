@@ -5,9 +5,7 @@
 	background-image: url('./img/gradient.png');
 	background-position: right;
 	background-size: auto 100%;
-	background-repeat: no-repeat;
-	pointer-events: none;
-	@apply absolute bottom-0 z-10 w-full;
+	@apply pointer-events-none absolute bottom-0 z-10 w-full bg-no-repeat;
 
 	.gradient {
 		width: 200%;
@@ -23,7 +21,6 @@
 	}
 
 	.scrollDownText {
-		position: relative;
 		width: image-width(@img) * @scale;
 		height: image-height(@img) * @scale;
 
@@ -33,6 +30,8 @@
 		mask-size: 100%;
 		@scale: 0.7;
 		@img: './img/scrollDown.svg';
+
+		@apply relative;
 	}
 
 	.content {
@@ -41,11 +40,8 @@
 		@apply absolute flex flex-row items-center justify-end;
 
 		.text {
-			display: none;
 			width: image-width(@img) * @scale;
 			height: image-height(@img) * @scale;
-			cursor: pointer;
-			pointer-events: auto;
 
 			@scale: 0.9;
 			@img: './img/text.svg';
@@ -53,6 +49,8 @@
 			mask-repeat: no-repeat;
 			mask-position: center;
 			mask-size: 100%;
+
+			@apply pointer-events-auto hidden cursor-pointer;
 
 			&:active {
 				transform: translateX(1px) translateY(1px);
@@ -85,9 +83,11 @@
 @media only screen and (max-width: @bp) {
 	.Audio {
 		height: 155px;
+
 		.scrollDownText {
-			display: block;
+			@apply block;
 		}
+
 		.content {
 			.text {
 				width: image-width(@img) * @scale;
@@ -103,7 +103,5 @@
 @media only screen and (max-height: @bpH) {
 	.Audio {
 		height: 90px;
-		.content {
-		}
 	}
 }

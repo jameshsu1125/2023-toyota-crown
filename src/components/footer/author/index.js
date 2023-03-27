@@ -12,6 +12,7 @@ const Author = memo(() => {
 	const page = context[ACTION.page];
 	const { index, onend } = page;
 	const [style, setStyle] = useTween({ opacity: 0 });
+
 	const authorData = useMemo(() => {
 		const idx = index - 1;
 		return AuthorInformation[idx < 0 || idx >= AuthorInformation.length ? 0 : idx];
@@ -20,9 +21,7 @@ const Author = memo(() => {
 	useEffect(() => {
 		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
 			setStyle({ opacity: 0 });
-		} else {
-			setStyle({ opacity: 1 });
-		}
+		} else setStyle({ opacity: 1 });
 	}, [index, onend]);
 
 	return (

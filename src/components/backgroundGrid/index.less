@@ -1,17 +1,14 @@
 @import url('../../settings/config.less');
 
 .BackgroundGrid {
-	position: absolute;
-	top: 0;
-	width: 100%;
-	height: 100%;
 	background-image: url('./img/grid.png');
-	background-position: center;
 	background-size: 202px * 0.7;
+
+	@apply absolute top-0 h-full w-full bg-center;
 }
 
 @media only screen and (max-width: @bp) {
 	.BackgroundGrid {
-		background-image: none;
+		@apply bg-none;
 	}
 }

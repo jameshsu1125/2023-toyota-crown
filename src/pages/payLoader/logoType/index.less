@@ -21,10 +21,8 @@
 		}
 
 		.gradient {
-			position: absolute;
 			left: -40%;
 			width: 180%;
-			height: 100%;
 			background: linear-gradient(
 				90deg,
 				rgba(126, 77, 61, 1) 0%,
@@ -32,7 +30,8 @@
 				rgba(126, 77, 61, 1) 100%
 			);
 			animation-delay: -9s;
-			pointer-events: none;
+
+			@apply pointer-events-none absolute h-full;
 		}
 
 		@keyframes brushedLogoType {

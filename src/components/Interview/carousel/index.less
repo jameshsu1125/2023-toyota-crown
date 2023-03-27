@@ -4,25 +4,24 @@
 	@apply pointer-events-none absolute top-0 flex h-full w-full items-center justify-center;
 
 	.content {
-		position: relative;
 		margin-top: -220px;
 		max-width: 600px;
 
+		@apply relative;
+
 		.arrow {
-			position: absolute;
 			top: 50%;
 			left: -90px;
-			z-index: 10;
 			margin-top: 0 - image-height(@img) * @scale * 0.5;
 			width: image-width(@img) * @scale;
 			height: image-height(@img) * @scale;
 			background-image: url(@img);
-			background-size: 100%;
-			cursor: pointer;
 			transition: 0.3;
 
 			@scale: 0.9;
 			@img: './img/arrow.png';
+
+			@apply absolute z-10 cursor-pointer bg-cover;
 
 			&:hover {
 				background-color: rgba(0, 0, 0, 0.2);
@@ -38,28 +37,19 @@
 		@apply pointer-events-auto w-full;
 
 		.slick-list {
-			overflow: visible;
+			@apply overflow-visible;
 		}
 
 		.yt {
-			position: relative;
-			pointer-events: none;
-
-			@apply px-5;
+			@apply pointer-events-none relative px-5;
 
 			.yt-c {
-				position: relative;
-				background-size: cover;
-				background-repeat: no-repeat;
 				transition: 0.5s;
 
+				@apply relative bg-cover bg-no-repeat;
+
 				& > div {
-					position: absolute;
-					top: 0;
-					right: 0;
-					bottom: 0;
-					left: 0;
-					pointer-events: none;
+					@apply pointer-events-none absolute top-0 left-0 bottom-0 right-0;
 				}
 			}
 

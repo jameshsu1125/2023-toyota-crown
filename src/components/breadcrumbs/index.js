@@ -19,9 +19,7 @@ const Breadcrumbs = memo(() => {
 
 	const property = useMemo(() => {
 		const idx = index - 1;
-		const data = AuthorInformation[idx < 0 || idx >= AuthorInformation.length ? 0 : idx];
-
-		return data;
+		return AuthorInformation[idx < 0 || idx >= AuthorInformation.length ? 0 : idx];
 	}, [index]);
 
 	return (

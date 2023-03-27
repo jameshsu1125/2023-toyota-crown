@@ -1,17 +1,13 @@
 @import url('../../../settings/config.less');
 
 .Wave {
-	position: relative;
 	margin: 2rem;
 	width: 51px;
 	height: 23px;
-	cursor: pointer;
-	pointer-events: auto;
+
+	@apply pointer-events-auto relative cursor-pointer;
 
 	&::after {
-		position: absolute;
-		width: 100%;
-		height: 100%;
 		background-image: url(@img);
 		background-position-x: 0%;
 		background-position-y: center;
@@ -19,12 +15,14 @@
 		animation: wave 120s linear infinite;
 
 		@img: './img/wave.svg';
+
+		@apply absolute h-full w-full;
 	}
 }
 
 @media only screen and (max-width: @bp) {
 	.Wave {
-		margin: 0;
+		@apply m-0;
 	}
 }
 
@@ -32,6 +30,6 @@
 	&::after {
 		top: 50%;
 		height: 1px;
-		background-color: #fff;
+		@apply bg-white;
 	}
 }

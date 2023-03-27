@@ -15,9 +15,7 @@ const DarkScreen = memo(({ active, video, setState }) => {
 					{ opacity: 1 },
 					{
 						duration: 500,
-						onComplete: () => {
-							setState(InterviewState.videoDidFadeOut);
-						},
+						onComplete: () => setState(InterviewState.videoDidFadeOut),
 					},
 				);
 			};

@@ -36,12 +36,12 @@ const AudioProvider = memo(({ children }) => {
 	}, [muted]);
 
 	useEffect(() => {
-		if (status === PAYLOAD_STATUS.userDidActive) {
-			bgmRef.current.play();
-		}
+		// play bgm when user clicked button
+		if (status === PAYLOAD_STATUS.userDidActive) bgmRef.current.play();
 	}, [status]);
 
 	useEffect(() => {
+		// stop last sound track when user skip video
 		if (skip) {
 			setVoIndex(false);
 			audioRef.current[lastIndex.current].stop();
@@ -49,6 +49,7 @@ const AudioProvider = memo(({ children }) => {
 	}, [skip]);
 
 	useEffect(() => {
+		// resume sound when user out / in focus
 		const blur = () => {
 			const idx = indexRef.current - 1;
 			if (idx < 0 || idx >= AudioConfig.targets.length) return;
@@ -72,12 +73,12 @@ const AudioProvider = memo(({ children }) => {
 	}, []);
 
 	useEffect(() => {
-		if (voIndex !== false) {
-			setContext({ type: ACTION.page, state: { ...page, voIndex } });
-		}
+		// set VO index state
+		if (voIndex !== false) setContext({ type: ACTION.page, state: { ...page, voIndex } });
 	}, [voIndex]);
 
 	useEffect(() => {
+		// play sound track when video end
 		indexRef.current = index;
 		if (onend) {
 			const idx = index - 1;
@@ -85,11 +86,17 @@ const AudioProvider = memo(({ children }) => {
 
 			setTimeout(() => {
 				audioRef.current[idx].seek(0);
+
+				// fadeout if not user not muted
 				if (!mutedRef.current) {
 					audioRef.current[idx]?.fade(0, 1, 1000);
 					bgmRef.current.fade(AudioConfig.defaultVolume, AudioConfig.minScaleVolume, 1000);
 				}
+
+				// TODO foolproof?
 				audioRef.current[idx]?.play();
+				requestAnimationFrame(() => audioRef.current[idx]?.play());
+
 				lastIndex.current = idx;
 				setContext({ type: ACTION.page, state: { ...page, skipEnabled: true } });
 			}, AudioConfig.delay);
@@ -97,9 +104,8 @@ const AudioProvider = memo(({ children }) => {
 	}, [index, onend]);
 
 	useEffect(() => {
-		if (video === PAGE_CONTEXT_NAME.content_2) {
-			setTarget([AudioConfig.targets[0]]);
-		}
+		// ? start loading mp4 when video content 2 loaded
+		if (video === PAGE_CONTEXT_NAME.content_2) setTarget([AudioConfig.targets[0]]);
 	}, [video]);
 
 	const onloadBGM = () => {
@@ -108,6 +114,8 @@ const AudioProvider = memo(({ children }) => {
 			type: ACTION.audio,
 			state: { ...AUDIO_STATE, content: [...audioRef.current, bgmRef.current] },
 		});
+
+		// start tracking vo index by sound current time;
 		EnterFrame.add(() => {
 			if (
 				indexRef.current !== PAGE_CONTEXT_NAME.intro &&
@@ -130,6 +138,7 @@ const AudioProvider = memo(({ children }) => {
 	};
 
 	const onload = (e) => {
+		// load mp3 one by one
 		if (e === AudioConfig.targets.length - 1) {
 			bgmRef.current = new Howl({
 				src: [AudioConfig.bgm],
@@ -150,6 +159,7 @@ const AudioProvider = memo(({ children }) => {
 	};
 
 	useEffect(() => {
+		// howler loader
 		if (targets.length > 0) {
 			const idx = targets.length - 1 < 0 ? 0 : targets.length - 1;
 			audioRef.current[idx] = new Howl({

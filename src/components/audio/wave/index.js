@@ -11,12 +11,9 @@ const Wave = memo(({ belong }) => {
 	const [context, setContext] = useContext(Context);
 	const audio = context[ACTION.audio];
 	const audioRef = useRef();
-
 	const [style, setStyle] = useTween({ opacity: 0 });
 
-	useEffect(() => {
-		setStyle({ opacity: 1 });
-	}, []);
+	useEffect(() => setStyle({ opacity: 1 }), []);
 
 	useEffect(() => {
 		audioRef.current = audio;
@@ -27,7 +24,6 @@ const Wave = memo(({ belong }) => {
 			Click.add(`#${id}`, () => {
 				const { muted, content } = audioRef.current;
 				setContext({ type: ACTION.audio, state: { content, muted: !muted } });
-
 				if (!muted) {
 					ref.current.classList.add('Wave-off');
 					content.forEach((e, i) => {

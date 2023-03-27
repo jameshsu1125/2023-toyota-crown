@@ -1,5 +1,5 @@
 module.exports = {
 	title: 'toyota-crown',
 	description: '',
-	url: 'https://jameshsu1125.github.io/',
+	url: 'https://www.toyota.com.tw/event/202303_CROWN/',
 };

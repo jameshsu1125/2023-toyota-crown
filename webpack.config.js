@@ -30,7 +30,7 @@ module.exports = () => {
 					use: [
 						{
 							loader: 'file-loader',
-							options: { name: `${Folder}/image/[path][name].[ext]`, context: 'src' },
+							options: { name: `${Folder}/image/[path][name].[contenthash].[ext]`, context: 'src' },
 						},
 					],
 				},

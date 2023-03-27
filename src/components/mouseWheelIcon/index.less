@@ -20,25 +20,25 @@
 			@apply relative flex h-24 w-24 items-center justify-center rounded-full;
 
 			.icon {
-				position: relative;
 				width: image-width(@img) * @scale;
 				height: image-height(@img) * @scale;
 				background-image: url(@img);
-				background-size: 100%;
 				animation-delay: 5s;
 
 				@scale: 0.9;
 				@img: './img/mouse.svg';
+
+				@apply relative bg-cover;
 			}
 
 			.shadow {
-				position: absolute;
 				left: 50%;
 				margin-left: 0 - image-width(@img) * @scale * 0.5;
 				width: image-width(@img) * @scale;
 				height: image-height(@img) * @scale;
 				background-image: url(@img);
-				background-size: 100%;
+
+				@apply relative bg-cover;
 			}
 
 			& > div {

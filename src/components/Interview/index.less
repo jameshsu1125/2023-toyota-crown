@@ -14,24 +14,20 @@
 			@apply pointer-events-none relative flex items-center justify-center;
 
 			.image {
-				position: relative;
 				margin-top: 100px;
 				width: image-width(@img) * @scale;
 				height: image-height(@img) * @scale;
 				background-image: url(@img);
-				background-size: 100%;
-				background-repeat: no-repeat;
-				opacity: 1;
 				transform-origin: center 74%;
-				pointer-events: none;
 
 				@scale: 0.22;
 				@img: './img/car.png';
+
+				@apply pointer-events-none relative bg-cover bg-no-repeat opacity-100;
 			}
 		}
 
 		.Gradient {
-			position: absolute;
 			top: 60%;
 			padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
 			width: @width;
@@ -41,11 +37,12 @@
 
 			@width: 100%;
 			@img: './img/g.png';
+
+			@apply absolute;
 		}
 	}
 
 	.title {
-		position: absolute;
 		top: 50%;
 		margin-top: -350px;
 		width: image-width(@img) * @scale;
@@ -54,12 +51,12 @@
 		mask-image: url(@img);
 		mask-repeat: no-repeat;
 		mask-position: center;
-		mask-size: 100%;
 		@scale: 0.7;
 		@img: './img/title.svg';
 
+		@apply absolute bg-cover;
+
 		.gradient {
-			position: absolute;
 			left: -40%;
 			width: 180%;
 			height: 100%;
@@ -70,7 +67,8 @@
 				rgba(126, 77, 61, 1) 100%
 			);
 			animation: interviewBrushed 5s ease-in-out infinite;
-			pointer-events: none;
+
+			@apply pointer-events-none absolute;
 		}
 
 		@keyframes interviewBrushed {
@@ -97,7 +95,7 @@
 				}
 			}
 			.Gradient {
-				display: none;
+				@apply hidden;
 			}
 		}
 	}

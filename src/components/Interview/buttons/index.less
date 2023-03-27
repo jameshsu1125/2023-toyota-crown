@@ -24,7 +24,7 @@
 		transition: 0.2s;
 
 		&:hover {
-			opacity: 1;
+			@apply opacity-100;
 		}
 	}
 }
@@ -73,18 +73,11 @@
 	.Button {
 		.target {
 			@apply px-5;
-
-			.breadcrumbs {
-			}
-
-			.name {
-			}
 		}
 
 		.on {
-			opacity: 1;
-			cursor: pointer;
 			transition: 1s;
+			@apply cursor-pointer opacity-100;
 		}
 	}
 

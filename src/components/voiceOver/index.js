@@ -20,9 +20,7 @@ const Text = ({ children, index, voIndex, i }) => {
 				{
 					duration: 1,
 					onStart: () => {
-						if (device) {
-							ref.current.style.display = 'none';
-						}
+						if (device) ref.current.style.display = 'none';
 					},
 				},
 			);
@@ -33,9 +31,7 @@ const Text = ({ children, index, voIndex, i }) => {
 				{
 					duration: 500,
 					onStart: () => {
-						if (device) {
-							ref.current.style.display = 'block';
-						}
+						if (device) ref.current.style.display = 'block';
 					},
 				},
 			);
@@ -49,9 +45,7 @@ const Text = ({ children, index, voIndex, i }) => {
 			{ opacity: 0 },
 			{
 				duration: 500,
-				onComplete: () => {
-					setStyle({ opacity: 0, y: 0 }, 500);
-				},
+				onComplete: () => setStyle({ opacity: 0, y: 0 }, 500),
 			},
 		);
 		voIndexRef.current = false;
@@ -71,6 +65,7 @@ const Text = ({ children, index, voIndex, i }) => {
 			show();
 		}
 	}, [voIndex]);
+
 	return (
 		<div ref={ref} style={style}>
 			{children}
@@ -94,9 +89,7 @@ const VoiceOver = memo(() => {
 		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
 			setStyle({ opacity: 0 }, { duration: 500 });
 			firstVisited = false;
-		} else {
-			setStyle({ opacity: 1 }, { delay: 500, duration: 500 });
-		}
+		} else setStyle({ opacity: 1 }, { delay: 500, duration: 500 });
 	}, [index]);
 
 	return (

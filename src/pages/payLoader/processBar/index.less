@@ -50,7 +50,7 @@
 			@apply pointer-events-auto flex justify-center;
 
 			& > * {
-				pointer-events: none;
+				@apply pointer-events-none;
 			}
 			.gradient {
 				background: radial-gradient(
@@ -65,29 +65,25 @@
 				@apply relative flex h-36 w-36 items-center justify-center rounded-full;
 
 				.icon {
-					position: relative;
 					width: image-width(@img) * @scale;
 					height: image-height(@img) * @scale;
 					background-image: url(@img);
-					background-size: 100%;
 					animation-delay: 5s;
 
 					@scale: 0.9;
 					@img: './img/mouse.svg';
+
+					@apply relative bg-cover;
 				}
 
 				.shadow {
-					position: absolute;
 					left: 50%;
 					margin-left: 0 - image-width(@img) * @scale * 0.5;
 					width: image-width(@img) * @scale;
 					height: image-height(@img) * @scale;
 					background-image: url(@img);
-					background-size: 100%;
-				}
 
-				& > div {
-					//	animation: dragDown 3s ease-in-out infinite;
+					@apply absolute bg-cover;
 				}
 
 				& > div:nth-child(1) {

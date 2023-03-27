@@ -32,9 +32,7 @@ const Author = ({ data, index, steps, onComplete }) => {
 				{
 					delay: 500 + 100 * index,
 					onComplete: () => {
-						if (Authors.length - 1 === index) {
-							onComplete();
-						}
+						if (Authors.length - 1 === index) onComplete();
 					},
 				},
 			);

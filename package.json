@@ -1,7 +1,7 @@
 {
-	"name": "-----------",
-	"description": "-----------",
-	"homepage": "-----------",
+	"name": "2023-toyota-crown",
+	"description": "2023 Toyota Crown 形象網站",
+	"homepage": "https://www.toyota.com.tw/event/202303_CROWN",
 	"main": "index.js",
 	"scripts": {
 		"start": "webpack serve --hot",

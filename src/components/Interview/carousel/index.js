@@ -9,10 +9,7 @@ import Player from './youtube';
 
 const Slick = ({ data, i, index, state }) => {
 	const className = useMemo(() => {
-		const styles = {
-			opacity20: 'opacity-20',
-			opacity100: 'opacity-100',
-		};
+		const styles = { opacity20: 'opacity-20', opacity100: 'opacity-100' };
 		if (i === index) return styles.opacity100;
 		return styles.opacity20;
 	}, [index, i]);
@@ -35,11 +32,7 @@ const Slick = ({ data, i, index, state }) => {
 
 const Arrows = ({ direction, onClick }) => {
 	const id = useId();
-
-	useEffect(() => {
-		Click.add(`#${id}`, onClick);
-	}, []);
-
+	useEffect(() => Click.add(`#${id}`, onClick), []);
 	return <div id={id} className={`${direction ? 'arrow next' : 'arrow'}`} />;
 };
 
@@ -48,9 +41,7 @@ const Carousel = memo(({ state, setState, youtubeIndex }) => {
 	const [style, setStyle] = useTween({ opacity: 0, x: 300 });
 	const [idx, setIndex] = useState(youtubeIndex);
 
-	useEffect(() => {
-		slickRef.current.slickGoTo(youtubeIndex);
-	}, [youtubeIndex]);
+	useEffect(() => slickRef.current.slickGoTo(youtubeIndex), [youtubeIndex]);
 
 	const settings = {
 		className: 'center',
@@ -59,27 +50,10 @@ const Carousel = memo(({ state, setState, youtubeIndex }) => {
 		speed: 500,
 		dots: false,
 		initialSlide: youtubeIndex,
-		nextArrow: (
-			<Arrows
-				direction
-				onClick={() => {
-					slickRef.current.slickNext();
-				}}
-			/>
-		),
-		prevArrow: (
-			<Arrows
-				onClick={() => {
-					slickRef.current.slickPrev();
-				}}
-			/>
-		),
-		afterChange: (e) => {
-			setIndex(e);
-		},
-		onInit: () => {
-			setIndex(youtubeIndex);
-		},
+		nextArrow: <Arrows direction onClick={() => slickRef.current.slickNext()} />,
+		prevArrow: <Arrows onClick={() => slickRef.current.slickPrev()} />,
+		afterChange: (e) => setIndex(e),
+		onInit: () => setIndex(youtubeIndex),
 	};
 
 	useEffect(() => {
@@ -88,9 +62,7 @@ const Carousel = memo(({ state, setState, youtubeIndex }) => {
 				{ opacity: 1, x: 0 },
 				{
 					duration: 2000,
-					onComplete: () => {
-						setState(InterviewState.carouselDidFadeIn);
-					},
+					onComplete: () => setState(InterviewState.carouselDidFadeIn),
 				},
 			);
 		}

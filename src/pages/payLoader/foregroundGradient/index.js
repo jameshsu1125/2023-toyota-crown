@@ -6,13 +6,9 @@ import './index.less';
 const ForegroundGradient = memo(() => {
 	const [context] = useContext(PayLoaderContext);
 	const { steps } = context;
-
 	const [style, setStyle] = useTween({ opacity: 0 });
-
 	useEffect(() => {
-		if (steps === PayLoaderSteps.loaded) {
-			setStyle({ opacity: 1 });
-		}
+		if (steps === PayLoaderSteps.loaded) setStyle({ opacity: 1 });
 	}, [steps]);
 
 	return <div style={style} className='ForegroundGradient' />;

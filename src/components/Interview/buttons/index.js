@@ -20,7 +20,6 @@ const Button = memo(({ data, sn, onFadeIn, state, setYoutubeIndex, setState }) =
 		const style = {
 			opacity: 0,
 			y: 50,
-
 			[`margin${property.dir === 'left' ? 'Left' : 'Right'}`]: `${property.p1.x}px`,
 		};
 		let ext;
@@ -65,9 +64,7 @@ const Button = memo(({ data, sn, onFadeIn, state, setYoutubeIndex, setState }) =
 				{ opacity: 1, y: 0 },
 				{
 					delay: 600 + sn * 200,
-					onComplete: () => {
-						onFadeIn?.(sn);
-					},
+					onComplete: () => onFadeIn?.(sn),
 				},
 			);
 		}
@@ -75,6 +72,7 @@ const Button = memo(({ data, sn, onFadeIn, state, setYoutubeIndex, setState }) =
 
 	useEffect(() => {
 		if (state === InterviewState.buttonDidFadeIn) {
+			// add click event when button did fade in
 			setTimeout(() => {
 				ref.current?.classList.add('on');
 				Click.add(`#youtube${sn}`, () => {
@@ -85,9 +83,7 @@ const Button = memo(({ data, sn, onFadeIn, state, setYoutubeIndex, setState }) =
 				});
 			}, 1000);
 		} else if (state === InterviewState.buttonDidClick) {
-			setStyle(tweenToProps, {
-				easing: Bezier.easeInOutQuart,
-			});
+			setStyle(tweenToProps, { easing: Bezier.easeInOutQuart });
 		}
 	}, [state]);
 

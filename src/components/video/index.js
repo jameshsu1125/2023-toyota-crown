@@ -62,18 +62,6 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 				return S;
 			});
 		}
-
-		// if (targets.length === VideoConfig.targets.length) {
-		// 	videoRef.current[PAGE_CONTEXT_NAME.intro].show();
-		// 	setContext({ type: ACTION.video, state: videoRef.current });
-		// } else {
-		// 	setTarget((S) => {
-		// 		const { length } = S;
-		// 		const u = VideoConfig.targets[length];
-		// 		if (u) return [...S, u];
-		// 		return S;
-		// 	});
-		// }
 	};
 
 	useEffect(() => {

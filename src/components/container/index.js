@@ -44,11 +44,10 @@ const Container = memo(({ children }) => {
 	}, []);
 
 	useEffect(() => {
+		// show container when content loaded
 		if (status >= PAYLOAD_STATUS.onLoaded) {
 			ref.current.style.visibility = 'visible';
-			if (status === VideoConfig.fadeInTiming) {
-				setFadeIn(true);
-			}
+			if (status === VideoConfig.fadeInTiming) setFadeIn(true);
 		}
 	}, [status]);
 

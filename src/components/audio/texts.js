@@ -63,11 +63,7 @@ export const LinkTryText = memo(({ status, device, index }) => {
 		}
 	}, [status, device, index]);
 
-	useEffect(() => {
-		Click.add(`#${id}`, () => {
-			window.open(LinkForTry);
-		});
-	}, [status]);
+	useEffect(() => Click.add(`#${id}`, () => window.open(LinkForTry)), [status]);
 
 	return (
 		<div ref={ref} style={style} id={id} className='text'>

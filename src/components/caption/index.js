@@ -9,18 +9,14 @@ const Caption = memo(() => {
 	const [context] = useContext(Context);
 	const page = context[ACTION.page];
 	const { index, onend } = page;
-
 	const [style, setStyle] = useTween({ opacity: 0 });
 
 	useEffect(() => {
 		if (index === PAGE_CONTEXT_NAME.intro || index === PAGE_CONTEXT_NAME.detailVideo) {
 			setStyle({ opacity: 0 });
-		} else {
-			setStyle({ opacity: 1 });
-		}
+		} else setStyle({ opacity: 1 });
 	}, [index, onend]);
 
-	useEffect(() => {}, []);
 	return (
 		<div style={style} className='Caption w-full scale-75 md:scale-90'>
 			<CaptionSVG active />

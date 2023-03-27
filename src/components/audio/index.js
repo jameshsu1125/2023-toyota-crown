@@ -21,7 +21,6 @@ const Text = ({ status, device, index }) => (
 
 const Audio = memo(() => {
 	const ref = useRef();
-
 	const [context] = useContext(Context);
 	const payLoad = context[ACTION.payLoad];
 	const { status } = payLoad;
@@ -41,9 +40,7 @@ const Audio = memo(() => {
 	}, []);
 
 	useEffect(() => {
-		if (status >= PAYLOAD_STATUS.onReady) {
-			setStyle({ opacity: 1 }, 1000);
-		}
+		if (status >= PAYLOAD_STATUS.onReady) setStyle({ opacity: 1 }, 1000);
 	}, [status]);
 
 	return (

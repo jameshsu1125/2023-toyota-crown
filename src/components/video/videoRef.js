@@ -12,6 +12,7 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 	});
 
 	useImperativeHandle(ref, () => ({
+		url,
 		setSize({ width, height }) {
 			videoRef.current.width = width;
 			videoRef.current.height = height;
@@ -33,33 +34,22 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 		},
 		pause() {
 			videoRef.current.pause();
+			requestAnimationFrame(() => videoRef.current.pause());
 		},
 		replay() {
 			videoRef.current.currentTime = 0;
 			videoRef.current.play();
 			videoStopRef.current = false;
 			setEventContext((S) => ({ ...S, videoStop: false }));
-			requestAnimationFrame(() => {
-				videoRef.current.play();
-			});
+			requestAnimationFrame(() => videoRef.current.play());
 		},
 		play() {
 			if (videoRef.current.currentTime !== videoRef.current.duration) {
 				videoRef.current.play();
 				videoStopRef.current = false;
 				setEventContext((S) => ({ ...S, videoStop: false }));
-				requestAnimationFrame(() => {
-					videoRef.current.play();
-				});
+				requestAnimationFrame(() => videoRef.current.play());
 			}
-		},
-		playPause() {
-			if (videoRef.current.paused) {
-				if (videoRef.current.currentTime !== videoRef.current.duration) videoRef.current.play();
-			} else videoRef.current.pause();
-		},
-		muted(bool) {
-			videoRef.current.muted = bool;
 		},
 		getTime() {
 			return videoRef.current.currentTime;
@@ -89,7 +79,6 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 		getState() {
 			return videoState.current;
 		},
-		url,
 		setStopState() {
 			videoStopRef.current = true;
 		},
@@ -114,9 +103,7 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 			}}
 			onLoadedData={(event) => {
 				event.target.pause();
-				requestAnimationFrame(() => {
-					event.target.pause();
-				});
+				requestAnimationFrame(() => event.target.pause());
 				onload?.({ event, url });
 			}}
 			onEnded={(event) => {

@@ -27,9 +27,7 @@ const Fill = memo(() => {
 				{
 					delay: 1500,
 					duration: 2000,
-					onComplete: () => {
-						setContext((S) => ({ ...S, steps: PayLoaderSteps.logoDidFadeIn }));
-					},
+					onComplete: () => setContext((S) => ({ ...S, steps: PayLoaderSteps.logoDidFadeIn })),
 				},
 			);
 		}

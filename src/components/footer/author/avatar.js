@@ -4,13 +4,13 @@ import { memo, useEffect, useState } from 'react';
 const Avatar = memo(({ data, page }) => {
 	const { index, onend } = page;
 	const [className, setClassName] = useState('author-0');
-	const [style, setStyle] = useTween({ opacity: 0, y: 96 });
+	const [style, setStyle] = useTween({ opacity: 1, y: 100 });
 
 	useEffect(() => {
-		setStyle({ opacity: 0, y: 96 }, 1000);
+		setStyle({ opacity: 1, y: 100 }, 500);
 		if (onend) {
 			setClassName(data.className);
-			setStyle({ opacity: 1, y: 0 }, 1000);
+			setStyle({ opacity: 1, y: 0 }, 500);
 		}
 	}, [index, onend]);
 

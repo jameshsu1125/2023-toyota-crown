@@ -10,25 +10,22 @@
 
 	@keyframes FadeOut {
 		0% {
-			opacity: 1;
+			@apply opacity-100;
 		}
 		100% {
-			opacity: 0;
+			@apply opacity-0;
 		}
 	}
 
 	.caption {
-		position: relative;
-
 		mask-repeat: no-repeat;
 		mask-position: center;
 		mask-size: 100%;
 
+		@apply relative;
+
 		.gradient {
-			position: absolute;
-			left: 0%;
 			width: 200%;
-			height: 100%;
 			background: linear-gradient(
 				90deg,
 				rgba(126, 77, 61, 1) 50%,
@@ -37,6 +34,8 @@
 			);
 			animation: captionBrushed 10s ease-in-out infinite;
 			pointer-events: none;
+
+			@apply pointer-events-none absolute left-0 h-full;
 		}
 
 		@keyframes captionBrushed {

@@ -10,9 +10,7 @@ const BackgroundGrid = memo(() => {
 	const [style, setStyle] = useTween({ opacity: 0 });
 
 	useEffect(() => {
-		if (status >= PAYLOAD_STATUS.onReady) {
-			setStyle({ opacity: 0.3 }, 2000);
-		}
+		if (status >= PAYLOAD_STATUS.onReady) setStyle({ opacity: 0.3 }, 2000);
 	}, [status]);
 	return <div className='BackgroundGrid' style={style} />;
 });
