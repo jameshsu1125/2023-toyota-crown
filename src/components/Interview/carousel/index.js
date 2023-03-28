@@ -2,7 +2,7 @@ import Click from 'lesca-click';
 import useTween from 'lesca-use-tween';
 import { memo, useEffect, useId, useMemo, useRef, useState } from 'react';
 import Slider from 'react-slick';
-import { InterviewConfig } from '../../../settings/config';
+import { AudioConfig, InterviewConfig } from '../../../settings/config';
 import { InterviewState } from '../setting';
 import './index.less';
 import Player from './youtube';
@@ -36,10 +36,16 @@ const Arrows = ({ direction, onClick }) => {
 	return <div id={id} className={`${direction ? 'arrow next' : 'arrow'}`} />;
 };
 
-const Carousel = memo(({ state, setState, youtubeIndex }) => {
+const Carousel = memo(({ state, setState, youtubeIndex, audio, setYoutubeIndex }) => {
 	const slickRef = useRef();
 	const [style, setStyle] = useTween({ opacity: 0, x: 300 });
 	const [idx, setIndex] = useState(youtubeIndex);
+
+	const audioRef = useRef();
+
+	useEffect(() => {
+		audioRef.current = audio;
+	}, [audio]);
 
 	useEffect(() => slickRef.current.slickGoTo(youtubeIndex), [youtubeIndex]);
 
@@ -52,7 +58,10 @@ const Carousel = memo(({ state, setState, youtubeIndex }) => {
 		initialSlide: youtubeIndex,
 		nextArrow: <Arrows direction onClick={() => slickRef.current.slickNext()} />,
 		prevArrow: <Arrows onClick={() => slickRef.current.slickPrev()} />,
-		afterChange: (e) => setIndex(e),
+		afterChange: (e) => {
+			setYoutubeIndex(e);
+			setIndex(e);
+		},
 		onInit: () => setIndex(youtubeIndex),
 	};
 
@@ -62,7 +71,14 @@ const Carousel = memo(({ state, setState, youtubeIndex }) => {
 				{ opacity: 1, x: 0 },
 				{
 					duration: 2000,
-					onComplete: () => setState(InterviewState.carouselDidFadeIn),
+					onComplete: () => {
+						setState(InterviewState.carouselDidFadeIn);
+						const { muted, content } = audioRef.current;
+						const bgm = content[content.length - 1];
+						if (!muted) {
+							bgm.fade(AudioConfig.minScaleVolume, 0, 1000);
+						}
+					},
 				},
 			);
 		}

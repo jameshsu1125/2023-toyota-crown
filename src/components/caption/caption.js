@@ -40,7 +40,7 @@ const CaptionSVG = memo(({ active = false }) => {
 			else setHeight(106);
 		} else {
 			if (index !== PAGE_CONTEXT_NAME.content_7) setHeight(107);
-			else setHeight(107);
+			else setHeight(155);
 		}
 	}, [index]);
 

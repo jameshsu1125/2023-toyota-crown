@@ -2,7 +2,7 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
-import { BreakPointHeight, Context, InterviewConfig } from '../../settings/config';
+import { AudioConfig, BreakPointHeight, Context, InterviewConfig } from '../../settings/config';
 import { ACTION, DIRECTION_STATE, PAGE_CONTEXT_NAME } from '../../settings/constant';
 import Button from './buttons';
 import Car from './car';
@@ -45,6 +45,7 @@ const Interview = memo(({ setKey }) => {
 	const page = context[ACTION.page];
 	const { index, direction } = page;
 
+	const audio = context[ACTION.audio];
 	const video = context[ACTION.video];
 
 	const [active, setActive] = useState(false);
@@ -73,11 +74,17 @@ const Interview = memo(({ setKey }) => {
 					{ opacity: 0 },
 					{
 						duration: 1000,
+
 						onComplete: () => {
 							setKey(new Date());
 						},
 					},
 				);
+				const { muted, content } = audio;
+				const bgm = content[content.length - 1];
+				if (!muted) {
+					bgm.fade(0, AudioConfig.minScaleVolume, 1000);
+				}
 			}
 		}
 	}, [index]);
@@ -103,7 +110,13 @@ const Interview = memo(({ setKey }) => {
 						<Gradient state={state} />
 						<WheelEventProvider setState={setState} />
 						{state >= InterviewState.carDidGoDown && (
-							<Carousel state={state} setState={setState} youtubeIndex={youtubeIndex} />
+							<Carousel
+								state={state}
+								setState={setState}
+								youtubeIndex={youtubeIndex}
+								setYoutubeIndex={setYoutubeIndex}
+								audio={audio}
+							/>
 						)}
 						<Car state={state} setState={setState}>
 							{InterviewConfig.map((e, i) => (
@@ -113,6 +126,7 @@ const Interview = memo(({ setKey }) => {
 									data={e}
 									sn={i}
 									onFadeIn={onFadeIn}
+									youtubeIndex={youtubeIndex}
 									setYoutubeIndex={setYoutubeIndex}
 									setState={setState}
 								/>

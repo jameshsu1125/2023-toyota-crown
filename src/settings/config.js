@@ -28,7 +28,7 @@ import desktopVideo6 from './video/desktop/6.mp4';
 import desktopVideo7 from './video/desktop/7.mp4';
 import desktopVideo8 from './video/desktop/8.mp4';
 import desktopVideo9 from './video/desktop/9.mp4';
-import mobileVideo0 from './video/mobile/0_1.mp4';
+import mobileVideo0 from './video/mobile/0.mp4';
 import mobileVideo1 from './video/mobile/1.mp4';
 import mobileVideo2 from './video/mobile/2.mp4';
 import mobileVideo3 from './video/mobile/3.mp4';
@@ -148,7 +148,7 @@ export const AuthorInformation = [
 	{
 		...Authors[4],
 		index: PAGE_CONTEXT_NAME.content_2,
-		breadcrumbs: '乘坐之最',
+		breadcrumbs: '細節之最',
 		captions: CaptionsPaths[2],
 		vo: [
 			'為了提升整體靜肅性',
@@ -196,7 +196,7 @@ export const AuthorInformation = [
 	{
 		...Authors[3],
 		index: PAGE_CONTEXT_NAME.content_6,
-		breadcrumbs: '視覺之最',
+		breadcrumbs: '內裝之最',
 		captions: CaptionsPaths[6],
 		vo: [
 			'在這裡',

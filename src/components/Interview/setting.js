@@ -70,7 +70,7 @@ export const ButtonTransitionProperty = [
 		mobile: {
 			dir: 'left',
 			p1: { y: -314, x: -280, w: 80 },
-			p2: { y: -220, x: -283, w: 20 },
+			p2: { y: -250, x: -333, w: 30 },
 		},
 	},
 ];

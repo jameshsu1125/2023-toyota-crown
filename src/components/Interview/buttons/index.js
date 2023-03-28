@@ -7,7 +7,7 @@ import './index.less';
 
 const DEVICE = window.innerWidth >= BreakPoint ? 'desktop' : 'mobile';
 
-const Button = memo(({ data, sn, onFadeIn, state, setYoutubeIndex, setState }) => {
+const Button = memo(({ data, sn, onFadeIn, state, youtubeIndex, setYoutubeIndex, setState }) => {
 	const ref = useRef();
 	const property = useMemo(() => ButtonTransitionProperty[sn][DEVICE], [sn]);
 	const stateRef = useRef(state);
@@ -15,6 +15,13 @@ const Button = memo(({ data, sn, onFadeIn, state, setYoutubeIndex, setState }) =
 	useEffect(() => {
 		stateRef.current = state;
 	}, [state]);
+
+	useEffect(() => {
+		if (youtubeIndex !== false) {
+			if (sn === youtubeIndex) ref.current?.classList.remove('on');
+			else ref.current?.classList.add('on');
+		}
+	}, [youtubeIndex, sn]);
 
 	const defaultTweenProps = useMemo(() => {
 		const style = {
@@ -74,7 +81,8 @@ const Button = memo(({ data, sn, onFadeIn, state, setYoutubeIndex, setState }) =
 		if (state === InterviewState.buttonDidFadeIn) {
 			// add click event when button did fade in
 			setTimeout(() => {
-				ref.current?.classList.add('on');
+				setYoutubeIndex(0);
+				setState(InterviewState.buttonDidClick);
 				Click.add(`#youtube${sn}`, () => {
 					setYoutubeIndex(sn);
 					if (stateRef.current < InterviewState.buttonDidClick) {

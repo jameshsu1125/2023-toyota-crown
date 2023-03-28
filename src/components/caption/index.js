@@ -18,7 +18,7 @@ const Caption = memo(() => {
 	}, [index, onend]);
 
 	return (
-		<div style={style} className='Caption w-full scale-75 md:scale-90'>
+		<div style={style} className='Caption w-full scale-90'>
 			<CaptionSVG active />
 		</div>
 	);

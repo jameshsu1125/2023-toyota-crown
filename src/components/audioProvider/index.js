@@ -19,6 +19,7 @@ const AudioProvider = memo(({ children }) => {
 
 	const page = context[ACTION.page];
 	const { index, onend, skip } = page;
+	const pageRef = useRef(page);
 
 	const audioContext = context[ACTION.audio];
 	const { muted } = audioContext;
@@ -32,6 +33,10 @@ const AudioProvider = memo(({ children }) => {
 
 	const [voIndex, setVoIndex] = useState(false);
 	const lastIndex = useRef();
+
+	useEffect(() => {
+		pageRef.current = page;
+	}, [page]);
 
 	useEffect(() => {
 		mutedRef.current = muted;
@@ -71,7 +76,6 @@ const AudioProvider = memo(({ children }) => {
 		};
 		window.addEventListener('blur', blur);
 		window.addEventListener('focus', focus);
-		return () => {};
 	}, []);
 
 	useEffect(() => {
@@ -96,12 +100,8 @@ const AudioProvider = memo(({ children }) => {
 					bgmRef.current.fade(AudioConfig.defaultVolume, AudioConfig.minScaleVolume, 1000);
 				}
 
-				// TODO foolproof?
 				audioRef.current[idx]?.play();
-				requestAnimationFrame(() => audioRef.current[idx]?.play());
-
 				lastIndex.current = idx;
-				setContext({ type: ACTION.page, state: { ...page, skipEnabled: true } });
 			}, AudioConfig.delay);
 		}
 	}, [index, onend]);
@@ -172,24 +172,27 @@ const AudioProvider = memo(({ children }) => {
 		if (targets.length > AudioConfig.targets.length) return;
 		if (targets.length > 0) {
 			const idx = targets.length - 1 < 0 ? 0 : targets.length - 1;
-			audioRef.current[idx] = new Howl({
-				src: [targets[idx].url],
-				autoplay: false,
-				loop: false,
-				onload: () => onload(idx),
-				onplay: () => {
-					stateRef.current = STATE.playing;
-				},
-				onpause: () => {
-					stateRef.current = STATE.pause;
-				},
-				onend: () => {
-					stateRef.current = STATE.end;
-					if (!mutedRef.current) {
-						bgmRef.current.fade(AudioConfig.minScaleVolume, AudioConfig.defaultVolume, 1000);
-					}
-				},
-			});
+			audioRef.current.push(
+				new Howl({
+					src: [targets[idx].url],
+					autoplay: false,
+					loop: false,
+					onload: () => onload(idx),
+					onplay: () => {
+						stateRef.current = STATE.playing;
+						setContext({ type: ACTION.page, state: { ...pageRef.current, skipEnabled: true } });
+					},
+					onpause: () => {
+						stateRef.current = STATE.pause;
+					},
+					onend: () => {
+						stateRef.current = STATE.end;
+						if (!mutedRef.current) {
+							bgmRef.current.fade(AudioConfig.minScaleVolume, AudioConfig.defaultVolume, 1000);
+						}
+					},
+				}),
+			);
 		}
 	}, [targets]);
 
