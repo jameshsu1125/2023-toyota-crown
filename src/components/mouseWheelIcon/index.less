@@ -15,8 +15,6 @@
 				rgba(0, 0, 0, 0) 70%
 			);
 
-			@scale: 0.9;
-			@img: './img/iconShadow.svg';
 			@apply relative flex h-24 w-24 items-center justify-center rounded-full;
 
 			.icon {
@@ -32,13 +30,30 @@
 				@apply relative;
 			}
 
-			.shadow {
+			.shadow0 {
 				left: 50%;
 				margin-left: 0 - image-width(@img) * @scale * 0.5;
 				width: image-width(@img) * @scale;
 				height: image-height(@img) * @scale;
 				background-image: url(@img);
 				background-size: 100%;
+
+				@scale: 0.9;
+				@img: './img/iconShadow.svg';
+
+				@apply absolute;
+			}
+
+			.shadow1 {
+				left: 50%;
+				margin-left: 0 - image-width(@img) * @scale * 0.5;
+				width: image-width(@img) * @scale;
+				height: image-height(@img) * @scale;
+				background-image: url(@img);
+				background-size: 100%;
+
+				@scale: 0.9;
+				@img: './img/iconShadow1.svg';
 
 				@apply absolute;
 			}
@@ -48,12 +63,12 @@
 			}
 
 			& > div:nth-child(1) {
-				margin-top: 10px;
+				margin-top: 50px;
 				animation-delay: 5.1s;
 			}
 
 			& > div:nth-child(2) {
-				margin-top: 20px;
+				margin-top: 60px;
 				animation-delay: 5.2s;
 			}
 		}
@@ -91,13 +106,22 @@
 					@img: './img/mouse.svg';
 				}
 
-				.shadow {
+				.shadow0 {
 					margin-left: 0 - image-width(@img) * @scale * 0.5;
 					width: image-width(@img) * @scale;
 					height: image-height(@img) * @scale;
 
 					@scale: 0.7;
 					@img: './img/iconShadow.svg';
+				}
+
+				.shadow1 {
+					margin-left: 0 - image-width(@img) * @scale * 0.5;
+					width: image-width(@img) * @scale;
+					height: image-height(@img) * @scale;
+
+					@scale: 0.7;
+					@img: './img/iconShadow1.svg';
 				}
 			}
 

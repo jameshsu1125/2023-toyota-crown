@@ -31,8 +31,8 @@ const Mouse = memo(() => {
 		<div className='Mouse'>
 			<div style={style}>
 				<div className='gradient'>
-					{[...new Array(2).keys()].map((e) => (
-						<div className='shadow' key={e} />
+					{[...new Array(2).keys()].map((e, i) => (
+						<div className={`shadow${i}`} key={e} />
 					))}
 					<div className='icon' />
 				</div>
