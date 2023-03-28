@@ -235,6 +235,8 @@ const videoUrl = [
 export const VideoConfig = {
 	fadeInDuration: 4000, // 從loading到intro的淡入時間
 	fadeInTiming: PAYLOAD_STATUS.logoDidFadeIn,
+	transitionDuration: 1000, // 每隻影片的淡入淡出
+	preloadToIndex: PAGE_CONTEXT_NAME.content_3,
 	targets: [
 		{
 			url: videoUrl[0][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],
@@ -277,7 +279,6 @@ export const VideoConfig = {
 			name: PAGE_CONTEXT_NAME.detailVideo,
 		},
 	],
-	transitionDuration: 1000, // 每隻影片的淡入淡出
 };
 
 export const AudioConfig = {
@@ -370,28 +371,28 @@ export const AudioConfig = {
 
 export const InterviewConfig = [
 	{
-		breadcrumbs: '車色之最',
+		breadcrumbs: '外觀之最',
 		name: '宍戶 惠子',
 		youtube: 'k0osB5n6FPI',
 		className: 'interviewButton-0',
 		youtubeCover: 'yt-0',
 	},
 	{
-		breadcrumbs: '乘坐之最',
+		breadcrumbs: '細節之最',
 		name: '田中 俊輔',
 		youtube: 'Slr3LJ7e3I4',
 		className: 'interviewButton-1',
 		youtubeCover: 'yt-1',
 	},
 	{
-		breadcrumbs: '駕駛之最',
+		breadcrumbs: '乘坐之最',
 		name: '田中 俊輔',
 		youtube: 'JjFIEcKSQ8A',
 		className: 'interviewButton-2',
 		youtubeCover: 'yt-2',
 	},
 	{
-		breadcrumbs: '視覺之最',
+		breadcrumbs: '內裝之最',
 		name: '岡松 秀悟',
 		youtube: 'v5X9ZT0XFF4',
 		className: 'interviewButton-3',
