@@ -27,8 +27,8 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 		if (content.length === AudioConfig.targets.length + 1) {
 			setTarget((S) => {
 				const { length } = S;
-				const u = VideoConfig.targets[length];
-				if (u) return [...S, u];
+				const u = VideoConfig.targets.slice(length);
+				if (u) return [...S, ...u];
 				return S;
 			});
 		}
@@ -50,7 +50,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 	const onload = () => {
 		onLoaded(targets[targets.length - 1]);
 
-		if (targets.length === PAGE_CONTEXT_NAME.content_2) {
+		if (targets.length === VideoConfig.preloadToIndex) {
 			videoRef.current[PAGE_CONTEXT_NAME.intro].show();
 		} else if (targets.length === VideoConfig.targets.length) {
 			setContext({ type: ACTION.video, state: videoRef.current });

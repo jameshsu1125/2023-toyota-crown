@@ -2,13 +2,8 @@
 /* eslint-disable indent */
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef } from 'react';
-import { AudioConfig, Context } from '../../../settings/config';
-import {
-	ACTION,
-	PAGE_CONTEXT_NAME,
-	PAYLOAD_STATE,
-	PAYLOAD_STATUS,
-} from '../../../settings/constant';
+import { AudioConfig, Context, VideoConfig } from '../../../settings/config';
+import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../../settings/constant';
 import { PayLoaderContext, PayLoaderSteps } from '../setting';
 import './index.less';
 import Mouse from './mouse';
@@ -23,10 +18,10 @@ const Bar = memo(() => {
 
 	useEffect(() => {
 		if (loaded !== 0 && total !== 0) {
-			const v = Math.min(video, PAGE_CONTEXT_NAME.content_2);
+			const v = Math.min(video, VideoConfig.preloadToIndex);
 			const width = `${Math.floor(
 				((loaded + v + audio + bgm) /
-					(total + PAGE_CONTEXT_NAME.content_2 + AudioConfig.targets.length)) *
+					(total + VideoConfig.preloadToIndex + AudioConfig.targets.length)) *
 					100,
 			)}%`;
 

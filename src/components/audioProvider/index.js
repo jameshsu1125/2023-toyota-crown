@@ -1,7 +1,7 @@
 import { Howl } from 'howler';
 import EnterFrame from 'lesca-enterframe';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
-import { AudioConfig, Context } from '../../settings/config';
+import { AudioConfig, Context, VideoConfig } from '../../settings/config';
 import { ACTION, AUDIO_STATE, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
 
 const STATE = {
@@ -107,8 +107,8 @@ const AudioProvider = memo(({ children }) => {
 	}, [index, onend]);
 
 	useEffect(() => {
-		// ? start loading mp4 when video content 2 loaded
-		if (video === PAGE_CONTEXT_NAME.content_2) {
+		// ? start loading mp3 when video content 2 loaded
+		if (video === VideoConfig.preloadToIndex) {
 			setTarget((S) => {
 				if (S.length === 0) return [AudioConfig.targets[0]];
 				return S;
