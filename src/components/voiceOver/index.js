@@ -95,7 +95,7 @@ const VoiceOver = memo(() => {
 	return (
 		<div
 			style={style}
-			className='VoiceOver h-36 space-y-0 font-notoSans text-xl font-light text-white md:space-x-2 md:text-lg'
+			className='VoiceOver h-36 space-y-0 font-notoSans text-xl font-light text-white md:space-y-2 md:text-lg'
 		>
 			{vo.map((e, i) => (
 				<Text i={i} index={index} voIndex={voIndex} key={e}>

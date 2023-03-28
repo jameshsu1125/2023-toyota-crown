@@ -9,7 +9,7 @@ import VideoRef from './videoRef';
 
 let fixVideoOnEndBug = true;
 
-const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false }) => {
+const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 	const [context, setContext] = useContext(Context);
 	const { stopForward, index, direction } = context[ACTION.page];
 
@@ -33,15 +33,6 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 			});
 		}
 	}, [content]);
-
-	useEffect(() => {
-		if (test) {
-			videoRef.current[PAGE_CONTEXT_NAME.intro].hide();
-			videoRef.current[PAGE_CONTEXT_NAME.detailVideo].show();
-			videoRef.current[PAGE_CONTEXT_NAME.detailVideo].play();
-			darkScreenRef.current.play();
-		}
-	}, [test]);
 
 	useEffect(() => {
 		if (fadeIn) videoRef.current[PAGE_CONTEXT_NAME.intro].play();
@@ -99,9 +90,12 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 		if (direction === DIRECTION_STATE.next) idx -= 1;
 		else idx += 1;
 
-		videoRef.current[idx].hide();
-		videoRef.current[index].show();
-		videoRef.current[index].replay();
+		videoRef.current.forEach((e, i) => {
+			if (i === index) {
+				videoRef.current[index].show();
+				videoRef.current[index].replay();
+			} else videoRef.current[idx].hide();
+		});
 		darkScreenRef.current.play();
 		indexRef.current = index;
 

@@ -43,12 +43,9 @@ const Mouse = memo(() => {
 	}, [steps]);
 
 	return (
-		<div ref={ref} style={style} className='Mouses' role='none'>
+		<div ref={ref} style={style} className='Mouses'>
 			<div id='mouse'>
 				<div className='gradient'>
-					{[...new Array(2).keys()].map((e) => (
-						<div className='shadow' key={e} />
-					))}
 					<div className='icon' />
 				</div>
 				<div className='text'>

@@ -44,21 +44,24 @@
 	}
 
 	.Mouses {
-		@apply absolute -mt-16 flex w-full cursor-auto justify-center;
+		@apply absolute -mt-20 flex w-full cursor-auto justify-center;
 
 		#mouse {
+			&:active {
+				.gradient {
+					.icon {
+						transform: scale(0.8);
+					}
+				}
+			}
+
 			@apply pointer-events-auto flex justify-center;
 
 			& > * {
 				@apply pointer-events-none;
 			}
 			.gradient {
-				background: radial-gradient(
-					circle,
-					rgba(0, 0, 0, 1) 0%,
-					rgba(0, 0, 0, 1) 30%,
-					rgba(0, 0, 0, 0) 70%
-				);
+				background: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 50%);
 
 				@scale: 0.9;
 				@img: './img/iconShadow.svg';

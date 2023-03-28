@@ -8,11 +8,11 @@
 
 <p align="center">
   <a href="https://github.com/jameshsu1125">
-    <img src="public/img/toyota-crown-logo.png" alt="Logo" width=72 height=72>
+    <img src="public/img/favicon.png" alt="Logo" width=120 height=90>
   </a>
-  <h3 align="center">CROWN</h3>
+  <h3 align="center">TOYOTA CROWN</h3>
   <p align="center">
-    Image site of Toyota crown
+    TOYOTA CROWN 形象網站
   </p>
 </p>
 
@@ -27,7 +27,6 @@
 - [Creators](#creators)
 - [Thanks](#thanks)
 - [Copyright and license](#copyright-and-license)
-- [remove optimized svg](#remove-optimized-svg)
 
 ## Quick start
 
@@ -51,11 +50,11 @@ $ npm run build
 
 ## Status
 
-- Development since January 2022
+- Development since January 2023
 - use React hook
 - use Less.js
+- use [TailwindCSS](https://tailwindcss.com/)
 - use ESLint [airbnb](https://github.com/airbnb/javascript) rules
-- There is a unit related style will use [TailwindCSS](https://tailwindcss.com/docs/padding)(font-size, Spacing, Typography...)
 
 ## What's included
 
@@ -87,11 +86,3 @@ Thank customers and some manufacturers for their support.
 ## Copyright and license
 
 Code and documentation copyright 2011-2022 the authors. Code released under the [MIT License](https://reponame/blob/master/LICENSE).
-
-## remove optimized svg
-
-```sh
-find . -name '*\<*' | while read f; do mv "$f" "${f//\</}"; done
-```
-
-<!-- open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security -->

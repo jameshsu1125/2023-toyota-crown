@@ -6,6 +6,7 @@
 
 	& > div:nth-child(1) {
 		margin-top: -37px;
+
 		@apply absolute flex w-full justify-center rounded-full;
 		.gradient {
 			background: radial-gradient(
@@ -17,63 +18,73 @@
 
 			@apply relative flex h-24 w-24 items-center justify-center rounded-full;
 
-			.icon {
-				width: image-width(@img) * @scale;
-				height: image-height(@img) * @scale;
-				background-image: url(@img);
-				background-size: 100%;
-				animation-delay: 5s;
+			.arrows {
+				@apply absolute flex items-center justify-center;
 
-				@scale: 0.9;
-				@img: './img/mouse.svg';
+				.icon {
+					width: image-width(@img) * @scale;
+					height: image-height(@img) * @scale;
+					animation-delay: 5s;
 
-				@apply relative;
-			}
+					@scale: 0.9;
+					@img: './img/mouse.svg';
 
-			.shadow0 {
-				left: 50%;
-				margin-left: 0 - image-width(@img) * @scale * 0.5;
-				width: image-width(@img) * @scale;
-				height: image-height(@img) * @scale;
-				background-image: url(@img);
-				background-size: 100%;
+					&::after {
+						background-image: url(@img);
+						background-size: 100%;
+						content: '';
+						@apply absolute top-0 h-full w-full;
+					}
 
-				@scale: 0.9;
-				@img: './img/iconShadow.svg';
+					@apply relative;
+				}
 
-				@apply absolute;
-			}
+				.shadow0 {
+					left: 50%;
+					margin-left: 0 - image-width(@img) * @scale * 0.5;
+					width: image-width(@img) * @scale;
+					height: image-height(@img) * @scale;
+					background-image: url(@img);
+					background-size: 100%;
 
-			.shadow1 {
-				left: 50%;
-				margin-left: 0 - image-width(@img) * @scale * 0.5;
-				width: image-width(@img) * @scale;
-				height: image-height(@img) * @scale;
-				background-image: url(@img);
-				background-size: 100%;
+					@scale: 0.9;
+					@img: './img/iconShadow.svg';
 
-				@scale: 0.9;
-				@img: './img/iconShadow1.svg';
+					@apply absolute;
+				}
 
-				@apply absolute;
-			}
+				.shadow1 {
+					left: 50%;
+					margin-left: 0 - image-width(@img) * @scale * 0.5;
+					width: image-width(@img) * @scale;
+					height: image-height(@img) * @scale;
+					background-image: url(@img);
+					background-size: 100%;
 
-			& > div {
-				animation: dragDown 3s ease-in-out infinite;
-			}
+					@scale: 0.9;
+					@img: './img/iconShadow1.svg';
 
-			& > div:nth-child(1) {
-				margin-top: 50px;
-				animation-delay: 5.1s;
-			}
+					@apply absolute;
+				}
 
-			& > div:nth-child(2) {
-				margin-top: 60px;
-				animation-delay: 5.2s;
+				& > div {
+					animation: dragDown 3s ease-in-out infinite;
+				}
+
+				& > div:nth-child(1) {
+					margin-top: 62px;
+					animation-delay: 5.2s;
+				}
+
+				& > div:nth-child(2) {
+					margin-top: 50px;
+					animation-delay: 5.1s;
+				}
 			}
 		}
+
 		.text {
-			top: 87%;
+			top: 100%;
 			@apply absolute font-notoSans text-lg font-normal text-white;
 		}
 
@@ -95,38 +106,68 @@
 	.Mouse {
 		height: 155px;
 		& > div:nth-child(1) {
+			margin-top: -47px;
+
 			.gradient {
 				@apply relative flex h-24 w-24 items-center justify-center rounded-full;
 
-				.icon {
-					width: image-width(@img) * @scale;
-					height: image-height(@img) * @scale;
+				.arrows {
+					transform: scale(1, -1);
 
-					@scale: 0.7;
-					@img: './img/mouse.svg';
-				}
+					.icon {
+						width: image-width(@img) * @scale;
+						height: image-height(@img) * @scale;
 
-				.shadow0 {
-					margin-left: 0 - image-width(@img) * @scale * 0.5;
-					width: image-width(@img) * @scale;
-					height: image-height(@img) * @scale;
+						@scale: 0.7;
+						@img: './img/mouse.svg';
 
-					@scale: 0.7;
-					@img: './img/iconShadow.svg';
-				}
+						&::after {
+							transform: scale(1, -1);
+						}
+					}
 
-				.shadow1 {
-					margin-left: 0 - image-width(@img) * @scale * 0.5;
-					width: image-width(@img) * @scale;
-					height: image-height(@img) * @scale;
+					.shadow0 {
+						margin-left: 0 - image-width(@img) * @scale * 0.5;
+						width: image-width(@img) * @scale;
+						height: image-height(@img) * @scale;
 
-					@scale: 0.7;
-					@img: './img/iconShadow1.svg';
+						@scale: 0.7;
+						@img: './img/iconShadow.svg';
+					}
+
+					.shadow1 {
+						margin-left: 0 - image-width(@img) * @scale * 0.5;
+						width: image-width(@img) * @scale;
+						height: image-height(@img) * @scale;
+
+						@scale: 0.7;
+						@img: './img/iconShadow1.svg';
+					}
+
+					& > div:nth-child(1) {
+						margin-top: 50px;
+					}
+
+					& > div:nth-child(2) {
+						margin-top: 38px;
+					}
 				}
 			}
 
 			.text {
 				display: none;
+			}
+		}
+
+		@keyframes dragUp {
+			0% {
+				transform: translateY(0px);
+			}
+			80% {
+				transform: translateY(10px);
+			}
+			100% {
+				transform: translateY(0px);
 			}
 		}
 	}

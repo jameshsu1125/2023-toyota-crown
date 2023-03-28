@@ -20,6 +20,7 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 	const stopForwardRef = useRef(stopForward);
 	const onStopRef = useRef(onStop);
 	const skipRef = useRef({ skip, time: 0 });
+	const callForActionRef = useRef(true);
 
 	useEffect(() => {
 		stopForwardRef.current = stopForward;
@@ -46,7 +47,7 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 				const [playingTarget] = videoRef.current.filter((e) => e.isPlaying());
 				if (playingTarget) {
 					const duration = playingTarget.getTotal();
-					const { transitionDuration } = VideoConfig;
+					const { transitionDuration, callForActionDuration } = VideoConfig;
 					if (!skipRef.current.skip) {
 						if (duration) {
 							const time = playingTarget.getTime();
@@ -92,6 +93,17 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 									onStopRef.current?.(playingTarget);
 									setEventContext((S) => ({ ...S, videoStop: true }));
 								}
+							}
+
+							// set call for action
+							if (time > callForActionDuration * 0.001 && time < stopTime + 0.1) {
+								if (callForActionRef.current) return;
+								callForActionRef.current = true;
+								setEventContext((S) => ({ ...S, videoCFA: true }));
+							} else {
+								if (!callForActionRef.current) return;
+								callForActionRef.current = false;
+								setEventContext((S) => ({ ...S, videoCFA: false }));
 							}
 						}
 					} else {
