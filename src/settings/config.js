@@ -137,7 +137,7 @@ export const AuthorInformation = [
 	{
 		...Authors[1],
 		index: PAGE_CONTEXT_NAME.content_1,
-		breadcrumbs: '車色之最',
+		breadcrumbs: '外型之最',
 		captions: CaptionsPaths[1],
 		vo: [
 			'並非是SUV也不是房車',
