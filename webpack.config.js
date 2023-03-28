@@ -83,7 +83,6 @@ module.exports = () => {
 				defaults: true,
 			}),
 			new CopyPlugin({ patterns: [{ from: 'public' }] }),
-			new CleanWebpackPlugin(),
 		],
 		devtool: NODE_ENV === 'production' ? false : 'cheap-module-source-map',
 		devServer: {
@@ -94,6 +93,9 @@ module.exports = () => {
 		},
 		performance: { hints: false },
 	};
+	if (NODE_ENV === 'production') {
+		setting.plugins.push(new CleanWebpackPlugin());
+	}
 	Object.keys(setting.entry).forEach((entry) => {
 		setting.plugins.push(
 			new HtmlWebpackPlugin({
