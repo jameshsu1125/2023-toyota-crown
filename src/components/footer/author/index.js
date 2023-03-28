@@ -15,7 +15,10 @@ const Author = memo(() => {
 
 	const authorData = useMemo(() => {
 		const idx = index - 1;
-		return AuthorInformation[idx < 0 || idx >= AuthorInformation.length ? 0 : idx];
+		if (idx < 0 || idx >= AuthorInformation.length) {
+			return { className: '', name: '', positionName: '' };
+		}
+		return AuthorInformation[idx];
 	}, [index]);
 
 	useEffect(() => {
