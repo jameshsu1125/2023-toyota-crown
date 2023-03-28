@@ -1,19 +1,19 @@
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef } from 'react';
-import { Context, EventContext } from '../../settings/config';
+import { BreakPoint, Context, EventContext } from '../../settings/config';
 import { ACTION, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
 import './index.less';
+
+const DEVICE = window.innerWidth >= BreakPoint;
 
 const Mouse = memo(() => {
 	const ref = useRef();
 	const [context] = useContext(Context);
 	const [eventContext] = useContext(EventContext);
 	const { videoCFA, videoStop } = eventContext;
-
 	const payLoad = context[ACTION.payLoad];
 	const { status } = payLoad;
 	const [style, setStyle] = useTween({ opacity: 0 });
-
 	const { index, onend } = context[ACTION.page];
 
 	useEffect(() => {
@@ -31,7 +31,7 @@ const Mouse = memo(() => {
 					{ opacity: 1 },
 					{
 						onStart: () => {
-							ref.current.style.transform = 'translateY(40px)';
+							ref.current.style.transform = DEVICE ? 'translateY(40px)' : 'translateY(60px)';
 						},
 					},
 				);
