@@ -20,7 +20,7 @@ const Text = ({ children, index, voIndex, i }) => {
 				{
 					duration: 1,
 					onStart: () => {
-						if (device) ref.current.style.display = 'none';
+						if (device && ref.current) ref.current.style.display = 'none';
 					},
 				},
 			);
@@ -31,7 +31,7 @@ const Text = ({ children, index, voIndex, i }) => {
 				{
 					duration: 500,
 					onStart: () => {
-						if (device) ref.current.style.display = 'block';
+						if (device && ref.current) ref.current.style.display = 'block';
 					},
 				},
 			);

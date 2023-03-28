@@ -47,11 +47,11 @@
 		margin-top: -350px;
 		width: image-width(@img) * @scale;
 		height: image-height(@img) * @scale;
-		background-size: 100%;
 
 		mask-image: url(@img);
 		mask-repeat: no-repeat;
 		mask-position: center;
+		mask-size: 100%;
 		@scale: 0.7;
 		@img: './img/title.svg';
 

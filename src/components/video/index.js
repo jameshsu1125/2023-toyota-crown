@@ -110,24 +110,24 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false, test = false })
 		}, 500);
 	}, [index]);
 
-	/* useEffect(() => {
-		const blur = () => {
-			if (videoRef.current[indexRef.current].getState() === 'playing') {
-				videoRef.current[indexRef.current].pause();
-			}
-		};
+	// useEffect(() => {
+	// 	const blur = () => {
+	// 		if (videoRef.current[indexRef.current].getState() === 'playing') {
+	// 			videoRef.current[indexRef.current].pause();
+	// 		}
+	// 	};
 
-		const focus = () => {
-			if (videoRef.current[indexRef.current].getState() === 'pause') {
-				if (!videoRef.current[indexRef.current].getStopState()) {
-					videoRef.current[indexRef.current].play();
-				}
-			}
-		};
-		window.addEventListener('blur', blur);
-		window.addEventListener('focus', focus);
-		return () => {};
-	}, []); */
+	// 	const focus = () => {
+	// 		if (videoRef.current[indexRef.current].getState() === 'pause') {
+	// 			if (!videoRef.current[indexRef.current].getStopState()) {
+	// 				videoRef.current[indexRef.current].play();
+	// 			}
+	// 		}
+	// 	};
+	// 	window.addEventListener('blur', blur);
+	// 	window.addEventListener('focus', focus);
+	// 	return () => {};
+	// }, []);
 
 	useEffect(() => {
 		if (fadeIn) {

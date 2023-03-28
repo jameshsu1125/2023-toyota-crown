@@ -35,7 +35,7 @@ const SubTitle = memo(() => {
 				tweenStyle={tweenStyle}
 				options={{ delay: steps === PayLoaderSteps.loaded ? 1250 : 0, duration: 1000 }}
 			>
-				<span>以日本極致造車工藝、精益求精專注每處細節、每道工法</span>
+				<span>以日本極致造車工藝、精益求精的專注每處細節、每道工法</span>
 			</TweenProvider>
 			<TweenProvider
 				defaultStyle={{ opacity: 0, y: 40 }}

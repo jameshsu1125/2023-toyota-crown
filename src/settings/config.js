@@ -125,7 +125,7 @@ export const AuthorInformation = [
 	{
 		...Authors[0],
 		index: PAGE_CONTEXT_NAME.content_0,
-		breadcrumbs: '外型之最',
+		breadcrumbs: '車色之最',
 		captions: CaptionsPaths[0],
 		vo: [
 			'大膽採用黑銅雙色',
@@ -137,7 +137,7 @@ export const AuthorInformation = [
 	{
 		...Authors[1],
 		index: PAGE_CONTEXT_NAME.content_1,
-		breadcrumbs: '外型之最',
+		breadcrumbs: '車色之最',
 		captions: CaptionsPaths[1],
 		vo: [
 			'並非是SUV也不是房車',
@@ -148,7 +148,7 @@ export const AuthorInformation = [
 	{
 		...Authors[4],
 		index: PAGE_CONTEXT_NAME.content_2,
-		breadcrumbs: '細節之最',
+		breadcrumbs: '乘坐之最',
 		captions: CaptionsPaths[2],
 		vo: [
 			'為了提升整體靜肅性',
@@ -160,7 +160,7 @@ export const AuthorInformation = [
 	{
 		...Authors[2],
 		index: PAGE_CONTEXT_NAME.content_3,
-		breadcrumbs: '細節之最',
+		breadcrumbs: '乘坐之最',
 		captions: CaptionsPaths[3],
 		vo: [
 			'不只是臀點',
@@ -184,11 +184,11 @@ export const AuthorInformation = [
 	{
 		...Authors[0],
 		index: PAGE_CONTEXT_NAME.content_5,
-		breadcrumbs: '內裝之最',
+		breadcrumbs: '視覺之最',
 		captions: CaptionsPaths[5],
 		vo: [
 			'我們一直堅持要製作出與全新CROWN匹配的',
-			'「WARM 「WARM STEEL」溫潤金屬色',
+			'「WARM STEEL」溫潤金屬色',
 			'不斷在失敗中反覆摸索',
 			'最終做出了最好的成品',
 		],
@@ -196,7 +196,7 @@ export const AuthorInformation = [
 	{
 		...Authors[3],
 		index: PAGE_CONTEXT_NAME.content_6,
-		breadcrumbs: '內裝之最',
+		breadcrumbs: '視覺之最',
 		captions: CaptionsPaths[6],
 		vo: [
 			'在這裡',
@@ -370,14 +370,14 @@ export const AudioConfig = {
 
 export const InterviewConfig = [
 	{
-		breadcrumbs: '外型之最',
+		breadcrumbs: '車色之最',
 		name: '宍戶 惠子',
 		youtube: 'k0osB5n6FPI',
 		className: 'interviewButton-0',
 		youtubeCover: 'yt-0',
 	},
 	{
-		breadcrumbs: '細節之最',
+		breadcrumbs: '乘坐之最',
 		name: '田中 俊輔',
 		youtube: 'Slr3LJ7e3I4',
 		className: 'interviewButton-1',
@@ -391,7 +391,7 @@ export const InterviewConfig = [
 		youtubeCover: 'yt-2',
 	},
 	{
-		breadcrumbs: '內裝之最',
+		breadcrumbs: '視覺之最',
 		name: '岡松 秀悟',
 		youtube: 'v5X9ZT0XFF4',
 		className: 'interviewButton-3',

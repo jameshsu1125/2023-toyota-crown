@@ -58,7 +58,7 @@ const Mouse = memo(() => {
 							<br />
 						</>
 					)}
-					邀您下滑鑑賞
+					邀您點擊鑑賞
 				</div>
 			</div>
 		</div>

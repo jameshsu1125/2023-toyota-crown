@@ -36,7 +36,7 @@ const Mouse = memo(() => {
 					))}
 					<div className='icon' />
 				</div>
-				{index === 0 && <div className='text'>邀您下滑鑑賞</div>}
+				<div className='text'>邀您下滑鑑賞</div>
 			</div>
 		</div>
 	);
