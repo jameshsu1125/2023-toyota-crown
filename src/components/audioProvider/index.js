@@ -11,6 +11,7 @@ const STATE = {
 };
 
 let timeout;
+let skipAbleTimeout;
 
 const AudioProvider = memo(({ children }) => {
 	const [context, setContext] = useContext(Context);
@@ -91,6 +92,7 @@ const AudioProvider = memo(({ children }) => {
 			if (idx < 0 || idx >= AudioConfig.targets.length) return;
 
 			clearTimeout(timeout);
+			clearTimeout(skipAbleTimeout);
 			timeout = setTimeout(() => {
 				audioRef.current[idx].seek(0);
 
@@ -102,6 +104,11 @@ const AudioProvider = memo(({ children }) => {
 
 				audioRef.current[idx]?.play();
 				lastIndex.current = idx;
+
+				// 避免onplay沒促發
+				skipAbleTimeout = setTimeout(() => {
+					setContext({ type: ACTION.page, state: { ...pageRef.current, skipEnabled: true } });
+				}, 1000);
 			}, AudioConfig.delay);
 		}
 	}, [index, onend]);
