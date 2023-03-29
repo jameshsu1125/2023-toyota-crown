@@ -30,7 +30,7 @@
 		.Gradient {
 			top: 60%;
 			padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
-			width: @width;
+			width: 200%;
 			border-top: solid 1px #8a7661;
 			background-image: url(@img);
 			background-size: 100% 100%;
@@ -38,7 +38,7 @@
 			@width: 100%;
 			@img: './img/g.png';
 
-			@apply absolute;
+			@apply fixed;
 		}
 	}
 

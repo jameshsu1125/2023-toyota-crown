@@ -96,15 +96,17 @@ const AudioProvider = memo(({ children }) => {
 			clearTimeout(timeout);
 			clearTimeout(skipAbleTimeout);
 			timeout = setTimeout(() => {
+				audioRef.current[idx].volume(0);
 				audioRef.current[idx].seek(0);
-
+				audioRef.current[idx].play();
 				// fadeout if not user not muted
 				if (!mutedRef.current) {
-					audioRef.current[idx]?.fade(0, 1, 1000);
+					requestAnimationFrame(() => {
+						audioRef.current[idx].fade(0, 1, 2000);
+					});
 					bgmRef.current.fade(AudioConfig.defaultVolume, AudioConfig.minScaleVolume, 1000);
 				}
 
-				audioRef.current[idx]?.play();
 				lastIndex.current = idx;
 
 				// 避免onplay沒促發
