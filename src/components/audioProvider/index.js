@@ -81,7 +81,9 @@ const AudioProvider = memo(({ children }) => {
 
 	useEffect(() => {
 		// set VO index state
-		if (voIndex !== false) setContext({ type: ACTION.page, state: { ...page, voIndex } });
+		if (voIndex !== false) {
+			setContext({ type: ACTION.page, state: { ...page, voIndex } });
+		}
 	}, [voIndex]);
 
 	useEffect(() => {
