@@ -101,6 +101,7 @@ const AudioProvider = memo(({ children }) => {
 			clearTimeout(skipAbleTimeout);
 			timeout = setTimeout(() => {
 				audioRef.current[idx].seek(0);
+				audioRef.current[idx].volume(1);
 				audioIDRef.current = audioRef.current[idx].play();
 
 				// fadeout if not user not muted
