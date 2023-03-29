@@ -8,7 +8,9 @@ const DEVICE = window.innerWidth >= BreakPoint;
 
 const Mouse = memo(() => {
 	const ref = useRef();
-	const [context] = useContext(Context);
+	const [context, setContext] = useContext(Context);
+	const page = context[ACTION.page];
+
 	const [eventContext] = useContext(EventContext);
 	const { videoCFA, videoStop } = eventContext;
 	const payLoad = context[ACTION.payLoad];
@@ -23,6 +25,10 @@ const Mouse = memo(() => {
 			}
 		}
 	}, [videoStop, index]);
+
+	useEffect(() => {
+		setContext({ type: ACTION.page, state: { ...page, skipEnabled: true } });
+	}, [videoCFA]);
 
 	useEffect(() => {
 		if (index > PAGE_CONTEXT_NAME.intro && index < PAGE_CONTEXT_NAME.detailVideo) {

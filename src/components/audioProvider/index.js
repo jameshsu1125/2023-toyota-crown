@@ -106,9 +106,9 @@ const AudioProvider = memo(({ children }) => {
 				lastIndex.current = idx;
 
 				// 避免onplay沒促發
-				skipAbleTimeout = setTimeout(() => {
-					setContext({ type: ACTION.page, state: { ...pageRef.current, skipEnabled: true } });
-				}, 1000);
+				// skipAbleTimeout = setTimeout(() => {
+				// 	setContext({ type: ACTION.page, state: { ...pageRef.current, skipEnabled: true } });
+				// }, 1000);
 			}, AudioConfig.delay);
 		}
 	}, [index, onend]);
@@ -187,7 +187,6 @@ const AudioProvider = memo(({ children }) => {
 					onload: () => onload(idx),
 					onplay: () => {
 						stateRef.current = STATE.playing;
-						setContext({ type: ACTION.page, state: { ...pageRef.current, skipEnabled: true } });
 					},
 					onpause: () => {
 						stateRef.current = STATE.pause;

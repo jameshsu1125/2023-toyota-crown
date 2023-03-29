@@ -381,7 +381,7 @@ export const InterviewConfig = [
 	},
 	{
 		breadcrumbs: '細節之最',
-		name: '田中 俊輔',
+		name: '奧津 玄',
 		youtube: 'Slr3LJ7e3I4',
 		className: 'interviewButton-1',
 		youtubeCover: 'yt-1',
@@ -395,7 +395,7 @@ export const InterviewConfig = [
 	},
 	{
 		breadcrumbs: '內裝之最',
-		name: '岡松 秀悟',
+		name: '田中 俊輔',
 		youtube: 'v5X9ZT0XFF4',
 		className: 'interviewButton-3',
 		youtubeCover: 'yt-3',

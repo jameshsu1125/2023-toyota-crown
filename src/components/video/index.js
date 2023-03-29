@@ -86,17 +86,21 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 
 		onEnded?.();
 
-		let idx = index;
-		if (direction === DIRECTION_STATE.next) idx -= 1;
-		else idx += 1;
+		// let idx = index;
+		// if (direction === DIRECTION_STATE.next) idx -= 1;
+		// else idx += 1;
+		// videoRef.current[idx].hide();
 
-		videoRef.current.forEach((e, i) => {
-			if (i === index) {
-				videoRef.current[index].show();
-				videoRef.current[index].replay();
-			} else videoRef.current[idx].hide();
+		videoRef.current.forEach((e) => {
+			e.hide();
 		});
-		darkScreenRef.current.play();
+
+		requestAnimationFrame(() => {
+			videoRef.current[index].show();
+			videoRef.current[index].replay();
+			darkScreenRef.current.play();
+		});
+
 		indexRef.current = index;
 
 		setTimeout(() => {
