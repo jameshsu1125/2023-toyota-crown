@@ -32,6 +32,7 @@ const Mouse = memo(() => {
 				setStyle(
 					{ opacity: 1 },
 					{
+						delay: 500,
 						onStart: () => {
 							ref.current.style.transform = DEVICE ? 'translateY(40px)' : 'translateY(60px)';
 						},

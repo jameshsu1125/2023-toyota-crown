@@ -7,10 +7,11 @@ const Name = memo(({ data, page }) => {
 	const [style, setStyle] = useTween({ opacity: 0, y: 10 });
 
 	useEffect(() => {
-		setStyle({ opacity: 0, y: 10 }, 500);
 		if (onend) {
 			setName(data.name);
 			setStyle({ opacity: 1, y: 0 }, { duration: 500, delay: 300 });
+		} else {
+			setStyle({ opacity: 0, y: 10 }, 200);
 		}
 	}, [index, onend]);
 
