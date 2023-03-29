@@ -27,10 +27,6 @@ const Mouse = memo(() => {
 	}, [videoStop, index]);
 
 	useEffect(() => {
-		setContext({ type: ACTION.page, state: { ...page, skipEnabled: true } });
-	}, [videoCFA]);
-
-	useEffect(() => {
 		if (index > PAGE_CONTEXT_NAME.intro && index < PAGE_CONTEXT_NAME.detailVideo) {
 			if (onend && videoCFA) {
 				setStyle(
@@ -38,6 +34,9 @@ const Mouse = memo(() => {
 					{
 						onStart: () => {
 							ref.current.style.transform = DEVICE ? 'translateY(40px)' : 'translateY(60px)';
+						},
+						onComplete: () => {
+							setContext({ type: ACTION.page, state: { ...page, skipEnabled: true } });
 						},
 					},
 				);

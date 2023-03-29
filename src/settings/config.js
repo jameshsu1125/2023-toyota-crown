@@ -238,7 +238,7 @@ export const VideoConfig = {
 	fadeInTiming: PAYLOAD_STATUS.logoDidFadeIn,
 	transitionDuration: 1000, // 每隻影片的淡入淡出
 	preloadToIndex: PAGE_CONTEXT_NAME.content_3,
-	callForActionDuration: 4000,
+	callForActionDuration: 2000,
 	targets: [
 		{
 			url: videoUrl[0][window.innerWidth >= BreakPoint ? 'desktop' : 'mobile'],

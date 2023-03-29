@@ -69,7 +69,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 		};
 		if (targets.length === VideoConfig.targets.length) {
 			resize();
-			window.addEventListener('resize', resize);
+			if (window.innerWidth >= BreakPoint) window.addEventListener('resize', resize);
 		}
 		return () => window.removeEventListener('resize', resize);
 	}, [targets]);
