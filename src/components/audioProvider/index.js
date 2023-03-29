@@ -55,7 +55,7 @@ const AudioProvider = memo(({ children }) => {
 		// stop last sound track when user skip video
 		if (skip) {
 			setVoIndex(false);
-			audioRef.current[lastIndex.current].stop();
+			audioRef.current[lastIndex.current].fade(1, 0, 1000);
 		}
 	}, [skip]);
 
@@ -95,6 +95,7 @@ const AudioProvider = memo(({ children }) => {
 		if (onend) {
 			const idx = index - 1;
 			if (idx < 0 || idx >= AudioConfig.targets.length) return;
+			audioRef.current[lastIndex.current]?.stop();
 
 			clearTimeout(timeout);
 			clearTimeout(skipAbleTimeout);
