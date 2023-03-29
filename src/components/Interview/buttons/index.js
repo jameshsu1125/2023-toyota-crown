@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 import Click from 'lesca-click';
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useEffect, useMemo, useRef } from 'react';
@@ -17,9 +18,16 @@ const Button = memo(({ data, sn, onFadeIn, state, youtubeIndex, setYoutubeIndex,
 	}, [state]);
 
 	useEffect(() => {
-		if (youtubeIndex !== false) {
-			if (sn === youtubeIndex) ref.current?.classList.remove('on');
-			else ref.current?.classList.add('on');
+		if (DEVICE === 'desktop') {
+			if (youtubeIndex !== false) {
+				if (sn === youtubeIndex) ref.current?.classList.remove('on');
+				else ref.current?.classList.add('on');
+			}
+		} else {
+			if (youtubeIndex !== false) {
+				if (sn === youtubeIndex) ref.current.style.opacity = 1;
+				else ref.current.style.opacity = 0.35;
+			}
 		}
 	}, [youtubeIndex, sn]);
 
