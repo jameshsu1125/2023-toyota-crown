@@ -1,8 +1,9 @@
+import Gtag from 'lesca-gtag';
 import ImagePreloader from 'lesca-image-onload';
 import { Bezier, TweenProvider } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import BackgroundGrid from '../../components/backgroundGrid';
-import { BreakPointHeight, Context, VideoConfig } from '../../settings/config';
+import { BreakPointHeight, Context, GtagConfig, VideoConfig } from '../../settings/config';
 import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../settings/constant';
 import CarOutline from './carOutline';
 import PayLoaderContainer from './container';
@@ -52,6 +53,7 @@ const PayLoader = memo(() => {
 			});
 			setState((S) => ({ ...S, steps: PayLoaderSteps.loaded }));
 		});
+		Gtag.pv(GtagConfig.首頁.pv);
 	}, []);
 
 	useEffect(() => {

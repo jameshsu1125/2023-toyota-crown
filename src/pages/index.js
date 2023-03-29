@@ -1,4 +1,5 @@
 import Click from 'lesca-click';
+import Gtag from 'lesca-gtag';
 import Landscape from 'lesca-react-landscape';
 import { memo, useContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -24,6 +25,8 @@ import '../settings/global.less';
 import PayLoader from './payLoader';
 
 Click.install();
+Gtag.install('G-NRK2EL50PD');
+Gtag.install('UA-262107147-1');
 
 const Pages = memo(() => {
 	const [context] = useContext(Context);

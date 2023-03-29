@@ -408,3 +408,20 @@ export const InterviewConfig = [
 		youtubeCover: 'yt-4',
 	},
 ];
+
+export const GtagConfig = {
+	首頁: {
+		pv: '首頁',
+		event: {
+			邀您點擊鑑賞: '邀您點擊鑑賞',
+		},
+	},
+	設計師頁: {
+		pv: '設計師頁',
+		event: [...AuthorInformation],
+	},
+	深度了解: {
+		pv: '深度了解',
+		event: [...InterviewConfig],
+	},
+};

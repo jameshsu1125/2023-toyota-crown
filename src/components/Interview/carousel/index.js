@@ -1,8 +1,9 @@
 import Click from 'lesca-click';
+import Gtag from 'lesca-gtag';
 import useTween from 'lesca-use-tween';
 import { memo, useEffect, useId, useMemo, useRef, useState } from 'react';
 import Slider from 'react-slick';
-import { AudioConfig, InterviewConfig } from '../../../settings/config';
+import { AudioConfig, GtagConfig, InterviewConfig } from '../../../settings/config';
 import { InterviewState } from '../setting';
 import './index.less';
 import Player from './youtube';
@@ -47,7 +48,10 @@ const Carousel = memo(({ state, setState, youtubeIndex, audio, setYoutubeIndex }
 		audioRef.current = audio;
 	}, [audio]);
 
-	useEffect(() => slickRef.current.slickGoTo(youtubeIndex), [youtubeIndex]);
+	useEffect(() => {
+		slickRef.current.slickGoTo(youtubeIndex);
+		Gtag.event(GtagConfig.深度了解.pv, GtagConfig.深度了解.event[youtubeIndex].breadcrumbs);
+	}, [youtubeIndex]);
 
 	const settings = {
 		className: 'center',

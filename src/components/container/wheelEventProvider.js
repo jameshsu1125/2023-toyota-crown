@@ -1,6 +1,7 @@
+import Gtag from 'lesca-gtag';
 import { memo, useCallback, useContext, useEffect, useRef } from 'react';
 import useWheelHeavy from '../../hooks/useWheelHeavy';
-import { Context } from '../../settings/config';
+import { Context, GtagConfig } from '../../settings/config';
 import {
 	ACTION,
 	DIRECTION_STATE,
@@ -24,6 +25,11 @@ const WheelEventProvider = memo(({ children }) => {
 	useEffect(() => {
 		if (index === PAGE_CONTEXT_NAME.detailVideo) ref.current.style.display = 'none';
 		else ref.current.style.display = 'block';
+
+		const idx = index - 1;
+		if (idx >= 0 && idx < GtagConfig.設計師頁.event.length) {
+			Gtag.pv(`${GtagConfig.設計師頁.pv}-${GtagConfig.設計師頁.event[idx].breadcrumbs}`);
+		}
 	}, [index]);
 
 	useEffect(() => {

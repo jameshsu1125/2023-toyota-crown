@@ -1,8 +1,15 @@
+import Gtag from 'lesca-gtag';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
-import { AudioConfig, BreakPointHeight, Context, InterviewConfig } from '../../settings/config';
+import {
+	AudioConfig,
+	BreakPointHeight,
+	Context,
+	GtagConfig,
+	InterviewConfig,
+} from '../../settings/config';
 import { ACTION, DIRECTION_STATE, PAGE_CONTEXT_NAME } from '../../settings/constant';
 import Button from './buttons';
 import Car from './car';
@@ -67,6 +74,7 @@ const Interview = memo(({ setKey }) => {
 				else setActive(true);
 			};
 			checkVideoReset();
+			Gtag.pv(GtagConfig.深度了解.pv);
 		} else if (index === PAGE_CONTEXT_NAME.content_7 && direction === DIRECTION_STATE.prev) {
 			if (saveRef) {
 				saveRef = false;

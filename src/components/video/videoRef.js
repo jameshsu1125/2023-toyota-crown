@@ -63,6 +63,7 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 		hide() {
 			videoRef.current.style.display = 'none';
 			videoRef.current.pause();
+			requestAnimationFrame(() => videoRef.current.pause());
 			videoState.current = 'pause';
 		},
 		isPlaying() {
@@ -109,6 +110,7 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 			onEnded={(event) => {
 				videoState.current = 'end';
 				onEnded?.({ event, url });
+				requestAnimationFrame(() => onEnded?.({ event, url }));
 			}}
 		>
 			<source src={url} type='video/mp4' />

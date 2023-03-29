@@ -1,7 +1,8 @@
+import Gtag from 'lesca-gtag';
 import { CoverSize } from 'lesca-number';
 import useTween from 'lesca-use-tween';
 import { memo, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { AudioConfig, BreakPoint, Context, VideoConfig } from '../../settings/config';
+import { AudioConfig, BreakPoint, Context, GtagConfig, VideoConfig } from '../../settings/config';
 import { ACTION, DIRECTION_STATE, PAGE_CONTEXT_NAME } from '../../settings/constant';
 import DarkScreen from './darkScreen';
 import './index.less';
@@ -35,7 +36,10 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 	}, [content]);
 
 	useEffect(() => {
-		if (fadeIn) videoRef.current[PAGE_CONTEXT_NAME.intro].play();
+		if (fadeIn) {
+			videoRef.current[PAGE_CONTEXT_NAME.intro].play();
+			Gtag.pv(GtagConfig.設計師頁.pv);
+		}
 	}, [fadeIn]);
 
 	const onload = () => {
@@ -86,11 +90,6 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 
 		onEnded?.();
 
-		// let idx = index;
-		// if (direction === DIRECTION_STATE.next) idx -= 1;
-		// else idx += 1;
-		// videoRef.current[idx].hide();
-
 		videoRef.current.forEach((e) => {
 			e.hide();
 		});
@@ -107,25 +106,6 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 			fixVideoOnEndBug = true;
 		}, 500);
 	}, [index]);
-
-	// useEffect(() => {
-	// 	const blur = () => {
-	// 		if (videoRef.current[indexRef.current].getState() === 'playing') {
-	// 			videoRef.current[indexRef.current].pause();
-	// 		}
-	// 	};
-
-	// 	const focus = () => {
-	// 		if (videoRef.current[indexRef.current].getState() === 'pause') {
-	// 			if (!videoRef.current[indexRef.current].getStopState()) {
-	// 				videoRef.current[indexRef.current].play();
-	// 			}
-	// 		}
-	// 	};
-	// 	window.addEventListener('blur', blur);
-	// 	window.addEventListener('focus', focus);
-	// 	return () => {};
-	// }, []);
 
 	useEffect(() => {
 		if (fadeIn) {

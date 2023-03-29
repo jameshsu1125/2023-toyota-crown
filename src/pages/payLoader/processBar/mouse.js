@@ -1,7 +1,8 @@
 import Click from 'lesca-click';
+import Gtag from 'lesca-gtag';
 import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef } from 'react';
-import { BreakPoint, Context } from '../../../settings/config';
+import { BreakPoint, Context, GtagConfig } from '../../../settings/config';
 import { ACTION, PAYLOAD_STATUS } from '../../../settings/constant';
 import { PayLoaderContext, PayLoaderSteps } from '../setting';
 import './index.less';
@@ -34,6 +35,7 @@ const Mouse = memo(() => {
 								type: ACTION.payLoad,
 								state: { ...payLoad, status: PAYLOAD_STATUS.userDidActive },
 							});
+							Gtag.event(GtagConfig.首頁.pv, GtagConfig.首頁.event.邀您點擊鑑賞);
 							Click.remove('#mouse');
 						});
 					},
