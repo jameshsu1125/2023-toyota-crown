@@ -35,6 +35,9 @@ const AudioProvider = memo(({ children }) => {
 	const [voIndex, setVoIndex] = useState(false);
 	const lastIndex = useRef();
 
+	const audioIDRef = useRef();
+	const bgmIDRef = useRef();
+
 	useEffect(() => {
 		pageRef.current = page;
 	}, [page]);
@@ -45,7 +48,7 @@ const AudioProvider = memo(({ children }) => {
 
 	useEffect(() => {
 		// play bgm when user clicked button
-		if (status === PAYLOAD_STATUS.userDidActive) bgmRef.current.play();
+		if (status === PAYLOAD_STATUS.userDidActive) bgmIDRef.current = bgmRef.current.play();
 	}, [status]);
 
 	useEffect(() => {
@@ -62,8 +65,8 @@ const AudioProvider = memo(({ children }) => {
 			const idx = indexRef.current - 1;
 			if (idx < 0 || idx >= AudioConfig.targets.length) return;
 			if (stateRef.current === STATE.playing) {
-				audioRef.current[idx].pause();
-				bgmRef.current.pause();
+				audioRef.current[idx].pause(audioIDRef.current);
+				bgmRef.current.pause(bgmIDRef.current);
 			}
 		};
 
@@ -71,8 +74,8 @@ const AudioProvider = memo(({ children }) => {
 			const idx = indexRef.current - 1;
 			if (idx < 0 || idx >= AudioConfig.targets.length) return;
 			if (stateRef.current === STATE.pause) {
-				audioRef.current[idx].play();
-				bgmRef.current.play();
+				audioRef.current[idx].play(audioIDRef.current);
+				bgmRef.current.play(bgmIDRef.current);
 			}
 		};
 		window.addEventListener('blur', blur);
@@ -96,14 +99,11 @@ const AudioProvider = memo(({ children }) => {
 			clearTimeout(timeout);
 			clearTimeout(skipAbleTimeout);
 			timeout = setTimeout(() => {
-				audioRef.current[idx].volume(0);
 				audioRef.current[idx].seek(0);
-				audioRef.current[idx].play();
+				audioIDRef.current = audioRef.current[idx].play();
+
 				// fadeout if not user not muted
 				if (!mutedRef.current) {
-					requestAnimationFrame(() => {
-						audioRef.current[idx].fade(0, 1, 2000);
-					});
 					bgmRef.current.fade(AudioConfig.defaultVolume, AudioConfig.minScaleVolume, 1000);
 				}
 
