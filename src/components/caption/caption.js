@@ -1,6 +1,6 @@
 /* eslint-disable no-lonely-if */
 /* eslint-disable react/no-array-index-key */
-import { memo, useContext, useEffect, useMemo, useState } from 'react';
+import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { AuthorInformation, BreakPoint, CaptionConfig, Context } from '../../settings/config';
 import { ACTION, PAGE_CONTEXT_NAME } from '../../settings/constant';
 import './index.less';
@@ -32,7 +32,16 @@ const CaptionSVG = memo(({ active = false }) => {
 	const { index } = context[ACTION.page];
 	const [height, setHeight] = useState(-22);
 	const [show, setShow] = useState(false);
-	useEffect(() => setShow(false), [index]);
+
+	const ref = useRef();
+
+	useEffect(() => {
+		ref.current.style.display = 'none';
+		requestAnimationFrame(() => {
+			ref.current.style.display = 'block';
+		});
+		setShow(false);
+	}, [index]);
 
 	useEffect(() => {
 		if (DEVICE) {
@@ -62,7 +71,7 @@ const CaptionSVG = memo(({ active = false }) => {
 	}, [index, active]);
 
 	return (
-		<div className='relative w-[750px]' style={{ height: `${height}px` }}>
+		<div ref={ref} className='relative w-[750px]' style={{ height: `${height}px` }}>
 			<SVG>{Paths}</SVG>
 			<GradientCaption show={show} author={index} />
 		</div>
