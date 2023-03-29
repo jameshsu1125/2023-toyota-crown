@@ -51,6 +51,7 @@
 		"howler": "^2.2.3",
 		"lesca-click": "^4.3.2",
 		"lesca-enterframe": "^1.2.4",
+		"lesca-gtag": "^1.2.6",
 		"lesca-image-onload": "^3.0.1",
 		"lesca-number": "^1.5.1",
 		"lesca-react-landscape": "^2.2.2",

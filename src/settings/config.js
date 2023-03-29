@@ -234,7 +234,7 @@ const videoUrl = [
 ];
 
 export const VideoConfig = {
-	fadeInDuration: 4000, // 從loading到intro的淡入時間
+	fadeInDuration: 3000, // 從loading到intro的淡入時間
 	fadeInTiming: PAYLOAD_STATUS.logoDidFadeIn,
 	transitionDuration: 1000, // 每隻影片的淡入淡出
 	preloadToIndex: PAGE_CONTEXT_NAME.content_3,
