@@ -23,13 +23,17 @@
 	.scrollDownText {
 		width: image-width(@img) * @scale;
 		height: image-height(@img) * @scale;
+		background-image: url(@img);
+		background-position: center;
+		background-size: 100%;
+		background-repeat: no-repeat;
+		// mask-image: url(@img);
+		// mask-repeat: no-repeat;
+		// mask-position: center;
+		// mask-size: 100%;
 
-		mask-image: url(@img);
-		mask-repeat: no-repeat;
-		mask-position: center;
-		mask-size: 100%;
 		@scale: 0.7;
-		@img: './img/scrollDown.svg';
+		@img: './img/scroll-01.svg';
 
 		@apply relative;
 	}

@@ -92,9 +92,7 @@ export const CallForActionText = memo(({ status, device, index }) => {
 			style={style}
 			className='absolute top-0 flex h-full w-full items-center justify-center'
 		>
-			<div className='scrollDownText'>
-				<div className='gradient' />
-			</div>
+			<div className='scrollDownText' />
 		</div>
 	);
 });

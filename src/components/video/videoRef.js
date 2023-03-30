@@ -9,7 +9,8 @@ const VideoRef = forwardRef(({ onload, onEnded, url }, ref) => {
 
 	useEffect(() => {
 		videoRef.current.defaultMuted = true;
-	});
+		videoRef.current.setAttribute('webkit-playsinline', true);
+	}, []);
 
 	useImperativeHandle(ref, () => ({
 		url,
