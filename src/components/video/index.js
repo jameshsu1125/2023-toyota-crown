@@ -42,23 +42,23 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 		}
 	}, [fadeIn]);
 
-	// useEffect(() => {
-	// 	const blur = () => {
-	// 		if (videoRef.current[indexRef.current].getState() === 'playing') {
-	// 			videoRef.current[indexRef.current].pause();
-	// 		}
-	// 	};
-	// 	const focus = () => {
-	// 		if (videoRef.current[indexRef.current].getState() === 'pause') {
-	// 			if (!videoRef.current[indexRef.current].getStopState()) {
-	// 				videoRef.current[indexRef.current].play();
-	// 			}
-	// 		}
-	// 	};
-	// 	window.addEventListener('blur', blur);
-	// 	window.addEventListener('focus', focus);
-	// 	return () => {};
-	// }, []);
+	useEffect(() => {
+		const blur = () => {
+			if (videoRef.current[indexRef.current].getState() === 'playing') {
+				videoRef.current[indexRef.current].pause();
+			}
+		};
+		const focus = () => {
+			if (videoRef.current[indexRef.current].getState() === 'pause') {
+				if (!videoRef.current[indexRef.current].getStopState()) {
+					videoRef.current[indexRef.current].play();
+				}
+			}
+		};
+		window.addEventListener('blur', blur);
+		window.addEventListener('focus', focus);
+		return () => {};
+	}, []);
 
 	const onload = () => {
 		onLoaded(targets[targets.length - 1]);
