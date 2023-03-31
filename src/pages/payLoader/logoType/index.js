@@ -57,7 +57,7 @@ const SubTitle = memo(() => {
 	}, [steps]);
 
 	return (
-		<div style={style} className='font-notoSansRegular pt-10 text-xl tracking-[0.5rem]'>
+		<div style={style} className='pt-10 font-notoSans text-xl tracking-[0.5rem]'>
 			工藝之最 藝術特展
 		</div>
 	);

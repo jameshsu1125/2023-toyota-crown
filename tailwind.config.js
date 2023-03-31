@@ -27,7 +27,8 @@ module.exports = {
 			...fontSize,
 		},
 		fontFamily: {
-			notoSans: ['Noto Sans TC', 'sans-serif'],
+			notoSans: ['Noto Sans', 'sans-serif'],
+			notoSansLight: ['Noto Sans Light', 'sans-serif'],
 			notoSerif: ['Noto Serif TC', 'PMingLiU', '新細明體', 'LiSong Pro', 'serif'],
 			NotoSerifJP: ['Noto Serif JP', 'serif'],
 			sourceSansPro: ['Source Sans Pro', 'sans-serif'],

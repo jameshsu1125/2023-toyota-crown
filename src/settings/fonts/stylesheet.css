@@ -4,3 +4,17 @@
 	font-family: 'Noto Serif JP';
 	src: url('NotoSerifJP-Black.ttf') format('truetype');
 }
+
+@font-face {
+	font-weight: normal;
+	font-style: normal;
+	font-family: 'Noto Sans Light';
+	src: url('NotoSansTC-Light.ttf') format('truetype');
+}
+
+@font-face {
+	font-weight: normal;
+	font-style: normal;
+	font-family: 'Noto Sans';
+	src: url('NotoSansTC-Regular.ttf') format('truetype');
+}

@@ -18,6 +18,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 	const { content } = audio;
 
 	const [targets, setTarget] = useState([VideoConfig.targets[0]]);
+
 	const videoRef = useRef([]);
 	const darkScreenRef = useRef();
 	const indexRef = useRef(index);
