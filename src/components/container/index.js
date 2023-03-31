@@ -17,11 +17,17 @@ import WheelEventProvider from './wheelEventProvider';
 const Container = memo(({ children }) => {
 	const [context, setContext] = useContext(Context);
 	const payLoad = context[ACTION.payLoad];
+	const payLoadRef = useRef();
+
 	const page = context[ACTION.page];
 	const { status } = payLoad;
 
 	const ref = useRef();
 	const [fadeIn, setFadeIn] = useState(false);
+
+	useEffect(() => {
+		payLoadRef.current = payLoad;
+	}, [payLoad]);
 
 	useEffect(() => {
 		new ImagePreloader()
@@ -30,7 +36,7 @@ const Container = memo(({ children }) => {
 					const { loaded, total } = e;
 					setContext({
 						type: ACTION.payLoad,
-						state: { ...payLoad, loaded, total },
+						state: { ...payLoadRef.current, loaded, total },
 					});
 				},
 			})
@@ -38,16 +44,16 @@ const Container = memo(({ children }) => {
 				const { loaded, total } = e;
 				setContext({
 					type: ACTION.payLoad,
-					state: { ...payLoad, loaded, total },
+					state: { ...payLoadRef.current, loaded, total },
 				});
 			});
 	}, []);
 
 	useEffect(() => {
 		// show container when content loaded
-		if (status >= PAYLOAD_STATUS.onLoaded) {
+		if (status === VideoConfig.fadeInTiming) {
 			ref.current.style.visibility = 'visible';
-			if (status === VideoConfig.fadeInTiming) setFadeIn(true);
+			setFadeIn(true);
 		}
 	}, [status]);
 

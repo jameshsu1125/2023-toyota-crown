@@ -36,15 +36,18 @@ const Pages = memo(() => {
 	const value = useState(initialEventState);
 	const [key, setKey] = useState(true);
 
+	const [containerEnabled, setContainerEnabled] = useState(false);
+
 	useEffect(() => {
-		//	console.log(status);
-		// console.log(payLoaderState.status);
+		if (status === PAYLOAD_STATUS.onReady) {
+			setContainerEnabled(true);
+		}
 	}, [status]);
 
 	return (
 		<div className='h-full w-full'>
 			{payLoaderState.status < PAYLOAD_STATUS.introVideoDidPlayed && <PayLoader />}
-			{payLoaderState.status >= PAYLOAD_STATUS.onPayLoaderFadeIn && (
+			{containerEnabled && (
 				<EventContext.Provider value={value}>
 					<Container>
 						<AudioProvider>

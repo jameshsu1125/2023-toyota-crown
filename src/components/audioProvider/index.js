@@ -48,7 +48,10 @@ const AudioProvider = memo(({ children }) => {
 
 	useEffect(() => {
 		// play bgm when user clicked button
-		if (status === PAYLOAD_STATUS.userDidActive) bgmIDRef.current = bgmRef.current.play();
+		if (status === PAYLOAD_STATUS.userDidActive) {
+			console.log('aaaa');
+			bgmIDRef.current = bgmRef.current.play();
+		}
 	}, [status]);
 
 	useEffect(() => {

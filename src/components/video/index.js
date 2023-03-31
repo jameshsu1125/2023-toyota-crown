@@ -44,12 +44,12 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 
 	useEffect(() => {
 		const blur = () => {
-			if (videoRef.current[indexRef.current].getState() === 'playing') {
+			if (videoRef.current[indexRef.current]?.getState() === 'playing') {
 				videoRef.current[indexRef.current].pause();
 			}
 		};
 		const focus = () => {
-			if (videoRef.current[indexRef.current].getState() === 'pause') {
+			if (videoRef.current[indexRef.current]?.getState() === 'pause') {
 				if (!videoRef.current[indexRef.current].getStopState()) {
 					videoRef.current[indexRef.current].play();
 				}
@@ -57,7 +57,6 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 		};
 		window.addEventListener('blur', blur);
 		window.addEventListener('focus', focus);
-		return () => {};
 	}, []);
 
 	const onload = () => {
@@ -85,10 +84,8 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 			const size = CoverSize(videoSize, { width: window.innerWidth, height: window.innerHeight });
 			videoRef.current.forEach((e) => e.setSize(size));
 		};
-		if (targets.length === VideoConfig.targets.length) {
-			resize();
-			if (window.innerWidth >= BreakPoint) window.addEventListener('resize', resize);
-		}
+		resize();
+		if (window.innerWidth >= BreakPoint) window.addEventListener('resize', resize);
 		return () => window.removeEventListener('resize', resize);
 	}, [targets]);
 
