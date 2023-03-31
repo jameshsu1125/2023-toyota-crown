@@ -87,7 +87,7 @@ export const reducer = (state, action) => {
 	return state;
 };
 
-export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 20 };
+export const CaptionConfig = { color: '#7e4d3d', eachCharacterDelay: 10 };
 
 export const Authors = [
 	{
@@ -235,7 +235,7 @@ const videoUrl = [
 
 export const VideoConfig = {
 	fadeInDuration: 3000, // 從loading到intro的淡入時間
-	fadeInTiming: PAYLOAD_STATUS.logoDidFadeIn,
+	fadeInTiming: PAYLOAD_STATUS.userDidActive,
 	transitionDuration: 1000, // 每隻影片的淡入淡出
 	preloadToIndex: PAGE_CONTEXT_NAME.content_3,
 	callForActionDuration: 2000,

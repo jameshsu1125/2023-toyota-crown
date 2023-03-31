@@ -32,6 +32,7 @@ const Container = memo(({ children }) => {
 	useEffect(() => {
 		new ImagePreloader()
 			.load(ref.current, {
+				hideBeforeLoaded: false,
 				onUpdate: (e) => {
 					const { loaded, total } = e;
 					setContext({
@@ -53,6 +54,8 @@ const Container = memo(({ children }) => {
 		// show container when content loaded
 		if (status === VideoConfig.fadeInTiming) {
 			ref.current.style.visibility = 'visible';
+			ref.current.style.display = 'block';
+		} else if (status === PAYLOAD_STATUS.logoDidFadeIn) {
 			setFadeIn(true);
 		}
 	}, [status]);

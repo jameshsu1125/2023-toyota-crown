@@ -49,12 +49,9 @@ const Carousel = memo(({ state, setState, youtubeIndex, audio, setYoutubeIndex }
 	}, [audio]);
 
 	useEffect(() => {
+		if (youtubeIndex === false) return;
 		slickRef.current.slickGoTo(youtubeIndex);
-		try {
-			Gtag.event(GtagConfig.深度了解.pv, GtagConfig.深度了解.event[youtubeIndex].breadcrumbs);
-		} catch (e) {
-			console.log(e);
-		}
+		Gtag.event(GtagConfig.深度了解.pv, GtagConfig.深度了解.event[youtubeIndex].breadcrumbs);
 	}, [youtubeIndex]);
 
 	const settings = {

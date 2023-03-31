@@ -1,6 +1,6 @@
 /* eslint-disable no-lonely-if */
 /* eslint-disable react/no-array-index-key */
-import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useContext, useEffect, useMemo, useState } from 'react';
 import { AuthorInformation, BreakPoint, CaptionConfig, Context } from '../../settings/config';
 import { ACTION, PAGE_CONTEXT_NAME } from '../../settings/constant';
 import './index.less';
@@ -29,19 +29,46 @@ const GradientCaption = ({ author, show = false }) => {
 
 const CaptionSVG = memo(({ active = false }) => {
 	const [context] = useContext(Context);
-	const { index } = context[ACTION.page];
+	const { index, onend } = context[ACTION.page];
 	const [height, setHeight] = useState(-22);
 	const [show, setShow] = useState(false);
 
-	const ref = useRef();
+	const [enabled, setEnabled] = useState(false);
+	const [Paths, setPaths] = useState('');
+	const [authorIndex, setAuthorIndex] = useState(index);
 
 	useEffect(() => {
-		ref.current.style.display = 'none';
-		requestAnimationFrame(() => {
-			ref.current.style.display = 'block';
-		});
+		if (onend) {
+			const idx = index - 1;
+			if (idx < 0 || idx >= AuthorInformation.length) return;
+			const property = AuthorInformation[idx];
+			const onComplete = () => setShow(true);
+			const op = property?.captions.map((e, i) => (
+				<TranslatePath
+					key={JSON.stringify(e) + i}
+					delay={CaptionConfig.eachCharacterDelay * i}
+					active={active}
+					onComplete={i === property.captions.length - 1 ? onComplete : () => {}}
+				>
+					{e}
+				</TranslatePath>
+			));
+			setPaths(op);
+			setAuthorIndex(index);
+		}
+		if (!enabled) {
+			setPaths('');
+		}
+	}, [enabled]);
+
+	useEffect(() => {
 		setShow(false);
+		setEnabled(false);
 	}, [index]);
+
+	useEffect(() => {
+		if (onend) setEnabled(true);
+	}, [onend]);
 
 	useEffect(() => {
 		if (DEVICE) {
@@ -53,27 +80,10 @@ const CaptionSVG = memo(({ active = false }) => {
 		}
 	}, [index]);
 
-	const Paths = useMemo(() => {
-		const idx = index - 1;
-		if (idx < 0 || idx >= AuthorInformation.length) return '';
-		const property = AuthorInformation[idx];
-		const onComplete = () => setShow(true);
-		return property?.captions.map((e, i) => (
-			<TranslatePath
-				key={JSON.stringify(e) + i}
-				delay={CaptionConfig.eachCharacterDelay * i}
-				active={active}
-				onComplete={i === property.captions.length - 1 ? onComplete : () => {}}
-			>
-				{e}
-			</TranslatePath>
-		));
-	}, [index, active]);
-
 	return (
-		<div ref={ref} className='relative w-[750px]' style={{ height: `${height}px` }}>
+		<div className='relative w-[750px]' style={{ height: `${height}px` }}>
 			<SVG>{Paths}</SVG>
-			<GradientCaption show={show} author={index} />
+			<GradientCaption show={show} author={authorIndex} />
 		</div>
 	);
 });

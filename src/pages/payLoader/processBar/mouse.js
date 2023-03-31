@@ -18,6 +18,12 @@ const Mouse = memo(() => {
 	const { steps } = payLoadContext;
 	const [style, setStyle] = useTween({ opacity: 0 });
 
+	const payLoadRef = useRef();
+
+	useEffect(() => {
+		payLoadRef.current = payLoad;
+	}, [payLoad]);
+
 	useEffect(() => {
 		if (steps === PayLoaderSteps.contextLoaded) {
 			setStyle(
@@ -33,7 +39,7 @@ const Mouse = memo(() => {
 							setPayLoadContext((S) => ({ ...S, steps: PayLoaderSteps.userDidActive }));
 							setContext({
 								type: ACTION.payLoad,
-								state: { ...payLoad, status: PAYLOAD_STATUS.userDidActive },
+								state: { ...payLoadRef.current, status: PAYLOAD_STATUS.userDidActive },
 							});
 							Gtag.event(GtagConfig.首頁.pv, GtagConfig.首頁.event.邀您點擊鑑賞);
 							Click.remove('#mouse');

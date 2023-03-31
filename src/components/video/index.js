@@ -103,7 +103,6 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 	const onend = useCallback(() => {
 		if (!fixVideoOnEndBug) return;
 		fixVideoOnEndBug = false;
-
 		onEnded?.();
 
 		videoRef.current.forEach((e) => {
@@ -120,7 +119,7 @@ const Video = memo(({ onLoaded, onEnded, onStop, fadeIn = false }) => {
 
 		setTimeout(() => {
 			fixVideoOnEndBug = true;
-		}, 500);
+		}, 1000);
 	}, [index]);
 
 	useEffect(() => {

@@ -11,7 +11,6 @@ const STATE = {
 };
 
 let timeout;
-let skipAbleTimeout;
 
 const AudioProvider = memo(({ children }) => {
 	const [context, setContext] = useContext(Context);
@@ -57,7 +56,8 @@ const AudioProvider = memo(({ children }) => {
 		// stop last sound track when user skip video
 		if (skip) {
 			setVoIndex(false);
-			audioRef.current[lastIndex.current].fade(1, 0, 1000);
+			const v = audioRef.current[lastIndex.current].volume();
+			audioRef.current[lastIndex.current].fade(v, 0, 1000);
 		}
 	}, [skip]);
 
@@ -80,6 +80,7 @@ const AudioProvider = memo(({ children }) => {
 				bgmRef.current.play(bgmIDRef.current);
 			}
 		};
+
 		window.addEventListener('blur', blur);
 		window.addEventListener('focus', focus);
 	}, []);
@@ -100,23 +101,18 @@ const AudioProvider = memo(({ children }) => {
 			audioRef.current[lastIndex.current]?.stop();
 
 			clearTimeout(timeout);
-			clearTimeout(skipAbleTimeout);
 			timeout = setTimeout(() => {
-				audioRef.current[idx].seek(0);
-				audioRef.current[idx].volume(1);
-				audioIDRef.current = audioRef.current[idx].play();
-
 				// fadeout if not user not muted
+				audioRef.current[idx].seek(0);
+
 				if (!mutedRef.current) {
 					bgmRef.current.fade(AudioConfig.defaultVolume, AudioConfig.minScaleVolume, 1000);
+					audioRef.current[idx].volume(1);
+				} else {
+					audioRef.current[idx].volume(0);
 				}
-
+				audioIDRef.current = audioRef.current[idx].play();
 				lastIndex.current = idx;
-
-				// 避免onplay沒促發
-				// skipAbleTimeout = setTimeout(() => {
-				// 	setContext({ type: ACTION.page, state: { ...pageRef.current, skipEnabled: true } });
-				// }, 1000);
 			}, AudioConfig.delay);
 		}
 	}, [index, onend]);
