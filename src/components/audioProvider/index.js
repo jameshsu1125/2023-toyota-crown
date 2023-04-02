@@ -16,6 +16,7 @@ const AudioProvider = memo(({ children }) => {
 	const [context, setContext] = useContext(Context);
 	const payLoad = context[ACTION.payLoad];
 	const { video, audio, status } = payLoad;
+	const payLoadRef = useRef();
 
 	const page = context[ACTION.page];
 	const { index, onend, skip } = page;
@@ -36,6 +37,10 @@ const AudioProvider = memo(({ children }) => {
 
 	const audioIDRef = useRef();
 	const bgmIDRef = useRef();
+
+	useEffect(() => {
+		payLoadRef.current = payLoad;
+	}, [payLoad]);
 
 	useEffect(() => {
 		pageRef.current = page;
@@ -128,7 +133,7 @@ const AudioProvider = memo(({ children }) => {
 	}, [video]);
 
 	const onloadBGM = () => {
-		setContext({ type: ACTION.payLoad, state: { ...payLoad, bgm: 1 } });
+		setContext({ type: ACTION.payLoad, state: { ...payLoadRef.current, bgm: 1 } });
 		setContext({
 			type: ACTION.audio,
 			state: { ...AUDIO_STATE, content: [...audioRef.current, bgmRef.current] },
@@ -175,7 +180,7 @@ const AudioProvider = memo(({ children }) => {
 				return S;
 			});
 		}
-		setContext({ type: ACTION.payLoad, state: { ...payLoad, audio: audio + 1 } });
+		setContext({ type: ACTION.payLoad, state: { ...payLoadRef.current, audio: audio + 1 } });
 	};
 
 	useEffect(() => {

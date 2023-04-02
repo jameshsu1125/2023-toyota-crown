@@ -20,13 +20,15 @@ import {
 	initialState,
 	reducer,
 } from '../settings/config';
-import { ACTION, PAYLOAD_STATUS } from '../settings/constant';
+import { ACTION, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../settings/constant';
 import '../settings/global.less';
 import PayLoader from './payLoader';
 
 Click.install();
 Gtag.install('G-NRK2EL50PD');
 Gtag.install('UA-262107147-1');
+
+const keys = 'asd';
 
 const Pages = memo(() => {
 	const [context] = useContext(Context);
@@ -37,6 +39,14 @@ const Pages = memo(() => {
 	const [key, setKey] = useState(true);
 
 	const [containerEnabled, setContainerEnabled] = useState(false);
+	const [payLoadContent, setPayLoadContent] = useState(true);
+
+	useEffect(() => {
+		// console.log(payLoaderState);
+		if (payLoaderState.status >= PAYLOAD_STATUS.introVideoDidPlayed) {
+			setPayLoadContent(false);
+		}
+	}, [status]);
 
 	useEffect(() => {
 		if (status === PAYLOAD_STATUS.onReady) {
@@ -46,7 +56,7 @@ const Pages = memo(() => {
 
 	return (
 		<div className='h-full w-full'>
-			{payLoaderState.status < PAYLOAD_STATUS.introVideoDidPlayed && <PayLoader />}
+			{payLoadContent && <PayLoader key={keys} />}
 			{containerEnabled && (
 				<EventContext.Provider value={value}>
 					<Container>
@@ -72,11 +82,15 @@ const App = () => {
 	const [state, setState] = useReducer(reducer, initialState);
 	const value = useMemo(() => [state, setState], [state]);
 
+	const { index } = state[ACTION.page];
+
 	const [device, setDevice] = useState(window.innerWidth >= BreakPoint);
 	const deviceRef = useRef(device);
 
 	useEffect(() => {
-		if (deviceRef.current !== device) window.location.reload();
+		if (deviceRef.current !== device) {
+			if (index !== PAGE_CONTEXT_NAME.detailVideo) window.location.reload();
+		}
 	}, [device]);
 
 	useEffect(() => {
