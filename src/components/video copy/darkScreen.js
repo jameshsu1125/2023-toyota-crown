@@ -44,7 +44,7 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 	useEffect(() => {
 		EnterFrame.add(() => {
 			if (videoRef.current.length === VideoConfig.targets.length) {
-				const [playingTarget] = videoRef.current.filter((e) => e?.isPlaying());
+				const [playingTarget] = videoRef.current.filter((e) => e.isPlaying());
 				if (playingTarget) {
 					const duration = playingTarget.getTotal();
 					const { transitionDuration, callForActionDuration } = VideoConfig;

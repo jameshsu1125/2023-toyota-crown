@@ -22,6 +22,10 @@
 				@apply absolute flex items-center justify-center;
 
 				.icon {
+					top: 50%;
+					left: 50%;
+					margin-top: 0 - image-height(@img) * @scale * 0.5;
+					margin-left: 0 - image-width(@img) * @scale * 0.5;
 					width: image-width(@img) * @scale;
 					height: image-height(@img) * @scale;
 					animation-delay: 5s;
@@ -36,10 +40,11 @@
 						@apply absolute top-0 h-full w-full;
 					}
 
-					@apply relative;
+					@apply absolute;
 				}
 
 				.shadow0 {
+					top: 50%;
 					left: 50%;
 					margin-left: 0 - image-width(@img) * @scale * 0.5;
 					width: image-width(@img) * @scale;
@@ -54,6 +59,7 @@
 				}
 
 				.shadow1 {
+					top: 50%;
 					left: 50%;
 					margin-left: 0 - image-width(@img) * @scale * 0.5;
 					width: image-width(@img) * @scale;
@@ -72,12 +78,12 @@
 				}
 
 				& > div:nth-child(1) {
-					margin-top: 62px;
+					margin-top: 24px;
 					animation-delay: 5.2s;
 				}
 
 				& > div:nth-child(2) {
-					margin-top: 50px;
+					margin-top: 19px;
 					animation-delay: 5.1s;
 				}
 			}
@@ -115,6 +121,8 @@
 					transform: scale(1, -1);
 
 					.icon {
+						margin-top: 0 - image-height(@img) * @scale * 0.5;
+						margin-left: 0 - image-width(@img) * @scale * 0.5;
 						width: image-width(@img) * @scale;
 						height: image-height(@img) * @scale;
 
@@ -145,11 +153,11 @@
 					}
 
 					& > div:nth-child(1) {
-						margin-top: 50px;
+						margin-top: 23px;
 					}
 
 					& > div:nth-child(2) {
-						margin-top: 38px;
+						margin-top: 16px;
 					}
 				}
 			}

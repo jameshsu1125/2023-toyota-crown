@@ -4,7 +4,7 @@ import './index.less';
 const Player = memo(({ url }) => (
 	<div className='pointer-events-auto h-full w-full bg-transparent'>
 		<iframe
-			src={`https://www.youtube.com/embed/${url}?controls=0`}
+			src={`https://www.youtube.com/embed/${url}`}
 			title='YouTube video player'
 			frameBorder='0'
 			allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'

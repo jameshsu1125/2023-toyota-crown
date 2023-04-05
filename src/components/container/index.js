@@ -17,6 +17,8 @@ import WheelEventProvider from './wheelEventProvider';
 const Container = memo(({ children }) => {
 	const [context, setContext] = useContext(Context);
 	const payLoad = context[ACTION.payLoad];
+	const payLoadRef = useRef(payLoad);
+
 	const page = context[ACTION.page];
 	const { status } = payLoad;
 
@@ -24,13 +26,18 @@ const Container = memo(({ children }) => {
 	const [fadeIn, setFadeIn] = useState(false);
 
 	useEffect(() => {
+		payLoadRef.current = payLoad;
+	}, [payLoad]);
+
+	useEffect(() => {
 		new ImagePreloader()
 			.load(ref.current, {
+				hideBeforeLoaded: false,
 				onUpdate: (e) => {
 					const { loaded, total } = e;
 					setContext({
 						type: ACTION.payLoad,
-						state: { ...payLoad, loaded, total },
+						state: { ...payLoadRef.current, loaded, total },
 					});
 				},
 			})
@@ -38,22 +45,24 @@ const Container = memo(({ children }) => {
 				const { loaded, total } = e;
 				setContext({
 					type: ACTION.payLoad,
-					state: { ...payLoad, loaded, total },
+					state: { ...payLoadRef.current, loaded, total },
 				});
 			});
 	}, []);
 
 	useEffect(() => {
 		// show container when content loaded
-		if (status >= PAYLOAD_STATUS.onLoaded) {
+		if (status === VideoConfig.fadeInTiming) {
 			ref.current.style.visibility = 'visible';
-			if (status === VideoConfig.fadeInTiming) setFadeIn(true);
+			ref.current.style.display = 'block';
+		} else if (status === PAYLOAD_STATUS.logoDidFadeIn) {
+			setFadeIn(true);
 		}
 	}, [status]);
 
 	const onLoaded = useCallback(() => {
 		const { video } = payLoad;
-		setContext({ type: ACTION.payLoad, state: { ...payLoad, video: video + 1 } });
+		setContext({ type: ACTION.payLoad, state: { ...payLoadRef.current, video: video + 1 } });
 	}, [payLoad]);
 
 	const onEnded = () => {
@@ -75,7 +84,7 @@ const Container = memo(({ children }) => {
 		if (target.name === PAGE_CONTEXT_NAME.intro) {
 			setContext({
 				type: ACTION.payLoad,
-				state: { ...payLoad, status: PAYLOAD_STATUS.introVideoDidPlayed },
+				state: { ...payLoadRef.current, status: PAYLOAD_STATUS.introVideoDidPlayed },
 			});
 			setContext({
 				type: ACTION.page,

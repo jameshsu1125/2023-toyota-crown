@@ -3,46 +3,57 @@
 import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useRef } from 'react';
 import { AudioConfig, Context, VideoConfig } from '../../../settings/config';
-import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../../settings/constant';
+import { ACTION, PAYLOAD_STATUS } from '../../../settings/constant';
 import { PayLoaderContext, PayLoaderSteps } from '../setting';
 import './index.less';
 import Mouse from './mouse';
 
 const Bar = memo(() => {
 	const [context, setContext] = useContext(Context);
-	const [, setPayLoadContext] = useContext(PayLoaderContext);
+	const [payLoadContext, setPayLoadContext] = useContext(PayLoaderContext);
+	const { steps } = payLoadContext;
+
 	const payLoad = context[ACTION.payLoad];
 	const { loaded, total, video, audio, bgm } = payLoad;
 	const [style, setStyle] = useTween({ width: '0%', opacity: 1 });
-	const onCompleteOnce = useRef(false);
+
+	const payLoadRef = useRef(payLoad);
 
 	useEffect(() => {
-		if (loaded !== 0 && total !== 0) {
-			const v = Math.min(video, VideoConfig.preloadToIndex);
-			const width = `${Math.floor(
-				((loaded + v + audio + bgm) /
-					(total + VideoConfig.preloadToIndex + AudioConfig.targets.length)) *
-					100,
-			)}%`;
+		payLoadRef.current = payLoad;
+	}, [payLoad]);
 
-			const duration = 300;
-			const easing = Bezier.linear;
-			const onComplete =
-				width === '100%'
-					? () => {
-							if (onCompleteOnce.current) return;
-							onCompleteOnce.current = true;
-							setContext({
-								type: ACTION.payLoad,
-								state: { ...payLoad, status: PAYLOAD_STATUS.onLoaded },
-							});
-							setPayLoadContext((S) => ({ ...S, steps: PayLoaderSteps.contextLoaded }));
-					  }
-					: () => {};
+	useEffect(() => {
+		if (loaded === 0 && total === 0) return;
 
-			setStyle({ width }, { duration, easing, onComplete });
+		const currentVideoIndex = Math.min(video, VideoConfig.preloadToIndex);
+		const molecular = loaded + currentVideoIndex + audio + bgm;
+		const denominator = total + VideoConfig.preloadToIndex + AudioConfig.targets.length;
+		const width = (molecular / denominator) * 100;
+
+		const duration = 300;
+		const easing = Bezier.linear;
+
+		if (width >= 100 && steps === PayLoaderSteps.authorDidFadeIn) {
+			setStyle(
+				{ width },
+				{
+					duration,
+					easing,
+					onComplete: () => {
+						setContext({
+							type: ACTION.payLoad,
+							state: { ...payLoadRef.current, status: PAYLOAD_STATUS.onLoaded },
+						});
+						setPayLoadContext((S) => ({ ...S, steps: PayLoaderSteps.contextLoaded }));
+					},
+				},
+			);
+		} else if (width !== 100 && steps === PayLoaderSteps.authorDidFadeIn) {
+			setStyle({ width }, { duration, easing });
 		}
-	}, [loaded, total, video, audio, bgm]);
+	}, [loaded, total, video, audio, bgm, steps]);
+
 	return <div style={style} className='bar' />;
 });
 
@@ -62,17 +73,24 @@ const Text = ({ steps }) => {
 };
 
 const ProcessBar = memo(() => {
-	const [, setContext] = useContext(Context);
+	const [context, setContext] = useContext(Context);
+	const payLoad = context[ACTION.payLoad];
+
 	const [payLoadContext] = useContext(PayLoaderContext);
 	const { steps } = payLoadContext;
 
 	const [style, setStyle] = useTween({ opacity: 0 });
 
+	const payLoadRef = useRef(payLoad);
+	useEffect(() => {
+		payLoadRef.current = payLoad;
+	}, [payLoad]);
+
 	useEffect(() => {
 		if (steps === PayLoaderSteps.authorDidFadeIn) {
 			setContext({
 				type: ACTION.payLoad,
-				state: { ...PAYLOAD_STATE, status: PAYLOAD_STATUS.onPayLoaderFadeIn },
+				state: { ...payLoadRef.current, status: PAYLOAD_STATUS.onPayLoaderFadeIn },
 			});
 			setStyle({ opacity: 1 }, 500);
 		} else if (steps === PayLoaderSteps.userDidActive) {

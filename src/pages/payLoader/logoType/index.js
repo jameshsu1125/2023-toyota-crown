@@ -30,10 +30,15 @@ const TypeWord = memo(() => {
 const SubTitle = memo(() => {
 	const [context, setContext] = useContext(Context);
 	const payLoad = context[ACTION.payLoad];
+	const payLoadRef = useRef(payLoad);
 
 	const [payLoaderContext, setPayLoaderContext] = useContext(PayLoaderContext);
 	const { steps } = payLoaderContext;
 	const [style, setStyle] = useTween({ opacity: 0, y: 20 });
+
+	useEffect(() => {
+		payLoadRef.current = payLoad;
+	}, [payLoad]);
 
 	useEffect(() => {
 		if (steps === PayLoaderSteps.userDidActive) {
@@ -47,7 +52,7 @@ const SubTitle = memo(() => {
 							setPayLoaderContext((S) => ({ ...S, steps: PayLoaderSteps.logoDidStay }));
 							setContext({
 								type: ACTION.payLoad,
-								state: { ...payLoad, status: PAYLOAD_STATUS.logoDidFadeIn },
+								state: { ...payLoadRef.current, status: PAYLOAD_STATUS.logoDidFadeIn },
 							});
 						}, PayLoaderLogoTypeStayTime);
 					},
@@ -57,7 +62,7 @@ const SubTitle = memo(() => {
 	}, [steps]);
 
 	return (
-		<div style={style} className='font-notoSansRegular pt-10 text-xl tracking-[0.5rem]'>
+		<div style={style} className='pt-10 font-notoSans text-xl tracking-[0.5rem]'>
 			工藝之最 藝術特展
 		</div>
 	);

@@ -4,10 +4,12 @@ import { PayLoaderContext, PayLoaderSteps } from '../setting';
 import './index.less';
 
 const Gradient = ({ steps }) => {
-	const [style, setStyle] = useTween({ opacity: 1 });
+	const [style, setStyle] = useTween({ opacity: 0 });
 
 	useEffect(() => {
-		if (steps === PayLoaderSteps.userDidActive) {
+		if (steps === PayLoaderSteps.authorDidFadeIn) {
+			setStyle({ opacity: 1 }, 2000);
+		} else if (steps === PayLoaderSteps.userDidActive) {
 			setStyle({ opacity: 0 }, { delay: 2000, duration: 2000 });
 		}
 	}, [steps]);
@@ -35,7 +37,7 @@ const Fill = memo(() => {
 
 	return (
 		<div className='fill' style={style}>
-			<Gradient steps={steps} />
+			{steps >= PayLoaderSteps.authorDidFadeIn && <Gradient steps={steps} />}
 		</div>
 	);
 });

@@ -4,7 +4,7 @@ import { Bezier, TweenProvider } from 'lesca-use-tween';
 import { memo, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import BackgroundGrid from '../../components/backgroundGrid';
 import { BreakPointHeight, Context, GtagConfig, VideoConfig } from '../../settings/config';
-import { ACTION, PAYLOAD_STATE, PAYLOAD_STATUS } from '../../settings/constant';
+import { ACTION, PAYLOAD_STATUS } from '../../settings/constant';
 import CarOutline from './carOutline';
 import PayLoaderContainer from './container';
 import ForegroundGradient from './foregroundGradient';
@@ -40,16 +40,23 @@ const RWDProvider = ({ children }) => {
 
 const PayLoader = memo(() => {
 	const ref = useRef();
-	const [, setContext] = useContext(Context);
+	const [context, setContext] = useContext(Context);
 	const [state, setState] = useState(initialPayLoaderState);
 	const value = useMemo(() => [state, setState], [state]);
 	const [tweenStyle, setTweenStyle] = useState(false);
+
+	const payLoad = context[ACTION.payLoad];
+	const payLoadRef = useRef();
+
+	useEffect(() => {
+		payLoadRef.current = payLoad;
+	}, [payLoad]);
 
 	useEffect(() => {
 		new ImagePreloader().load(ref.current).then(() => {
 			setContext({
 				type: ACTION.payLoad,
-				state: { ...PAYLOAD_STATE, status: PAYLOAD_STATUS.onReady },
+				state: { ...payLoadRef.current, status: PAYLOAD_STATUS.onReady },
 			});
 			setState((S) => ({ ...S, steps: PayLoaderSteps.loaded }));
 		});

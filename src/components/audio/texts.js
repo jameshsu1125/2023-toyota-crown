@@ -65,11 +65,7 @@ export const LinkTryText = memo(({ status, device, index }) => {
 
 	useEffect(() => Click.add(`#${id}`, () => window.open(LinkForTry)), [status]);
 
-	return (
-		<div ref={ref} style={style} id={id} className='text'>
-			<div className='gradient' />
-		</div>
-	);
+	return <div ref={ref} style={style} id={id} className='text' />;
 });
 
 export const CallForActionText = memo(({ status, device, index }) => {
