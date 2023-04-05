@@ -17,7 +17,7 @@ import WheelEventProvider from './wheelEventProvider';
 const Container = memo(({ children }) => {
 	const [context, setContext] = useContext(Context);
 	const payLoad = context[ACTION.payLoad];
-	const payLoadRef = useRef();
+	const payLoadRef = useRef(payLoad);
 
 	const page = context[ACTION.page];
 	const { status } = payLoad;
@@ -62,7 +62,7 @@ const Container = memo(({ children }) => {
 
 	const onLoaded = useCallback(() => {
 		const { video } = payLoad;
-		setContext({ type: ACTION.payLoad, state: { ...payLoad, video: video + 1 } });
+		setContext({ type: ACTION.payLoad, state: { ...payLoadRef.current, video: video + 1 } });
 	}, [payLoad]);
 
 	const onEnded = () => {
@@ -84,7 +84,7 @@ const Container = memo(({ children }) => {
 		if (target.name === PAGE_CONTEXT_NAME.intro) {
 			setContext({
 				type: ACTION.payLoad,
-				state: { ...payLoad, status: PAYLOAD_STATUS.introVideoDidPlayed },
+				state: { ...payLoadRef.current, status: PAYLOAD_STATUS.introVideoDidPlayed },
 			});
 			setContext({
 				type: ACTION.page,

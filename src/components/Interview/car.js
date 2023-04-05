@@ -19,7 +19,7 @@ const Image = ({ children, state, setState }) => {
 
 	const tweenProps = useMemo(() => {
 		if (DEVICE) return { width: '422px', height: '176px', y: 190 };
-		return { width: '720px', height: '301px', y: 175 };
+		return { width: '720px', height: '301px', y: 150 };
 	}, []);
 
 	useEffect(() => {

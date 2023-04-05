@@ -16,7 +16,7 @@ const AudioProvider = memo(({ children }) => {
 	const [context, setContext] = useContext(Context);
 	const payLoad = context[ACTION.payLoad];
 	const { video, audio, status } = payLoad;
-	const payLoadRef = useRef();
+	const payLoadRef = useRef(payLoad);
 
 	const page = context[ACTION.page];
 	const { index, onend, skip } = page;

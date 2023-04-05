@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 /* eslint-disable indent */
 import useTween, { Bezier } from 'lesca-use-tween';
-import { memo, useContext, useEffect } from 'react';
+import { memo, useContext, useEffect, useRef } from 'react';
 import { AudioConfig, Context, VideoConfig } from '../../../settings/config';
 import { ACTION, PAYLOAD_STATUS } from '../../../settings/constant';
 import { PayLoaderContext, PayLoaderSteps } from '../setting';
@@ -16,6 +16,12 @@ const Bar = memo(() => {
 	const payLoad = context[ACTION.payLoad];
 	const { loaded, total, video, audio, bgm } = payLoad;
 	const [style, setStyle] = useTween({ width: '0%', opacity: 1 });
+
+	const payLoadRef = useRef(payLoad);
+
+	useEffect(() => {
+		payLoadRef.current = payLoad;
+	}, [payLoad]);
 
 	useEffect(() => {
 		if (loaded === 0 && total === 0) return;
@@ -37,7 +43,7 @@ const Bar = memo(() => {
 					onComplete: () => {
 						setContext({
 							type: ACTION.payLoad,
-							state: { ...payLoad, status: PAYLOAD_STATUS.onLoaded },
+							state: { ...payLoadRef.current, status: PAYLOAD_STATUS.onLoaded },
 						});
 						setPayLoadContext((S) => ({ ...S, steps: PayLoaderSteps.contextLoaded }));
 					},
@@ -75,11 +81,16 @@ const ProcessBar = memo(() => {
 
 	const [style, setStyle] = useTween({ opacity: 0 });
 
+	const payLoadRef = useRef(payLoad);
+	useEffect(() => {
+		payLoadRef.current = payLoad;
+	}, [payLoad]);
+
 	useEffect(() => {
 		if (steps === PayLoaderSteps.authorDidFadeIn) {
 			setContext({
 				type: ACTION.payLoad,
-				state: { ...payLoad, status: PAYLOAD_STATUS.onPayLoaderFadeIn },
+				state: { ...payLoadRef.current, status: PAYLOAD_STATUS.onPayLoaderFadeIn },
 			});
 			setStyle({ opacity: 1 }, 500);
 		} else if (steps === PayLoaderSteps.userDidActive) {

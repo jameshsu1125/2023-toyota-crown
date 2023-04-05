@@ -43,11 +43,10 @@ const Author = ({ data, index, steps, onComplete }) => {
 
 	return (
 		<div style={style} className='author'>
-			<div className='avatar'>
-				<div className='w-24 rounded-full'>
-					<div className={`auth ${data.className}`} />
-				</div>
+			<div className='h-24 w-24 overflow-hidden rounded-full'>
+				<div className={`auth ${data.className}`} />
 			</div>
+
 			<div className='name'>{data.name}</div>
 			<div className='positionName'>{data.positionName}</div>
 		</div>

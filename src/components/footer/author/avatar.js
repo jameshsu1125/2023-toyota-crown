@@ -15,8 +15,8 @@ const Avatar = memo(({ data, page }) => {
 	}, [index, onend]);
 
 	return (
-		<div className='avatar -ml-[0.7rem] md:ml-0'>
-			<div className='w-24 rounded-full'>
+		<div className='-ml-[0.7rem] md:ml-0'>
+			<div className='h-24 w-24 overflow-hidden rounded-full'>
 				<div style={style} className={`${className} avatars h-full w-full`} />
 			</div>
 		</div>

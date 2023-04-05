@@ -42,8 +42,8 @@ const Pages = memo(() => {
 	const [payLoadContent, setPayLoadContent] = useState(true);
 
 	useEffect(() => {
-		// console.log(payLoaderState);
-		if (payLoaderState.status >= PAYLOAD_STATUS.introVideoDidPlayed) {
+		// console.log(status);
+		if (status >= PAYLOAD_STATUS.introVideoDidPlayed) {
 			setPayLoadContent(false);
 		}
 	}, [status]);

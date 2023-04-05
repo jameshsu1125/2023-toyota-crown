@@ -18,7 +18,7 @@ const Mouse = memo(() => {
 	const { steps } = payLoadContext;
 	const [style, setStyle] = useTween({ opacity: 0 });
 
-	const payLoadRef = useRef();
+	const payLoadRef = useRef(payLoad);
 
 	useEffect(() => {
 		payLoadRef.current = payLoad;
