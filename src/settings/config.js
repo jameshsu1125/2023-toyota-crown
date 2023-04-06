@@ -423,5 +423,6 @@ export const GtagConfig = {
 	深度了解: {
 		pv: '深度了解',
 		event: [...InterviewConfig],
+		click: '了解更多',
 	},
 };

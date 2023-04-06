@@ -1,8 +1,9 @@
 /* eslint-disable no-lonely-if */
 import Click from 'lesca-click';
+import Gtag from 'lesca-gtag';
 import useTween from 'lesca-use-tween';
 import { memo, useEffect, useId, useRef } from 'react';
-import { LinkForTry } from '../../settings/config';
+import { GtagConfig, LinkForTry } from '../../settings/config';
 import { PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
 import './index.less';
 
@@ -63,7 +64,12 @@ export const LinkTryText = memo(({ status, device, index }) => {
 		}
 	}, [status, device, index]);
 
-	useEffect(() => Click.add(`#${id}`, () => window.open(LinkForTry)), [status]);
+	useEffect(() => {
+		Click.add(`#${id}`, () => {
+			window.open(LinkForTry);
+			Gtag.event('全頁', GtagConfig.深度了解.click);
+		});
+	}, [status]);
 
 	return <div ref={ref} style={style} id={id} className='text' />;
 });
