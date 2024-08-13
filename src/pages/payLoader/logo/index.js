@@ -24,21 +24,21 @@ const SubTitle = memo(() => {
 	return (
 		<div className='subtitle font-notoSans'>
 			<TweenProvider
-				defaultStyle={{ opacity: 0, y: 40 }}
+				initStyle={{ opacity: 0, y: 40 }}
 				tweenStyle={tweenStyle}
 				options={{ delay: steps === PayLoaderSteps.loaded ? 1000 : 0, duration: 1000 }}
 			>
 				<span>CROWN 榮耀登場</span>
 			</TweenProvider>
 			<TweenProvider
-				defaultStyle={{ opacity: 0, y: 40 }}
+				initStyle={{ opacity: 0, y: 40 }}
 				tweenStyle={tweenStyle}
 				options={{ delay: steps === PayLoaderSteps.loaded ? 1250 : 0, duration: 1000 }}
 			>
 				<span>以日本極致造車工藝、精益求精的專注每處細節、每道工法</span>
 			</TweenProvider>
 			<TweenProvider
-				defaultStyle={{ opacity: 0, y: 40 }}
+				initStyle={{ opacity: 0, y: 40 }}
 				tweenStyle={tweenStyle}
 				options={{ delay: steps === PayLoaderSteps.loaded ? 1500 : 0, duration: 1000 }}
 			>
@@ -54,7 +54,7 @@ const CrownLogo = ({ steps }) => {
 		if (steps === PayLoaderSteps.userDidActive) {
 			const { innerWidth } = window;
 			const property = innerWidth >= BreakPoint ? { y: 0, scale: 0.6 } : { y: 70, scale: 0.45 };
-			setStyle(property, { easing: Bezier.easeInOutQuart, duration: 2000 });
+			setStyle(property, { easing: Bezier.inOutQuart, duration: 2000 });
 		}
 	}, [steps]);
 
@@ -97,10 +97,10 @@ const Logo = memo(() => {
 
 	return (
 		<TweenProvider
-			defaultStyle={{ y: 200 }}
+			initStyle={{ y: 200 }}
 			tweenStyle={{ y: 0 }}
 			active={active}
-			options={{ easing: Bezier.easeInOutQuart }}
+			options={{ easing: Bezier.inOutQuart }}
 		>
 			<div className='Logo'>
 				<div className='scaler' style={{ transform: `scale(${scale})` }}>

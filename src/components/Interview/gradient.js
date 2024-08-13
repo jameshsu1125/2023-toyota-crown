@@ -6,7 +6,7 @@ const Gradient = memo(({ state }) => {
 	const [style, setStyle] = useTween({ opacity: 0, height: '0px', y: 0 });
 	useEffect(() => {
 		if (state === InterviewState.buttonDidClick) {
-			setStyle({ y: 130 }, { easing: Bezier.easeInOutQuart });
+			setStyle({ y: 130 }, { easing: Bezier.inOutQuart });
 		}
 	}, [state]);
 

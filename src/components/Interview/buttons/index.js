@@ -99,7 +99,7 @@ const Button = memo(({ data, sn, onFadeIn, state, youtubeIndex, setYoutubeIndex,
 				});
 			}, 1000);
 		} else if (state === InterviewState.buttonDidClick) {
-			setStyle(tweenToProps, { easing: Bezier.easeInOutQuart });
+			setStyle(tweenToProps, { easing: Bezier.inOutQuart });
 		}
 	}, [state]);
 

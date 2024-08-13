@@ -67,14 +67,14 @@ const PayLoader = memo(() => {
 		if (state.steps === PayLoaderSteps.logoDidStay) {
 			setTweenStyle(
 				{ opacity: 0 },
-				{ duration: VideoConfig.fadeInDuration, easing: Bezier.easeOutQuart },
+				{ duration: VideoConfig.fadeInDuration, easing: Bezier.outQuart },
 			);
 		}
 	}, [state.steps]);
 
 	return (
 		<TweenProvider
-			defaultStyle={{ opacity: 1 }}
+			initStyle={{ opacity: 1 }}
 			tweenStyle={tweenStyle}
 			options={{ duration: VideoConfig.fadeInDuration }}
 		>

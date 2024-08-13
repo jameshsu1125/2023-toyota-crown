@@ -59,7 +59,7 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 							if (time < transitionDuration * 0.001) {
 								const property = {
 									percent: time / max,
-									easingFunction: Bezier.easeInQuart,
+									easingFunction: Bezier.inQuart,
 								};
 								const easing = BezierEasing(
 									property.easingFunction[0],
@@ -71,7 +71,7 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 							} else if (time > min) {
 								const property = {
 									percent: (time - min) / (duration - min),
-									easingFunction: Bezier.easeOutQuart,
+									easingFunction: Bezier.outQuart,
 								};
 								const easing = BezierEasing(
 									property.easingFunction[0],
@@ -117,7 +117,7 @@ const DarkScreen = forwardRef(({ videoRef, onStop }, ref) => {
 							playingTarget.skip();
 						} else {
 							// todo tween
-							const easingFunction = Bezier.easeOutQuart;
+							const easingFunction = Bezier.outQuart;
 							const easing = BezierEasing(
 								easingFunction[0],
 								easingFunction[1],

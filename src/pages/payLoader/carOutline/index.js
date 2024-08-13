@@ -31,7 +31,7 @@ const CarOutline = memo(() => {
 				{ opacity: 0.2 },
 				{
 					duration: 2000,
-					easing: Bezier.easeOutSine,
+					easing: Bezier.outSine,
 					onStart: () => {
 						[...ref.current.getElementsByTagName('path')].forEach((path) => {
 							const total = path.getTotalLength();

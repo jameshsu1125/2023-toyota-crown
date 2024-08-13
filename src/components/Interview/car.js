@@ -25,7 +25,7 @@ const Image = ({ children, state, setState }) => {
 	useEffect(() => {
 		if (state === InterviewState.buttonDidClick) {
 			setStyle(tweenProps, {
-				easing: Bezier.easeInOutQuart,
+				easing: Bezier.inOutQuart,
 				onComplete: () => {
 					setState(InterviewState.carDidGoDown);
 				},

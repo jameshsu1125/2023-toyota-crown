@@ -13,10 +13,7 @@ const TypeWord = memo(() => {
 	useEffect(() => {
 		if (steps === PayLoaderSteps.userDidActive) {
 			ref.current.classList.add('brushed');
-			setStyle(
-				{ opacity: 1, scale: 1 },
-				{ duration: 4000, delay: 800, easing: Bezier.easeOutQuart },
-			);
+			setStyle({ opacity: 1, scale: 1 }, { duration: 4000, delay: 800, easing: Bezier.outQuart });
 		}
 	}, [steps]);
 
