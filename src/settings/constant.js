@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 export const ACTION = {
 	payLoad: '預載內容',
 	page: '設計師頁',
@@ -62,4 +63,10 @@ export const TRANSITION = {
 	fadeInEnd: 3,
 	fadeOutEnd: 4,
 	loop: 5,
+};
+
+const error = console.error;
+console.error = (...args) => {
+	if (/defaultProps/.test(args[0])) return;
+	error(...args);
 };

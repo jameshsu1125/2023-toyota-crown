@@ -48,6 +48,7 @@ const RWDProvider = ({ children }) => {
 };
 
 const Interview = memo(({ setKey }) => {
+	// TODO => 這邊的程式碼有點亂，需要整理
 	const [context, setContext] = useContext(Context);
 	const page = context[ACTION.page];
 	const { index, direction } = page;
@@ -127,7 +128,7 @@ const Interview = memo(({ setKey }) => {
 							/>
 						)}
 						<Car state={state} setState={setState}>
-							{InterviewConfig.map((e, i) => (
+							{/* {InterviewConfig.map((e, i) => (
 								<Button
 									state={state}
 									key={JSON.stringify(e)}
@@ -138,7 +139,7 @@ const Interview = memo(({ setKey }) => {
 									setYoutubeIndex={setYoutubeIndex}
 									setState={setState}
 								/>
-							))}
+							))} */}
 						</Car>
 					</div>
 				</div>
