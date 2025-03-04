@@ -83,6 +83,8 @@ const AudioProvider = memo(({ children }) => {
 			if (stateRef.current === STATE.pause) {
 				audioRef.current[idx].play(audioIDRef.current);
 				bgmRef.current.play(bgmIDRef.current);
+				// TODO
+				// window.location.reload();
 			}
 		};
 

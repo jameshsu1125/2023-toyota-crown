@@ -1,7 +1,7 @@
 /* eslint-disable no-lonely-if */
 import Click from 'lesca-click';
 import Gtag from 'lesca-gtag';
-import useTween from 'lesca-use-tween';
+import useTween, { Bezier } from 'lesca-use-tween';
 import { memo, useEffect, useId, useRef } from 'react';
 import { GtagConfig, LinkForTry } from '../../settings/config';
 import { PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../../settings/constant';
@@ -10,17 +10,30 @@ import './index.less';
 export const LinkTryText = memo(({ status, device, index }) => {
 	const id = useId();
 	const ref = useRef();
-	const [style, setStyle] = useTween({ opacity: 0 });
+	const [style, setStyle] = useTween({ opacity: 0, x: 0 });
+
 	useEffect(() => {
 		if (device) {
-			setStyle(
-				{ opacity: 1 },
-				{
-					onComplete: () => {
-						ref.current.style.display = 'block';
+			if (index === PAGE_CONTEXT_NAME.detailVideo) {
+				const { innerWidth } = window;
+				const currentWidth = innerWidth / 2;
+				const targetWidth = ref.current.clientWidth / 2;
+				const offset = currentWidth - targetWidth;
+				const x = ref.current.parentNode.parentNode.getBoundingClientRect();
+				setStyle(
+					{ x: x.x - offset + 20 },
+					{ duration: 1000, delay: 6000, easing: Bezier.inOutQuart },
+				);
+			} else {
+				setStyle(
+					{ opacity: 1, x: 0 },
+					{
+						onComplete: () => {
+							ref.current.style.display = 'block';
+						},
 					},
-				},
-			);
+				);
+			}
 		} else {
 			if (
 				status === PAYLOAD_STATUS.introVideoDidPlayed &&

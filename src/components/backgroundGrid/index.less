@@ -7,8 +7,10 @@
 	@apply absolute top-0 h-full w-full bg-center;
 }
 
-@media only screen and (max-width: @bp) {
-	.BackgroundGrid {
-		@apply bg-none;
+.BGHide {
+	@media only screen and (max-width: @bp) {
+		& {
+			@apply bg-none;
+		}
 	}
 }

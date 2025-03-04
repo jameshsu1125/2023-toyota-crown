@@ -28,7 +28,7 @@
 		}
 
 		.Gradient {
-			top: 60%;
+			top: 48%;
 			padding-bottom: (unit(image-height(@img) / unit(image-width(@img))) * @width);
 			width: 200%;
 			border-top: solid 1px #8a7661;
@@ -39,49 +39,6 @@
 			@img: './img/g.png';
 
 			@apply fixed;
-		}
-	}
-
-	.title {
-		top: 50%;
-		margin-top: -350px;
-		width: image-width(@img) * @scale;
-		height: image-height(@img) * @scale;
-
-		mask-image: url(@img);
-		mask-repeat: no-repeat;
-		mask-position: center;
-		mask-size: 100%;
-		@scale: 0.7;
-		@img: './img/title.svg';
-
-		@apply absolute;
-
-		.gradient {
-			left: -40%;
-			width: 180%;
-			height: 100%;
-			background: linear-gradient(
-				90deg,
-				rgba(126, 77, 61, 1) 0%,
-				rgba(206, 178, 154, 1) 50%,
-				rgba(126, 77, 61, 1) 100%
-			);
-			animation: interviewBrushed 5s ease-in-out infinite;
-
-			@apply pointer-events-none absolute;
-		}
-
-		@keyframes interviewBrushed {
-			0% {
-				left: 0%;
-			}
-			50% {
-				left: -80%;
-			}
-			100% {
-				left: 0%;
-			}
 		}
 	}
 }

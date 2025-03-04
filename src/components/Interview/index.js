@@ -3,15 +3,9 @@ import useTween from 'lesca-use-tween';
 import { memo, useContext, useEffect, useState } from 'react';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
-import {
-	AudioConfig,
-	BreakPointHeight,
-	Context,
-	GtagConfig,
-	InterviewConfig,
-} from '../../settings/config';
+import { AudioConfig, BreakPointHeight, Context, GtagConfig } from '../../settings/config';
 import { ACTION, DIRECTION_STATE, PAGE_CONTEXT_NAME } from '../../settings/constant';
-import Button from './buttons';
+import BackgroundGrid from '../backgroundGrid';
 import Car from './car';
 import Carousel from './carousel';
 import DarkScreen from './darkScreen';
@@ -48,7 +42,6 @@ const RWDProvider = ({ children }) => {
 };
 
 const Interview = memo(({ setKey }) => {
-	// TODO => 這邊的程式碼有點亂，需要整理
 	const [context, setContext] = useContext(Context);
 	const page = context[ACTION.page];
 	const { index, direction } = page;
@@ -98,20 +91,12 @@ const Interview = memo(({ setKey }) => {
 		}
 	}, [index]);
 
-	const onFadeIn = (sn) => {
-		if (sn === InterviewConfig.length - 1) {
-			setState((S) => {
-				if (S > InterviewState.buttonDidFadeIn) return S;
-				return InterviewState.buttonDidFadeIn;
-			});
-		}
-	};
-
 	return (
 		<div style={style} className='Interview'>
 			<DarkScreen active={active} video={video} setState={setState} />
 			<RWDProvider>
 				<div className='cistern'>
+					{state >= InterviewState.videoDidFadeOut && <BackgroundGrid opacity={0.6} />}
 					<div
 						style={fadeOutStyle}
 						className='absolute flex h-full w-full items-center justify-center'
@@ -127,20 +112,7 @@ const Interview = memo(({ setKey }) => {
 								audio={audio}
 							/>
 						)}
-						<Car state={state} setState={setState}>
-							{/* {InterviewConfig.map((e, i) => (
-								<Button
-									state={state}
-									key={JSON.stringify(e)}
-									data={e}
-									sn={i}
-									onFadeIn={onFadeIn}
-									youtubeIndex={youtubeIndex}
-									setYoutubeIndex={setYoutubeIndex}
-									setState={setState}
-								/>
-							))} */}
-						</Car>
+						<Car state={state} setState={setState} />
 					</div>
 				</div>
 				<Title state={state} />
