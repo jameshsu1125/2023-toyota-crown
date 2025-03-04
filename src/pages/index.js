@@ -23,6 +23,7 @@ import {
 import { ACTION, PAGE_CONTEXT_NAME, PAYLOAD_STATUS } from '../settings/constant';
 import '../settings/global.less';
 import PayLoader from './payLoader';
+import PS from './ps';
 
 Click.install();
 Gtag.install('G-NRK2EL50PD');
@@ -69,6 +70,7 @@ const Pages = memo(() => {
 								</SectionVerticalAlign>
 							</Section>
 							<Interview key={key} setKey={setKey} />
+							{status >= PAYLOAD_STATUS.introVideoDidPlayed && <PS />}
 						</AudioProvider>
 					</Container>
 				</EventContext.Provider>
