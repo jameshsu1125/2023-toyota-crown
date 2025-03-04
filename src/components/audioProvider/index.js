@@ -84,7 +84,7 @@ const AudioProvider = memo(({ children }) => {
 				audioRef.current[idx].play(audioIDRef.current);
 				bgmRef.current.play(bgmIDRef.current);
 				// TODO
-				// window.location.reload();
+				window.location.reload();
 			}
 		};
 

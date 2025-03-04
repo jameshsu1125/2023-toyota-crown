@@ -6,6 +6,8 @@
 [![React](https://img.shields.io/badge/-CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3schools.com/css/)
 [![NPM](https://img.shields.io/badge/DEV-Jameshsu1125-9cf?style=for-the-badge)](https://www.npmjs.com/~jameshsu1125)
 
+`use Node v22`
+
 <p align="center">
   <a href="https://github.com/jameshsu1125">
     <img src="public/img/favicon.png" alt="Logo" width=120 height=90>
